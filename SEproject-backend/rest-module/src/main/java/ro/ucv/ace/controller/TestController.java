@@ -21,7 +21,7 @@ public class TestController {
      * @return 200 OK status
      */
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
-    public ResponseEntity<Void> getPint() {
-        return new ResponseEntity<Void>(HttpStatus.OK);
+    public ResponseEntity<String> getPint() {
+        return new ResponseEntity<String>("Hello from the other side!", HttpStatus.OK);
     }
 }
