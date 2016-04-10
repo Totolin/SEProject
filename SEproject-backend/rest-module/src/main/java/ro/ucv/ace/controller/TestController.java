@@ -22,6 +22,6 @@ public class TestController {
      */
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     public ResponseEntity<String> getPint() {
-        return new ResponseEntity<String>("Hello from the other side!", HttpStatus.OK);
+        return new ResponseEntity<String>("Hello from the other side test!", HttpStatus.OK);
     }
 }
