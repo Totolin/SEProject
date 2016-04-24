@@ -23,13 +23,13 @@ public class User extends Person {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "STATE_ID", referencedColumnName = "ID", nullable = false)
-    private UserState userState;
+    @Basic
+    @Column(name = "STATE", nullable = false)
+    private String state;
 
-    @ManyToOne
-    @JoinColumn(name = "TYPE_ID", referencedColumnName = "ID", nullable = false)
-    private UserType userType;
+    @Basic
+    @Column(name = "TYPE_U", nullable = false)
+    private String type;
 
     @Override
     public boolean equals(Object o) {
