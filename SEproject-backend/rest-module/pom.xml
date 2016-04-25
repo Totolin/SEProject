@@ -18,6 +18,12 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>ro.ucv.ace</groupId>
             <artifactId>core</artifactId>

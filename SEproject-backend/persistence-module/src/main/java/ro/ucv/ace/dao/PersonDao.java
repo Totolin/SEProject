@@ -1,5 +1,6 @@
 package ro.ucv.ace.dao;
 
+import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.Person;
 
@@ -14,9 +15,9 @@ public interface PersonDao {
 
     Person getBySsn(String ssn) throws DaoEntityNotFoundException;
 
-    void persist(Person person);
+    void persist(Person person) throws DaoEntityAlreadyExistsException;
 
-    void delete(String ssn);
+    void delete(String ssn) throws DaoEntityNotFoundException;
 
-    void update(Person person);
+    void update(Person person) throws DaoEntityNotFoundException;
 }

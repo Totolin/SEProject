@@ -3,6 +3,7 @@ package ro.ucv.ace.dao.impl;
 import org.springframework.stereotype.Repository;
 import ro.ucv.ace.dao.JpaDao;
 import ro.ucv.ace.dao.UserDao;
+import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.User;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
  * Created by ctotolin on 24-Apr-16.
  */
 @Repository
-public class UserDaoImpl extends JpaDao<User> implements UserDao{
+public class UserDaoImpl extends JpaDao<User> implements UserDao {
 
     @Override
     public List<User> getAll() {
@@ -37,17 +38,28 @@ public class UserDaoImpl extends JpaDao<User> implements UserDao{
     }
 
     @Override
-    public void persist(User person) {
+    public void persist(User user) throws DaoEntityAlreadyExistsException {
+        try {
+            User u = getByUsername(user.getUsername());
+        } catch (DaoEntityNotFoundException e) {
+            persistEntity(user);
+            return;
+        }
 
+        throw new DaoEntityAlreadyExistsException();
     }
 
     @Override
-    public void delete(String ssn) {
+    public void delete(String username) throws DaoEntityNotFoundException {
+        User u = getByUsername(username);
 
+        deleteEntity(u);
     }
 
     @Override
-    public void update(User person) {
+    public void update(User user) throws DaoEntityNotFoundException {
+        User u = getByUsername(user.getUsername());
 
+        updateEntity(user);
     }
 }

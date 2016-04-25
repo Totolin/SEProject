@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ro.ucv.ace.dto.UserDto;
+import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.service.LoginService;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by ctotolin on 24-Apr-16.
  */
 @Service("customUserDetailsService")
-public class CustomUserDetailsService implements UserDetailsService{
+public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     LoginService loginService;
 
@@ -31,17 +32,13 @@ public class CustomUserDetailsService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserDto userDto = loginService.getByUsername(s);
+        try {
+            UserDto userDto = loginService.getByUsername(s);
 
-        if (userDto != null) {
-            return new org.springframework.security.core.userdetails.User(
-                    userDto.getUsername(),
-                    userDto.getPassword(),
-                    userDto.getState().equals("Active"),
-                    true, true, true,
-                    getGrantedAuthorities(userDto));
+            return new org.springframework.security.core.userdetails.User(userDto.getUsername(), userDto.getPassword(),
+                    userDto.getState().equals("Active"), true, true, true, getGrantedAuthorities(userDto));
+        } catch (ServiceEntityNotFoundException e) {
+            throw new UsernameNotFoundException("Username not found");
         }
-
-        throw new UsernameNotFoundException("Username not found");
     }
 }

@@ -1,7 +1,7 @@
 package ro.ucv.ace.dao;
 
+import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
-import ro.ucv.ace.model.Person;
 import ro.ucv.ace.model.User;
 
 import java.util.List;
@@ -15,13 +15,13 @@ public interface UserDao {
 
     User getBySsn(String ssn) throws DaoEntityNotFoundException;
 
-    User getByUsername (String username) throws DaoEntityNotFoundException;
+    User getByUsername(String username) throws DaoEntityNotFoundException;
 
-    void persist(User person);
+    void persist(User user) throws DaoEntityAlreadyExistsException;
 
-    void delete(String ssn);
+    void delete(String username) throws DaoEntityNotFoundException;
 
-    void update(User person);
+    void update(User user) throws DaoEntityNotFoundException;
 
 
 }

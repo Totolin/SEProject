@@ -2,6 +2,7 @@ package ro.ucv.ace.dao.impl;
 
 import ro.ucv.ace.dao.JpaDao;
 import ro.ucv.ace.dao.PersonDao;
+import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.Person;
 
@@ -29,17 +30,26 @@ public class PersonDaoImpl extends JpaDao<Person> implements PersonDao {
     }
 
     @Override
-    public void persist(Person person) {
+    public void persist(Person person) throws DaoEntityAlreadyExistsException {
+        try {
+            Person p = getBySsn(person.getSsn());
+        } catch (DaoEntityNotFoundException e) {
+            persistEntity(person);
+            return;
+        }
 
+        throw new DaoEntityAlreadyExistsException();
     }
 
     @Override
-    public void delete(String ssn) {
-
+    public void delete(String ssn) throws DaoEntityNotFoundException {
+        Person p = getBySsn(ssn);
+        deleteEntity(p);
     }
 
     @Override
-    public void update(Person person) {
-
+    public void update(Person person) throws DaoEntityNotFoundException {
+        Person p = getBySsn(person.getSsn());
+        updateEntity(person);
     }
 }

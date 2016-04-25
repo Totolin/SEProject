@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.UserDto;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
+import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.model.User;
 import ro.ucv.ace.service.LoginService;
 
@@ -15,7 +16,7 @@ import ro.ucv.ace.service.LoginService;
  */
 @Service
 @Transactional
-public class LoginServiceImpl implements LoginService{
+public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private UserDao userDao;
@@ -24,15 +25,13 @@ public class LoginServiceImpl implements LoginService{
     private ModelMapper modelMapper;
 
     @Override
-    public UserDto getByUsername(String username) { // throws ServiceEntityNotFoundEx
+    public UserDto getByUsername(String username) throws ServiceEntityNotFoundException {
         try {
             User user = userDao.getByUsername(username);
             return modelMapper.map(user, UserDto.class);
 
         } catch (DaoEntityNotFoundException e) {
-            e.printStackTrace();
+            throw new ServiceEntityNotFoundException(e);
         }
-
-        return null;
     }
 }
