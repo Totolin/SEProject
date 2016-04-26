@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ro.ucv.ace.configuration.JinqSource;
+import ro.ucv.ace.dao.JpaDao;
 import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 
@@ -25,9 +26,9 @@ import java.util.List;
  * @param <ID> the type of the entity primary key
  * @author Georgian Vladutu
  */
-public abstract class JpaDao<T, ID> extends Dao<T, ID> {
+public abstract class JpaDaoImpl<T, ID> extends DaoImpl<T, ID> implements JpaDao<T, ID> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JpaDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JpaDaoImpl.class);
 
     private final Class<T> persistentClass;
 
@@ -37,7 +38,7 @@ public abstract class JpaDao<T, ID> extends Dao<T, ID> {
     @Autowired
     private JinqSource jinqSource;
 
-    public JpaDao() {
+    public JpaDaoImpl() {
         this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 

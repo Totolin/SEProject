@@ -13,9 +13,9 @@ import java.util.List;
  * @param <ID> the type of the entity primary key
  * @author Georgian Vladutu
  */
-public abstract class Dao<T, ID> {
+public abstract class DaoImpl<T, ID> {
 
-    public Dao() {
+    public DaoImpl() {
     }
 
     public abstract List<T> findAll();

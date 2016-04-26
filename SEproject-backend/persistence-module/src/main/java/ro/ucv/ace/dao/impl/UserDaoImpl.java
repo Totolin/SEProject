@@ -11,7 +11,7 @@ import java.util.Optional;
  * Created by ctotolin on 24-Apr-16.
  */
 @Repository
-public class UserDaoImpl extends JpaDao<User, Integer> implements UserDao {
+public class UserDaoImpl extends JpaDaoImpl<User, Integer> implements UserDao {
 
     @Override
     public User exists(User user) throws DaoEntityNotFoundException {

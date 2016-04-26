@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * Created by Geo on 03.04.2016.
  */
-public class PersonDaoImpl extends JpaDao<Person, String> implements PersonDao {
+public class PersonDaoImpl extends JpaDaoImpl<Person, String> implements PersonDao {
 
     @Override
     public Person exists(Person person) throws DaoEntityNotFoundException {
