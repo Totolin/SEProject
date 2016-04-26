@@ -11,17 +11,17 @@ import java.util.List;
  */
 public interface UserDao {
 
-    List<User> getAll();
+    List<User> findAll();
 
-    User getBySsn(String ssn) throws DaoEntityNotFoundException;
+    User findOne(Integer id) throws DaoEntityNotFoundException;
 
-    User getByUsername(String username) throws DaoEntityNotFoundException;
+    User findByUsername(String username) throws DaoEntityNotFoundException;
 
-    void persist(User user) throws DaoEntityAlreadyExistsException;
+    void save(User user) throws DaoEntityAlreadyExistsException;
 
-    void delete(String username) throws DaoEntityNotFoundException;
+    void delete(Integer Integer) throws DaoEntityNotFoundException;
 
-    void update(User user) throws DaoEntityNotFoundException;
+    void update(Integer Integer, User user) throws DaoEntityNotFoundException;
 
 
 }

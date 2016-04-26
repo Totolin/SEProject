@@ -1,9 +1,11 @@
-package ro.ucv.ace.dao;
+package ro.ucv.ace.dao.impl;
 
+import org.jinq.jpa.JPAJinqStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ro.ucv.ace.configuration.JinqSource;
+import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 
 import javax.persistence.EntityManager;
@@ -19,10 +21,11 @@ import java.util.List;
  * This class is an abstract generic data access object class that implements the CRUD operations for all entities that
  * extend this class. It uses Java Persistence Api to persist objects.
  *
- * @param <T> the type of the entity
+ * @param <T>  the type of the entity
+ * @param <ID> the type of the entity primary key
  * @author Georgian Vladutu
  */
-public class JpaDao<T> extends Dao<T> {
+public abstract class JpaDao<T, ID> extends Dao<T, ID> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JpaDao.class);
 
@@ -46,11 +49,16 @@ public class JpaDao<T> extends Dao<T> {
         return this.jinqSource;
     }
 
+    protected JPAJinqStream<T> streamAll() {
+        return jinqSource.streamAll(entityManager, (Class<T>) persistentClass);
+    }
+
     protected Class<T> getPersistentClass() {
         return persistentClass;
     }
 
-    protected List<T> getAllEntities() {
+    @Override
+    public List<T> findAll() {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(getPersistentClass());
         Root<T> rootEntry = cq.from(getPersistentClass());
@@ -60,7 +68,8 @@ public class JpaDao<T> extends Dao<T> {
         return allQuery.getResultList();
     }
 
-    protected T getEntityById(int id) throws DaoEntityNotFoundException {
+    @Override
+    public T findOne(ID id) throws DaoEntityNotFoundException {
         T t = getEntityManager().find(getPersistentClass(), id);
 
         if (t == null) {
@@ -71,15 +80,30 @@ public class JpaDao<T> extends Dao<T> {
         return t;
     }
 
-    protected void persistEntity(T t) {
-        getEntityManager().persist(t);
+    @Override
+    public void save(T t) throws DaoEntityAlreadyExistsException {
+        try {
+            T newT = exists(t);
+        } catch (DaoEntityNotFoundException e) {
+            getEntityManager().persist(t);
+
+            return;
+        }
+
+        throw new DaoEntityAlreadyExistsException();
     }
 
-    protected void deleteEntity(T t) {
+    @Override
+    public void delete(ID id) throws DaoEntityNotFoundException {
+        T t = findOne(id);
+
         getEntityManager().remove(t);
     }
 
-    protected void updateEntity(T t) {
+    @Override
+    public void update(ID id, T t) throws DaoEntityNotFoundException {
+        T newT = findOne(id);
+
         getEntityManager().merge(t);
     }
 

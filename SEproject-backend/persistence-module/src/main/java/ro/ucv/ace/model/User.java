@@ -10,10 +10,14 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "USER")
-@PrimaryKeyJoinColumn(name = "SSN")
 @Getter
 @Setter
-public class User extends Person {
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Integer id;
 
     @Basic
     @Column(name = "USERNAME", nullable = false)
