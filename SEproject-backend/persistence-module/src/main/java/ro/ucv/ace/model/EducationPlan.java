@@ -17,7 +17,7 @@ public class EducationPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "SECTION_ID", referencedColumnName = "ID", nullable = false)

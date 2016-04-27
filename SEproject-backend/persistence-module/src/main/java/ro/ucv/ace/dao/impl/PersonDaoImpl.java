@@ -1,26 +1,23 @@
 package ro.ucv.ace.dao.impl;
 
+import org.springframework.stereotype.Repository;
 import ro.ucv.ace.dao.PersonDao;
-import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.Person;
 
 import java.util.Optional;
 
 /**
- * Created by Geo on 03.04.2016.
+ * This class implements PersonDao interface.
+ *
+ * @author Georgian Vladutu
  */
+@Repository
 public class PersonDaoImpl extends JpaDaoImpl<Person, String> implements PersonDao {
 
     @Override
-    public Person exists(Person person) throws DaoEntityNotFoundException {
-        Optional<Person> personOptional = streamAll()
+    public Optional<Person> existenceCondition(Person person) {
+        return streamAll()
                 .where(p -> p.getSsn().equals(person.getSsn()))
                 .findAny();
-
-        if (personOptional.isPresent()) {
-            return personOptional.get();
-        }
-
-        throw new DaoEntityNotFoundException();
     }
 }

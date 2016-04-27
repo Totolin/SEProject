@@ -18,7 +18,7 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "SUBJECT_NAME", referencedColumnName = "NAME", nullable = false)

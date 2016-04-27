@@ -4,6 +4,7 @@ import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class is an abstract generic data access object class that implements the CRUD operations for all entities that
@@ -29,5 +30,7 @@ public abstract class DaoImpl<T, ID> {
     public abstract void update(ID id, T t) throws DaoEntityNotFoundException;
 
     public abstract T exists(T t) throws DaoEntityNotFoundException;
+
+    public abstract Optional<T> existenceCondition(T t);
 
 }

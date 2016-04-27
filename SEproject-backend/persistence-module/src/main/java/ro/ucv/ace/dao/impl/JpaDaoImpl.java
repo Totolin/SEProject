@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class is an abstract generic data access object class that implements the CRUD operations for all entities that
@@ -106,6 +107,17 @@ public abstract class JpaDaoImpl<T, ID> extends DaoImpl<T, ID> implements JpaDao
         T newT = findOne(id);
 
         getEntityManager().merge(t);
+    }
+
+    @Override
+    public T exists(T t) throws DaoEntityNotFoundException {
+        Optional<T> tOptional = existenceCondition(t);
+
+        if (tOptional.isPresent()) {
+            return tOptional.get();
+        }
+
+        throw new DaoEntityNotFoundException();
     }
 
 }

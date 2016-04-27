@@ -27,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public UserDto getByUsername(String username) throws ServiceEntityNotFoundException {
         try {
-            User user = userDao.findByUsername(username);
+            User user = userDao.findOne(username);
             return modelMapper.map(user, UserDto.class);
 
         } catch (DaoEntityNotFoundException e) {

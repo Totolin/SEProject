@@ -17,7 +17,7 @@ public class StudentSubject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "STUDENT_SSN", referencedColumnName = "SSN", nullable = false)
