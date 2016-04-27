@@ -1,6 +1,5 @@
 package ro.ucv.ace.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +22,6 @@ public class TestController {
      */
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     public ResponseEntity<String> getPint() {
-        return new ResponseEntity<String>(StringUtils.repeat("Hello from the other side test!", "-", 6), HttpStatus.OK);
+        return new ResponseEntity<String>("Hello from the other side test! This is the new version!", HttpStatus.OK);
     }
 }
