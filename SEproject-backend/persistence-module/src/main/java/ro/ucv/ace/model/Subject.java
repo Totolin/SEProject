@@ -16,6 +16,11 @@ import java.util.List;
 public class Subject {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Integer id;
+
+    @Basic
     @Column(name = "NAME", nullable = false)
     private String name;
 

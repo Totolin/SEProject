@@ -16,11 +16,11 @@ public class EducationPlanDaoImpl extends JpaDaoImpl<EducationPlan, Integer> imp
 
     @Override
     public Optional<EducationPlan> existenceCondition(EducationPlan educationPlan) {
-        String sectionId = educationPlan.getSection().getId();
+        String sectionId = educationPlan.getGroup().getId();
         String subjectName = educationPlan.getSubject().getName();
 
         return streamAll()
-                .where(e -> e.getSection().getId().equals(sectionId) && e.getSubject().getName().equals(subjectName))
+                .where(e -> e.getGroup().getId().equals(sectionId) && e.getSubject().getName().equals(subjectName))
                 .findAny();
     }
 }

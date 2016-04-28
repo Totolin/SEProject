@@ -20,10 +20,10 @@ public class EducationPlan {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "SECTION_ID", referencedColumnName = "ID", nullable = false)
-    private Section section;
+    @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID", nullable = false)
+    private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "SUBJECT_NAME", referencedColumnName = "NAME", nullable = false)
+    @JoinColumn(name = "SUBJECT_ID", referencedColumnName = "ID", nullable = false)
     private Subject subject;
 }

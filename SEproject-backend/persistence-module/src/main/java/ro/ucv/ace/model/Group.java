@@ -10,10 +10,10 @@ import java.util.List;
  * Created by Geo on 03.04.2016.
  */
 @Entity
-@Table(name = "SECTION")
+@Table(name = "GROUP_T")
 @Getter
 @Setter
-public class Section {
+public class Group {
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -26,11 +26,7 @@ public class Section {
     @Column(name = "SPECIALIZATION", nullable = false)
     private String specialization;
 
-    @Basic
-    @Column(name = "GRP", nullable = false)
-    private String group;
-
-    @OneToMany(mappedBy = "section")
+    @OneToMany(mappedBy = "group")
     private List<Student> students;
 
     @Override
@@ -42,9 +38,9 @@ public class Section {
             return false;
         }
 
-        Section section = (Section) o;
+        Group group = (Group) o;
 
-        return id != null ? id.equals(section.id) : section.id == null;
+        return id != null ? id.equals(group.id) : group.id == null;
 
     }
 

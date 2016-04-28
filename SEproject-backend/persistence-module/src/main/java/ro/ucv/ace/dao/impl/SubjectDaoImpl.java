@@ -12,7 +12,7 @@ import java.util.Optional;
  * @author Georgian Vladutu
  */
 @Repository
-public class SubjectDaoImpl extends JpaDaoImpl<Subject, String> implements SubjectDao {
+public class SubjectDaoImpl extends JpaDaoImpl<Subject, Integer> implements SubjectDao {
 
     @Override
     public Optional<Subject> existenceCondition(Subject subject) {

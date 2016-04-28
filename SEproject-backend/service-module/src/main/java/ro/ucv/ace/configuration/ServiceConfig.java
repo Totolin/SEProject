@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import ro.ucv.ace.mapper.StudentGradeMap;
 
 /**
  * This class is used by the IoC Spring container as a source for bean definitions.
@@ -19,6 +20,7 @@ public class ServiceConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
+        modelMapper.addMappings(new StudentGradeMap());
 
         return modelMapper;
     }

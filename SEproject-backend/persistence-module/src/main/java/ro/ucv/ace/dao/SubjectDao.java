@@ -7,5 +7,5 @@ import ro.ucv.ace.model.Subject;
  *
  * @author Georgian Vladutu
  */
-public interface SubjectDao extends JpaDao<Subject, String> {
+public interface SubjectDao extends JpaDao<Subject, Integer> {
 }

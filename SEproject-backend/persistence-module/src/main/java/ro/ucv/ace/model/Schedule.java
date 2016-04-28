@@ -21,7 +21,7 @@ public class Schedule {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "SUBJECT_NAME", referencedColumnName = "NAME", nullable = false)
+    @JoinColumn(name = "SUBJECT_ID", referencedColumnName = "ID", nullable = false)
     private Subject subject;
 
     @ManyToOne

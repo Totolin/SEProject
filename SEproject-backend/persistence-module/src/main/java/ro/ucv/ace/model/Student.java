@@ -19,8 +19,8 @@ import java.util.List;
 public class Student extends Person {
 
     @ManyToOne
-    @JoinColumn(name = "SECTION_ID", referencedColumnName = "ID", nullable = false)
-    private Section section;
+    @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID", nullable = false)
+    private Group group;
 
     @Basic
     @Column(name = "SUBGROUP", nullable = false)

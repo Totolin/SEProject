@@ -24,7 +24,7 @@ public class ProfessorSubject {
     private Professor professor;
 
     @ManyToOne
-    @JoinColumn(name = "SUBJECT_NAME", referencedColumnName = "NAME", nullable = false)
+    @JoinColumn(name = "SUBJECT_ID", referencedColumnName = "ID", nullable = false)
     private Subject subject;
 
     @Basic
