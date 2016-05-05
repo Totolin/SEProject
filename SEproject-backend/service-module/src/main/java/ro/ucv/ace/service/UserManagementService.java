@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface UserManagementService {
     List<UserDto> getAllUsers();
+    UserDto getByUsername(String username) throws ServiceEntityNotFoundException;
 }

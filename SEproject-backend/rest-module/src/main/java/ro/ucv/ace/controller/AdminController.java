@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.ucv.ace.dto.UserDto;
 import ro.ucv.ace.dto.UserLoginDto;
 import ro.ucv.ace.exception.RestEntityBindingException;
@@ -41,11 +38,37 @@ public class AdminController {
     private ExceptionMessageManager eMM;
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDto>> postGetUsers() throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
+    public ResponseEntity<List<UserDto>> getAllUsers() throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
 
         List<UserDto> allUsers = null;
         allUsers = userService.getAllUsers();
 
         return new ResponseEntity<List<UserDto>>(allUsers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
+
+        UserDto byUsername = null;
+        try {
+            byUsername = userService.getByUsername(username);
+        } catch (ServiceEntityNotFoundException e) {
+            throw new RestEntityNotFoundException(eMM.get("user.notFound"));
+        }
+
+        return new ResponseEntity<UserDto>(byUsername, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public ResponseEntity<UserDto> postUserAdd (@Valid @RequestBody UserDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
+
+        UserDto byUsername = null;
+        try {
+            byUsername = userService.getByUsername(username);
+        } catch (ServiceEntityNotFoundException e) {
+            throw new RestEntityNotFoundException(eMM.get("user.notFound"));
+        }
+
+        return new ResponseEntity<UserDto>(byUsername, HttpStatus.OK);
     }
 }
