@@ -16,8 +16,9 @@ public class UserDaoImpl extends JpaDaoImpl<User, String> implements UserDao {
 
     @Override
     public Optional<User> existenceCondition(User user) {
+        String username = user.getUsername();
         return streamAll()
-                .where(u -> u.getUsername().equals(user.getUsername()))
+                .where(u -> u.getUsername().equals(username))
                 .findAny();
     }
 }

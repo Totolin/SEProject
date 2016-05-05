@@ -6,12 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ro.ucv.ace.dto.UserCreateDto;
 import ro.ucv.ace.dto.UserDto;
 import ro.ucv.ace.dto.UserLoginDto;
-import ro.ucv.ace.exception.RestEntityBindingException;
-import ro.ucv.ace.exception.RestEntityNotFoundException;
-import ro.ucv.ace.exception.RestInvalidPasswordException;
-import ro.ucv.ace.exception.ServiceEntityNotFoundException;
+import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
 import ro.ucv.ace.service.LoginService;
 import ro.ucv.ace.service.UserManagementService;
@@ -25,7 +23,7 @@ import java.util.List;
  * Created by ctotolin on 24-Apr-16.
  */
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/admins")
 public class AdminController {
 
     @Autowired
@@ -60,15 +58,21 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<UserDto> postUserAdd (@Valid @RequestBody UserDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
+    public ResponseEntity<Void> postUserAdd (@Valid @RequestBody UserCreateDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException, RestEntityAlreadyExistsException {
 
-        UserDto byUsername = null;
-        try {
-            byUsername = userService.getByUsername(username);
-        } catch (ServiceEntityNotFoundException e) {
-            throw new RestEntityNotFoundException(eMM.get("user.notFound"));
+        if (bindResult.hasErrors()) {
+            throw new RestEntityBindingException(bindResult.getFieldErrors(), eMM.get("user.binding"));
         }
 
-        return new ResponseEntity<UserDto>(byUsername, HttpStatus.OK);
+        user.setPassword(pwdEncoder.encode(user.getPassword()));
+        user.setState("Active");
+
+        try {
+            userService.addUser(user);
+        } catch (ServiceEntityAlreadyExistsException e) {
+            throw new RestEntityAlreadyExistsException(eMM.get("user.alreadyExists"));
+        }
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 }
