@@ -16,8 +16,9 @@ public class StudentDaoImpl extends JpaDaoImpl<Student, String> implements Stude
 
     @Override
     public Optional<Student> existenceCondition(Student student) {
+        String ssn = student.getSsn();
         return streamAll()
-                .where(s -> s.getSsn().equals(student.getSsn()))
+                .where(s -> s.getSsn().equals(ssn))
                 .findAny();
     }
 }

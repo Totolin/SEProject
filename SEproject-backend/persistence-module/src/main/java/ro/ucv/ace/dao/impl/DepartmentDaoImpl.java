@@ -16,8 +16,10 @@ public class DepartmentDaoImpl extends JpaDaoImpl<Department, String> implements
 
     @Override
     public Optional<Department> existenceCondition(Department department) {
+        String name = department.getName();
+
         return streamAll()
-                .where(d -> d.getName().equals(department.getName()))
+                .where(d -> d.getName().equals(name))
                 .findAny();
     }
 }

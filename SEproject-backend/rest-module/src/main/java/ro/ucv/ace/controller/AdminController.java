@@ -8,15 +8,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ro.ucv.ace.dto.UserCreateDto;
 import ro.ucv.ace.dto.UserDto;
-import ro.ucv.ace.dto.UserLoginDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
-import ro.ucv.ace.service.LoginService;
 import ro.ucv.ace.service.UserManagementService;
 
 import javax.validation.Valid;
-import java.nio.charset.Charset;
-import java.util.Base64;
 import java.util.List;
 
 /**
@@ -58,7 +54,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<Void> postUserAdd (@Valid @RequestBody UserCreateDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException, RestEntityAlreadyExistsException {
+    public ResponseEntity<Void> postUserAdd(@Valid @RequestBody UserCreateDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException, RestEntityAlreadyExistsException {
 
         if (bindResult.hasErrors()) {
             throw new RestEntityBindingException(bindResult.getFieldErrors(), eMM.get("user.binding"));

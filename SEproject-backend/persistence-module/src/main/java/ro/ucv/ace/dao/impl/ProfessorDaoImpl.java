@@ -16,8 +16,10 @@ public class ProfessorDaoImpl extends JpaDaoImpl<Professor, String> implements P
 
     @Override
     public Optional<Professor> existenceCondition(Professor professor) {
+        String ssn = professor.getSsn();
+
         return streamAll()
-                .where(p -> p.getSsn().equals(professor.getSsn()))
+                .where(p -> p.getSsn().equals(ssn))
                 .findAny();
     }
 }

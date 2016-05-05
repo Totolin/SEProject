@@ -16,8 +16,9 @@ public class SubjectDaoImpl extends JpaDaoImpl<Subject, Integer> implements Subj
 
     @Override
     public Optional<Subject> existenceCondition(Subject subject) {
+        String name = subject.getName();
         return streamAll()
-                .where(s -> s.getName().equals(subject.getName()))
+                .where(s -> s.getName().equals(name))
                 .findAny();
     }
 }

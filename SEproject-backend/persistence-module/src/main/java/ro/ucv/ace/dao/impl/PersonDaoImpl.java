@@ -16,8 +16,10 @@ public class PersonDaoImpl extends JpaDaoImpl<Person, String> implements PersonD
 
     @Override
     public Optional<Person> existenceCondition(Person person) {
+        String ssn = person.getSsn();
+
         return streamAll()
-                .where(p -> p.getSsn().equals(person.getSsn()))
+                .where(p -> p.getSsn().equals(ssn))
                 .findAny();
     }
 }
