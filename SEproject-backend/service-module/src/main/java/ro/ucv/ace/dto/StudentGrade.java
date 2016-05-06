@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by Geo on 28.04.2016.
+ * This is a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

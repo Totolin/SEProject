@@ -33,7 +33,8 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        Type targetListType = new TypeToken<List<User>>() {}.getType();
+        Type targetListType = new TypeToken<List<User>>() {
+        }.getType();
         List<User> users = userDao.findAll();
         return modelMapper.map(users, targetListType);
     }
@@ -50,7 +51,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
-    public void addUser (UserCreateDto user) throws ServiceEntityAlreadyExistsException {
+    public void addUser(UserCreateDto user) throws ServiceEntityAlreadyExistsException {
         User userU = modelMapper.map(user, User.class);
         try {
             userDao.save(userU);

@@ -87,7 +87,7 @@ public abstract class JpaDaoImpl<T, ID> extends DaoImpl<T, ID> implements JpaDao
         try {
             T newT = exists(t);
         } catch (DaoEntityNotFoundException e) {
-            getEntityManager().persist(t);
+            getEntityManager().merge(t);
 
             return;
         }

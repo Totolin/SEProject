@@ -26,7 +26,7 @@ public class Professor extends Person {
     private List<ProfessorSubject> professorSubjects;
 
     @ManyToOne
-    @JoinColumn(name = "DEPARTMENT_NAME", referencedColumnName = "NAME", nullable = false)
+    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID", nullable = false)
     private Department department;
 
 
