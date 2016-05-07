@@ -5,4 +5,4 @@ before_strict:
     - cd SEproject-backend/
 
 script:
-    - mvn package 
+    - mvn package SEproject-backend/
