@@ -1,8 +1,6 @@
 language: java
 sudo: false
 
-before_strict:
-    - cd SEproject-backend/
-
 script:
+    - cd SEproject-backend/
     - mvn package SEproject-backend/
