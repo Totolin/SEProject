@@ -1,0 +1,8 @@
+language: java
+sudo: false
+
+before_strict:
+    - cd Seproject-Backend
+
+script:
+    - mvn package 
