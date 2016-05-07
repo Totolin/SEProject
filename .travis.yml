@@ -3,4 +3,4 @@ sudo: false
 
 script:
     - cd SEproject-backend/
-    - mvn package SEproject-backend/
+    - mvn install
