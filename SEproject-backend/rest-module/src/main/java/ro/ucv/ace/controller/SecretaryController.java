@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ro.ucv.ace.dto.ScheduleDto;
-import ro.ucv.ace.exception.RestEntityAlreadyExistsException;
-import ro.ucv.ace.exception.RestEntityBindingException;
-import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
+import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
 import ro.ucv.ace.service.ScheduleManagementService;
 
@@ -31,7 +29,7 @@ public class SecretaryController {
     private ScheduleManagementService scheduleManagementService;
 
     @RequestMapping(value = "/schedules", method = RequestMethod.POST)
-    public ResponseEntity<Void> saveSchedule(@Valid @RequestBody ScheduleDto scheduleDto, BindingResult bindResult) throws RestEntityBindingException, RestEntityAlreadyExistsException {
+    public ResponseEntity<Void> saveSchedule(@Valid @RequestBody ScheduleDto scheduleDto, BindingResult bindResult) throws RestEntityBindingException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException {
         if (bindResult.hasErrors()) {
             throw new RestEntityBindingException(bindResult.getFieldErrors(), eMM.get("schedule.binding"));
         }
@@ -40,6 +38,8 @@ public class SecretaryController {
             scheduleManagementService.save(scheduleDto);
         } catch (ServiceEntityAlreadyExistsException e) {
             throw new RestEntityAlreadyExistsException(eMM.get("schedule.alreadyExists"));
+        } catch (ServiceForeignKeyNotFoundException e) {
+            throw new RestForeignKeyNotFoundException(e.getMessage());
         }
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);

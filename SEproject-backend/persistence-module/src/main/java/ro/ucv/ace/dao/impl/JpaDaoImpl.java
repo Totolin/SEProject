@@ -8,8 +8,10 @@ import ro.ucv.ace.configuration.JinqSource;
 import ro.ucv.ace.dao.JpaDao;
 import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
+import ro.ucv.ace.exception.DaoForeignKeyNotFoundException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -83,12 +85,15 @@ public abstract class JpaDaoImpl<T, ID> extends DaoImpl<T, ID> implements JpaDao
     }
 
     @Override
-    public void save(T t) throws DaoEntityAlreadyExistsException {
+    public void save(T t) throws DaoEntityAlreadyExistsException, DaoForeignKeyNotFoundException {
         try {
             T newT = exists(t);
         } catch (DaoEntityNotFoundException e) {
-            getEntityManager().merge(t);
-
+            try {
+                getEntityManager().merge(t);
+            } catch (EntityNotFoundException e1) {
+                throw new DaoForeignKeyNotFoundException(e1.getMessage());
+            }
             return;
         }
 

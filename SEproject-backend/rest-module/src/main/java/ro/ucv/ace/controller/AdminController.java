@@ -54,7 +54,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<Void> postUserAdd(@Valid @RequestBody UserCreateDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException, RestEntityAlreadyExistsException {
+    public ResponseEntity<Void> postUserAdd(@Valid @RequestBody UserCreateDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException {
 
         if (bindResult.hasErrors()) {
             throw new RestEntityBindingException(bindResult.getFieldErrors(), eMM.get("user.binding"));
@@ -67,6 +67,8 @@ public class AdminController {
             userService.addUser(user);
         } catch (ServiceEntityAlreadyExistsException e) {
             throw new RestEntityAlreadyExistsException(eMM.get("user.alreadyExists"));
+        } catch (ServiceForeignKeyNotFoundException e) {
+            throw new RestForeignKeyNotFoundException(e.getMessage());
         }
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);

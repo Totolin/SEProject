@@ -4,6 +4,7 @@ import ro.ucv.ace.dto.UserCreateDto;
 import ro.ucv.ace.dto.UserDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
+import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface UserManagementService {
 
     UserDto getByUsername(String username) throws ServiceEntityNotFoundException;
 
-    void addUser(UserCreateDto user) throws ServiceEntityAlreadyExistsException;
+    void addUser(UserCreateDto user) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException;
 }

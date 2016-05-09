@@ -2,6 +2,7 @@ package ro.ucv.ace.dao;
 
 import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
+import ro.ucv.ace.exception.DaoForeignKeyNotFoundException;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface JpaDao<T, ID> {
      * @param t entity to be saved
      * @throws DaoEntityAlreadyExistsException if the entity already exists
      */
-    void save(T t) throws DaoEntityAlreadyExistsException;
+    void save(T t) throws DaoEntityAlreadyExistsException, DaoForeignKeyNotFoundException;
 
     /**
      * Deletes the entity whose id is the same as the method parameter

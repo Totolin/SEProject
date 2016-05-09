@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import ro.ucv.ace.error.BindingErrorInfo;
 import ro.ucv.ace.error.ErrorInfo;
-import ro.ucv.ace.exception.RestEntityAlreadyExistsException;
-import ro.ucv.ace.exception.RestEntityBindingException;
-import ro.ucv.ace.exception.RestEntityNotFoundException;
-import ro.ucv.ace.exception.RestInvalidPasswordException;
+import ro.ucv.ace.exception.*;
 import ro.ucv.ace.populator.ErrorInfoPopulator;
 
 /**
@@ -83,6 +80,33 @@ public class GlobalControllerAdvice {
         ErrorInfo errorInfo = new ErrorInfo(HttpStatus.CONFLICT.value(), exception.getMessage());
 
         return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.CONFLICT);
+    }
+
+    /**
+     * This method handles all exception that extends RestForeignKeyNotFoundException.
+     *
+     * @param exception thrown exception
+     * @return a message that contains exception message and the http status code
+     */
+    @ExceptionHandler(RestForeignKeyNotFoundException.class)
+    public ResponseEntity<ErrorInfo> entityAlreadyExistsException(RestForeignKeyNotFoundException exception) {
+        LOGGER.info("Enter method");
+        ErrorInfo errorInfo = new ErrorInfo(HttpStatus.BAD_REQUEST.value(), createRestForeignKeyMessage(exception.getMessage()));
+
+        return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+    }
+
+    private String createRestForeignKeyMessage(String initialMessage) {
+        String[] tokens = initialMessage.split(" ");
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("The ");
+        stringBuilder.append(tokens[4].split("\\.")[4]);
+        stringBuilder.append(" with id ");
+        stringBuilder.append(tokens[7]);
+        stringBuilder.append(" does not exist");
+
+        return stringBuilder.toString();
     }
 
 }
