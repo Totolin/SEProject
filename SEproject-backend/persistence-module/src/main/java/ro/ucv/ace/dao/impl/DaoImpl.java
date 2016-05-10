@@ -28,7 +28,7 @@ public abstract class DaoImpl<T, ID> {
 
     public abstract void delete(ID id) throws DaoEntityNotFoundException;
 
-    public abstract void update(ID id, T t) throws DaoEntityNotFoundException;
+    public abstract void update(ID id, T t) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException;
 
     public abstract T exists(T t) throws DaoEntityNotFoundException;
 

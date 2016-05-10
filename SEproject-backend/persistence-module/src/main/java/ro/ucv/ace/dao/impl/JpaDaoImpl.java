@@ -108,10 +108,14 @@ public abstract class JpaDaoImpl<T, ID> extends DaoImpl<T, ID> implements JpaDao
     }
 
     @Override
-    public void update(ID id, T t) throws DaoEntityNotFoundException {
+    public void update(ID id, T t) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException {
         T newT = findOne(id);
 
-        getEntityManager().merge(t);
+        try {
+            getEntityManager().merge(t);
+        } catch (EntityNotFoundException e1) {
+            throw new DaoForeignKeyNotFoundException(e1.getMessage());
+        }
     }
 
     @Override

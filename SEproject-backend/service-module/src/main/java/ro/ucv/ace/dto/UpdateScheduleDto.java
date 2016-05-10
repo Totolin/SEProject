@@ -10,7 +10,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ScheduleDto {
+public class UpdateScheduleDto {
+
+    private int id;
 
     private String professorSsn;
 
