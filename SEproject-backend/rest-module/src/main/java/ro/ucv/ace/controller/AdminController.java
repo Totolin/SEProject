@@ -40,17 +40,17 @@ public class AdminController {
         return new ResponseEntity<List<UserDto>>(allUsers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)
-    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable Integer id) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
 
-        UserDto byUsername = null;
+        UserDto byId = null;
         try {
-            byUsername = userService.getByUsername(username);
+            byId = userService.getById(id);
         } catch (ServiceEntityNotFoundException e) {
             throw new RestEntityNotFoundException(eMM.get("user.notFound"));
         }
 
-        return new ResponseEntity<UserDto>(byUsername, HttpStatus.OK);
+        return new ResponseEntity<UserDto>(byId, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)

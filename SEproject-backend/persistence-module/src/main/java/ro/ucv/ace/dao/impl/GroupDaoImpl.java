@@ -12,11 +12,11 @@ import java.util.Optional;
  * @author Georgian Vladutu
  */
 @Repository
-public class GroupDaoImpl extends JpaDaoImpl<Group, String> implements GroupDao {
+public class GroupDaoImpl extends JpaDaoImpl<Group, Integer> implements GroupDao {
 
     @Override
     public Optional<Group> existenceCondition(Group group) {
-        String id = group.getId();
+        Integer id = group.getId();
 
         return streamAll()
                 .where(s -> s.getId().equals(id))

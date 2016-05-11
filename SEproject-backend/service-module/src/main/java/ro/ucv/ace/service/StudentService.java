@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface StudentService {
 
-    List<StudentGrade> getAllGrades(String ssn) throws ServiceEntityNotFoundException;
+    List<StudentGrade> getAllGrades(Integer id) throws ServiceEntityNotFoundException;
 }

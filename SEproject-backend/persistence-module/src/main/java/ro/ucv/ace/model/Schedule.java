@@ -24,7 +24,7 @@ public class Schedule {
     private Subject subject;
 
     @ManyToOne
-    @JoinColumn(name = "PROFESSOR_SSN", referencedColumnName = "SSN", nullable = false)
+    @JoinColumn(name = "PROFESSOR_ID", referencedColumnName = "ID", nullable = false)
     private Professor professor;
 
     @Column(name = "DAY", nullable = false)

@@ -28,12 +28,12 @@ public class StudentController {
     @Autowired
     ExceptionMessageManager eMM;
 
-    @RequestMapping(value = "/{ssn}/grades", method = RequestMethod.GET)
-    public ResponseEntity<List<StudentGrade>> getAllGrades(@PathVariable String ssn) throws RestEntityNotFoundException {
+    @RequestMapping(value = "/{id}/grades", method = RequestMethod.GET)
+    public ResponseEntity<List<StudentGrade>> getAllGrades(@PathVariable Integer id) throws RestEntityNotFoundException {
         List<StudentGrade> studentGrades;
 
         try {
-            studentGrades = studentService.getAllGrades(ssn);
+            studentGrades = studentService.getAllGrades(id);
         } catch (ServiceEntityNotFoundException e) {
             throw new RestEntityNotFoundException(eMM.get("student.notFound"));
         }

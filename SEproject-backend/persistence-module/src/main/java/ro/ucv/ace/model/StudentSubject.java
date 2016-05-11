@@ -20,7 +20,7 @@ public class StudentSubject {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "STUDENT_SSN", referencedColumnName = "SSN", nullable = false)
+    @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID", nullable = false)
     private Student student;
 
     @ManyToOne

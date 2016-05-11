@@ -25,7 +25,7 @@ public class Department {
     private String name;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DIRECTOR_SSN", referencedColumnName = "SSN", nullable = true)
+    @JoinColumn(name = "DIRECTOR_ID", referencedColumnName = "ID", nullable = true)
     private Professor director;
 
     @OneToMany(mappedBy = "department")

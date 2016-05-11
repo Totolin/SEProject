@@ -20,7 +20,7 @@ public class ProfessorSubject {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "PROFESSOR_SSN", referencedColumnName = "SSN", nullable = false)
+    @JoinColumn(name = "PROFESSOR_ID", referencedColumnName = "ID", nullable = false)
     private Professor professor;
 
     @ManyToOne

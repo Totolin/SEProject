@@ -7,5 +7,5 @@ import ro.ucv.ace.model.Professor;
  *
  * @author Georgian Vladutu
  */
-public interface ProfessorDao extends JpaDao<Professor, String> {
+public interface ProfessorDao extends JpaDao<Professor, Integer> {
 }

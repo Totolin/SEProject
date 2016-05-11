@@ -37,9 +37,9 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
-    public UserDto getByUsername(String username) throws ServiceEntityNotFoundException {
+    public UserDto getById(Integer id) throws ServiceEntityNotFoundException {
         try {
-            User user = userDao.findOne(username);
+            User user = userDao.findOne(id);
             return modelMapper.map(user, UserDto.class);
 
         } catch (DaoEntityNotFoundException e) {

@@ -30,10 +30,10 @@ public class StudentServiceImpl implements StudentService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<StudentGrade> getAllGrades(String ssn) throws ServiceEntityNotFoundException {
+    public List<StudentGrade> getAllGrades(Integer id) throws ServiceEntityNotFoundException {
         List<StudentGrade> studentGrades = new ArrayList<>();
         try {
-            Student student = studentDao.findOne(ssn);
+            Student student = studentDao.findOne(id);
             for (StudentSubject studentSubject : student.getStudentSubjects()) {
                 StudentGrade studentGrade = modelMapper.map(studentSubject, StudentGrade.class);
                 studentGrades.add(studentGrade);

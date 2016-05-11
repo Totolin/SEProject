@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class PreviewProfessorDto {
 
-    private String ssn;
+    private int id;
 
     private String firstName;
 

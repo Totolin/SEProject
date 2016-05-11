@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserManagementService {
     List<UserDto> getAllUsers();
 
-    UserDto getByUsername(String username) throws ServiceEntityNotFoundException;
+    UserDto getById(Integer id) throws ServiceEntityNotFoundException;
 
     void addUser(UserCreateDto user) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException;
 }

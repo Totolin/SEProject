@@ -7,5 +7,5 @@ import ro.ucv.ace.model.Group;
  *
  * @author Georgian Vladutu
  */
-public interface GroupDao extends JpaDao<Group, String> {
+public interface GroupDao extends JpaDao<Group, Integer> {
 }

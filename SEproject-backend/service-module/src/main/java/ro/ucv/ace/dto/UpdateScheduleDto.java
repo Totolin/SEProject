@@ -14,7 +14,7 @@ public class UpdateScheduleDto {
 
     private int id;
 
-    private String professorSsn;
+    private int professorId;
 
     private int subjectId;
 

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class SaveScheduleDto {
 
-    private String professorSsn;
+    private int professorId;
 
     private int subjectId;
 

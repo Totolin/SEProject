@@ -11,10 +11,11 @@ public class ScheduleMap extends PropertyMap<SaveScheduleDto, Schedule> {
 
     @Override
     protected void configure() {
-        map(source.getSubjectId(), destination.getSubject().getId());
-        map(source.getDay(), destination.getDay());
-        map(source.getHour(), destination.getHour());
-        map(source.getRoom(), destination.getRoom());
-        map(source.getProfessorSsn(), destination.getProfessor().getSsn());
+        map().setId(0);
+        map().getSubject().setId(source.getSubjectId());
+        map().getProfessor().setId(source.getProfessorId());
+        map().setDay(source.getDay());
+        map().setHour(source.getHour());
+        map().setRoom(source.getRoom());
     }
 }

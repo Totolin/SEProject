@@ -13,6 +13,8 @@ import lombok.Setter;
 @Setter
 public class UserDto {
 
+    private int id;
+
     private String username;
 
     @JsonIgnore

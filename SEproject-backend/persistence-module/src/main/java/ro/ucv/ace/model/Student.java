@@ -13,20 +13,20 @@ import java.util.List;
  */
 @Entity
 @Table(name = "STUDENT")
-@PrimaryKeyJoinColumn(name = "SSN")
+@PrimaryKeyJoinColumn(name = "ID")
 @Getter
 @Setter
 public class Student extends Person {
 
     @ManyToOne
-    @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID", nullable = true)
     private Group group;
 
     @Basic
     @Column(name = "SUBGROUP", nullable = false)
     private String subgroup;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
     private List<StudentSubject> studentSubjects;
 
     @Override
