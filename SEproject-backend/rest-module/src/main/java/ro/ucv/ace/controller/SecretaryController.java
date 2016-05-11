@@ -81,4 +81,15 @@ public class SecretaryController {
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
+
+    @RequestMapping(value = "/schedules/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteSchedule(@PathVariable Integer id) throws RestEntityNotFoundException {
+        try {
+            scheduleManagementService.delete(id);
+        } catch (ServiceEntityNotFoundException e) {
+            throw new RestEntityNotFoundException(eMM.get("schedule.notFound"));
+        }
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }

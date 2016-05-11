@@ -21,4 +21,6 @@ public interface ScheduleManagementService {
     PreviewScheduleDto getById(Integer id) throws ServiceEntityNotFoundException;
 
     void update(UpdateScheduleDto updateScheduleDto, Integer id) throws ServiceEntityNotFoundException, ServiceForeignKeyNotFoundException;
+
+    void delete(Integer id) throws ServiceEntityNotFoundException;
 }

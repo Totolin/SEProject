@@ -72,4 +72,13 @@ public class ScheduleManagementServiceImpl implements ScheduleManagementService 
             throw new ServiceForeignKeyNotFoundException(e);
         }
     }
+
+    @Override
+    public void delete(Integer id) throws ServiceEntityNotFoundException {
+        try {
+            scheduleDao.delete(id);
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
+    }
 }
