@@ -16,7 +16,7 @@ env:
         
 script:
     - cd SEproject-backend/
-    - mvn install
+    - mvn package
 
 after_success:
     - cd SEproject-backend/rest-module/target
