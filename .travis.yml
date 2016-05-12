@@ -20,4 +20,4 @@ script:
 
 after_success:
     - cd SEproject-backend/rest-module/target
-    - sshpass -e scp -P 5022 rest-module.war $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+    - sshpass -e $DEPLOY_PASS scp -P 5022 rest-module.war $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
