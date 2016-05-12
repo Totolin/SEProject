@@ -16,8 +16,8 @@ env:
         
 script:
     - cd SEproject-backend/
-    - mvn package
 
 after_success:
     - export SSHPASS=$DEPLOY_PASS
+    - echo $DEPLOY_USER
     - sshpass -e scp -P 5022 rest-module/target/rest-module.war $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
