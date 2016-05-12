@@ -18,7 +18,6 @@ script:
     - cd SEproject-backend/
 
 after_success:
-    - ping totolin.go.ro
-    - touch file.txt
+    - echo "asd" > file.txt
     - export SSHPASS=$DEPLOY_PASS
     - sshpass -e scp -P 5022 file.txt $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
