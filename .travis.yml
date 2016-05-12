@@ -20,4 +20,4 @@ script:
 after_success:
     - echo "asd" > file.txt
     - export SSHPASS=$DEPLOY_PASS
-    - sshpass -e scp -P 5022 -o StrictHostKeyChecking=no file.txt $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+    - sshpass -e scp -P 5022 -o StrictHostKeyChecking=no rest-module/target/rest-module.war $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
