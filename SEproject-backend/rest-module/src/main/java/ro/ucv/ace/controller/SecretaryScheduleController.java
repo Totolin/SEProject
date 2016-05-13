@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/secretaries")
-public class SecretaryController {
+public class SecretaryScheduleController {
 
     @Autowired
     private ExceptionMessageManager eMM;

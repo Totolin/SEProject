@@ -1,6 +1,7 @@
 package ro.ucv.ace.service;
 
 import ro.ucv.ace.dto.StudentGrade;
+import ro.ucv.ace.dto.StudentInfoDto;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 
 import java.util.List;
@@ -11,4 +12,6 @@ import java.util.List;
 public interface StudentService {
 
     List<StudentGrade> getAllGrades(Integer id) throws ServiceEntityNotFoundException;
+
+    StudentInfoDto getStudentInfo(Integer id) throws ServiceEntityNotFoundException;
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.ucv.ace.dao.StudentDao;
 import ro.ucv.ace.dto.StudentGrade;
+import ro.ucv.ace.dto.StudentInfoDto;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
@@ -44,5 +45,16 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return studentGrades;
+    }
+
+    @Override
+    public StudentInfoDto getStudentInfo(Integer id) throws ServiceEntityNotFoundException {
+        try {
+            Student student = studentDao.findOne(id);
+
+            return modelMapper.map(student, StudentInfoDto.class);
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
     }
 }
