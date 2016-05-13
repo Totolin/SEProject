@@ -7,5 +7,5 @@ import ro.ucv.ace.model.Person;
  *
  * @author Georgian Vladutu
  */
-public interface PersonDao extends JpaDao<Person, String> {
+public interface PersonDao extends JpaDao<Person, Integer> {
 }

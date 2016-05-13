@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "PROFESSOR")
-@PrimaryKeyJoinColumn(name = "SSN")
+@PrimaryKeyJoinColumn(name = "ID")
 @Getter
 @Setter
 public class Professor extends Person {
@@ -22,12 +22,14 @@ public class Professor extends Person {
     @Column(name = "OFFICE", nullable = false)
     private String office;
 
-    @OneToMany(mappedBy = "professor")
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.REMOVE)
     private List<ProfessorSubject> professorSubjects;
 
     @ManyToOne
-    @JoinColumn(name = "DEPARTMENT_NAME", referencedColumnName = "NAME", nullable = false)
+    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID", nullable = true)
     private Department department;
 
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.REMOVE)
+    private List<Schedule> schedules;
 
 }

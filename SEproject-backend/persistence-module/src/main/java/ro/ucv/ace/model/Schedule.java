@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * Created by Geo on 03.04.2016.
@@ -25,12 +24,14 @@ public class Schedule {
     private Subject subject;
 
     @ManyToOne
-    @JoinColumn(name = "PROFESSOR_SSN", referencedColumnName = "SSN", nullable = false)
+    @JoinColumn(name = "PROFESSOR_ID", referencedColumnName = "ID", nullable = false)
     private Professor professor;
 
-    @Basic
-    @Column(name = "DATE", nullable = false)
-    private LocalDateTime date;
+    @Column(name = "DAY", nullable = false)
+    private Integer day;
+
+    @Column(name = "HOUR", nullable = false)
+    private Integer hour;
 
     @Basic
     @Column(name = "ROOM", nullable = false)

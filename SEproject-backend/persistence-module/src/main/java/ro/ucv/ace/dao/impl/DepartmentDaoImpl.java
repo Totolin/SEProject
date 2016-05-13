@@ -12,7 +12,7 @@ import java.util.Optional;
  * @author Georgian Vladutu
  */
 @Repository
-public class DepartmentDaoImpl extends JpaDaoImpl<Department, String> implements DepartmentDao {
+public class DepartmentDaoImpl extends JpaDaoImpl<Department, Integer> implements DepartmentDao {
 
     @Override
     public Optional<Department> existenceCondition(Department department) {

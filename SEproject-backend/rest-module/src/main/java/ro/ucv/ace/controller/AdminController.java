@@ -40,21 +40,21 @@ public class AdminController {
         return new ResponseEntity<List<UserDto>>(allUsers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)
-    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable Integer id) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
 
-        UserDto byUsername = null;
+        UserDto byId = null;
         try {
-            byUsername = userService.getByUsername(username);
+            byId = userService.getById(id);
         } catch (ServiceEntityNotFoundException e) {
             throw new RestEntityNotFoundException(eMM.get("user.notFound"));
         }
 
-        return new ResponseEntity<UserDto>(byUsername, HttpStatus.OK);
+        return new ResponseEntity<UserDto>(byId, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<Void> postUserAdd(@Valid @RequestBody UserCreateDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException, RestEntityAlreadyExistsException {
+    public ResponseEntity<Void> postUserAdd(@Valid @RequestBody UserCreateDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException {
 
         if (bindResult.hasErrors()) {
             throw new RestEntityBindingException(bindResult.getFieldErrors(), eMM.get("user.binding"));
@@ -67,6 +67,8 @@ public class AdminController {
             userService.addUser(user);
         } catch (ServiceEntityAlreadyExistsException e) {
             throw new RestEntityAlreadyExistsException(eMM.get("user.alreadyExists"));
+        } catch (ServiceForeignKeyNotFoundException e) {
+            throw new RestForeignKeyNotFoundException(e.getMessage());
         }
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);

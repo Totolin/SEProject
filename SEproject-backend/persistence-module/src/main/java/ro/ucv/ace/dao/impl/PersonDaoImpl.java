@@ -12,7 +12,7 @@ import java.util.Optional;
  * @author Georgian Vladutu
  */
 @Repository
-public class PersonDaoImpl extends JpaDaoImpl<Person, String> implements PersonDao {
+public class PersonDaoImpl extends JpaDaoImpl<Person, Integer> implements PersonDao {
 
     @Override
     public Optional<Person> existenceCondition(Person person) {

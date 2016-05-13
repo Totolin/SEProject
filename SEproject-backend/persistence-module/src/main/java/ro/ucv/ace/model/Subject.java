@@ -27,10 +27,15 @@ public class Subject {
     @Column(name = "CREDITS", nullable = false)
     private int credits;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
     private List<ProfessorSubject> professorSubjects;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
     private List<StudentSubject> studentSubjects;
 
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
+    private List<EducationPlan> educationPlans;
+
+    @OneToMany(mappedBy = "subject")
+    private List<Schedule> schedules;
 }

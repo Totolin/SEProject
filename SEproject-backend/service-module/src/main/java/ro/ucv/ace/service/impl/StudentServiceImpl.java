@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.ucv.ace.dao.StudentDao;
 import ro.ucv.ace.dto.StudentGrade;
+import ro.ucv.ace.dto.StudentInfoDto;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
+import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
 import ro.ucv.ace.model.Student;
 import ro.ucv.ace.model.StudentSubject;
 import ro.ucv.ace.service.StudentService;
@@ -19,7 +21,7 @@ import java.util.List;
  * Created by Geo on 28.04.2016.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = ServiceForeignKeyNotFoundException.class)
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
@@ -29,10 +31,10 @@ public class StudentServiceImpl implements StudentService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<StudentGrade> getAllGrades(String ssn) throws ServiceEntityNotFoundException {
+    public List<StudentGrade> getAllGrades(Integer id) throws ServiceEntityNotFoundException {
         List<StudentGrade> studentGrades = new ArrayList<>();
         try {
-            Student student = studentDao.findOne(ssn);
+            Student student = studentDao.findOne(id);
             for (StudentSubject studentSubject : student.getStudentSubjects()) {
                 StudentGrade studentGrade = modelMapper.map(studentSubject, StudentGrade.class);
                 studentGrades.add(studentGrade);
@@ -43,5 +45,16 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return studentGrades;
+    }
+
+    @Override
+    public StudentInfoDto getStudentInfo(Integer id) throws ServiceEntityNotFoundException {
+        try {
+            Student student = studentDao.findOne(id);
+
+            return modelMapper.map(student, StudentInfoDto.class);
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
     }
 }

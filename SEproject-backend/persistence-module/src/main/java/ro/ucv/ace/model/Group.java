@@ -16,8 +16,13 @@ import java.util.List;
 public class Group {
 
     @Id
-    @Column(name = "ID", nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Integer id;
+
+    @Basic
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
     @Column(name = "YEAR", nullable = false)
     private int year;
@@ -28,6 +33,9 @@ public class Group {
 
     @OneToMany(mappedBy = "group")
     private List<Student> students;
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
+    private List<EducationPlan> educationPlans;
 
     @Override
     public boolean equals(Object o) {

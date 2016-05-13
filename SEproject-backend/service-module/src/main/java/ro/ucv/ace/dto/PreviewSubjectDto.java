@@ -1,6 +1,5 @@
 package ro.ucv.ace.dto;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +10,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UserLoginDto {
+public class PreviewSubjectDto {
 
-    private String username;
+    private int id;
 
-    private String password;
+    private String name;
+
 }

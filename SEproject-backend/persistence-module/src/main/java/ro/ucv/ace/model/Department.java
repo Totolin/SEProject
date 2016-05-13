@@ -16,11 +16,16 @@ import java.util.List;
 public class Department {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Integer id;
+
     @Column(name = "NAME", nullable = false)
+    @Basic
     private String name;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DIRECTOR_SSN", referencedColumnName = "SSN", nullable = false)
+    @JoinColumn(name = "DIRECTOR_ID", referencedColumnName = "ID", nullable = true)
     private Professor director;
 
     @OneToMany(mappedBy = "department")

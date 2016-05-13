@@ -12,7 +12,7 @@ import java.util.Optional;
  * @author Georgian Vladutu
  */
 @Repository
-public class ProfessorDaoImpl extends JpaDaoImpl<Professor, String> implements ProfessorDao {
+public class ProfessorDaoImpl extends JpaDaoImpl<Professor, Integer> implements ProfessorDao {
 
     @Override
     public Optional<Professor> existenceCondition(Professor professor) {

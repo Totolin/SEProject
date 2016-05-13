@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import ro.ucv.ace.mapper.ScheduleMap;
 import ro.ucv.ace.mapper.StudentGradeMap;
 
 /**
@@ -21,6 +22,7 @@ public class ServiceConfig {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.addMappings(new StudentGradeMap());
+        modelMapper.addMappings(new ScheduleMap());
 
         return modelMapper;
     }

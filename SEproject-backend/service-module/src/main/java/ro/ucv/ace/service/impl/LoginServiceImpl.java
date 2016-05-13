@@ -8,6 +8,7 @@ import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.UserDto;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
+import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
 import ro.ucv.ace.model.User;
 import ro.ucv.ace.service.LoginService;
 
@@ -15,7 +16,7 @@ import ro.ucv.ace.service.LoginService;
  * Created by ctotolin on 24-Apr-16.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = ServiceForeignKeyNotFoundException.class)
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
@@ -27,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public UserDto getByUsername(String username) throws ServiceEntityNotFoundException {
         try {
-            User user = userDao.findOne(username);
+            User user = userDao.findByUsername(username);
             return modelMapper.map(user, UserDto.class);
 
         } catch (DaoEntityNotFoundException e) {

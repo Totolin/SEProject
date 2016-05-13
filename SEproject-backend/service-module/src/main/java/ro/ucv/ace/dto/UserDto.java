@@ -5,11 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by ctotolin on 24-Apr-16.
+ * This is a data transfer object.
+ *
+ * @author Cristian Totolin
  */
 @Getter
 @Setter
 public class UserDto {
+
+    private int id;
 
     private String username;
 

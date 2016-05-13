@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ro.ucv.ace.dto.StudentGrade;
+import ro.ucv.ace.dto.StudentInfoDto;
 import ro.ucv.ace.exception.RestEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.misc.ExceptionMessageManager;
@@ -28,16 +29,28 @@ public class StudentController {
     @Autowired
     ExceptionMessageManager eMM;
 
-    @RequestMapping(value = "/{ssn}/grades", method = RequestMethod.GET)
-    public ResponseEntity<List<StudentGrade>> getAllGrades(@PathVariable String ssn) throws RestEntityNotFoundException {
+    @RequestMapping(value = "/{id}/grades", method = RequestMethod.GET)
+    public ResponseEntity<List<StudentGrade>> getAllGrades(@PathVariable Integer id) throws RestEntityNotFoundException {
         List<StudentGrade> studentGrades;
 
         try {
-            studentGrades = studentService.getAllGrades(ssn);
+            studentGrades = studentService.getAllGrades(id);
         } catch (ServiceEntityNotFoundException e) {
             throw new RestEntityNotFoundException(eMM.get("student.notFound"));
         }
 
         return new ResponseEntity<List<StudentGrade>>(studentGrades, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/info", method = RequestMethod.GET)
+    public ResponseEntity<StudentInfoDto> getStudentInfo(@PathVariable Integer id) throws RestEntityNotFoundException {
+        StudentInfoDto student;
+        try {
+            student = studentService.getStudentInfo(id);
+        } catch (ServiceEntityNotFoundException e) {
+            throw new RestEntityNotFoundException(eMM.get("student.notFound"));
+        }
+
+        return new ResponseEntity<StudentInfoDto>(student, HttpStatus.OK);
     }
 }

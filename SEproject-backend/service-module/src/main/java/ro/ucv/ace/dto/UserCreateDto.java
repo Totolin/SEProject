@@ -3,9 +3,12 @@ package ro.ucv.ace.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import ro.ucv.ace.validation.UserType;
 
 /**
- * Created by ctotolin on 05-May-16.
+ * This is a data transfer object.
+ *
+ * @author Cristian Totolin
  */
 @Getter
 @Setter
@@ -18,5 +21,6 @@ public class UserCreateDto {
     @JsonIgnore
     private String state;
 
+    @UserType
     private String type;
 }

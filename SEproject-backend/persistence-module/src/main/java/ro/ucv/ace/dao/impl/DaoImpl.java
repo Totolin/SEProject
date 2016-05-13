@@ -2,6 +2,7 @@ package ro.ucv.ace.dao.impl;
 
 import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
+import ro.ucv.ace.exception.DaoForeignKeyNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,11 +24,11 @@ public abstract class DaoImpl<T, ID> {
 
     public abstract T findOne(ID id) throws DaoEntityNotFoundException;
 
-    public abstract void save(T t) throws DaoEntityAlreadyExistsException;
+    public abstract void save(T t) throws DaoEntityAlreadyExistsException, DaoForeignKeyNotFoundException;
 
     public abstract void delete(ID id) throws DaoEntityNotFoundException;
 
-    public abstract void update(ID id, T t) throws DaoEntityNotFoundException;
+    public abstract void update(ID id, T t) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException;
 
     public abstract T exists(T t) throws DaoEntityNotFoundException;
 
