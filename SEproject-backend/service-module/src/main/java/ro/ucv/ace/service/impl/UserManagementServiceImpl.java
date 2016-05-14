@@ -58,4 +58,13 @@ public class UserManagementServiceImpl implements UserManagementService {
             throw new ServiceForeignKeyNotFoundException(e);
         }
     }
+
+    @Override
+    public void deleteUser(Integer id) throws ServiceEntityNotFoundException {
+        try {
+            userDao.delete(id);
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
+    }
 }
