@@ -28,4 +28,6 @@ public class StudentInfoDto {
     private GroupDto group;
 
     private String subgroup;
+
+    private boolean paid;
 }

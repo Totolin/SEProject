@@ -38,4 +38,6 @@ public class SaveStudentDto {
 
     @StudentSubgroup
     private String subgroup;
+
+    private boolean paid;
 }
