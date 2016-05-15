@@ -17,4 +17,6 @@ public interface UserManagementService {
     UserDto getById(Integer id) throws ServiceEntityNotFoundException;
 
     void addUser(UserCreateDto user) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException;
+
+    void deleteUser(Integer id) throws ServiceEntityNotFoundException;
 }

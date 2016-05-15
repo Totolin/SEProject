@@ -73,4 +73,15 @@ public class AdminController {
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) throws RestEntityNotFoundException {
+        try {
+            userService.deleteUser(id);
+        } catch (ServiceEntityNotFoundException e) {
+            throw new RestEntityNotFoundException(eMM.get("user.notFound"));
+        }
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }
