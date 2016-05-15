@@ -16,10 +16,13 @@ import javax.validation.constraints.Size;
 @Setter
 public class UpdateScheduleDto {
 
+    @Min(1)
     private int id;
 
+    @Min(1)
     private int professorId;
 
+    @Min(1)
     private int subjectId;
 
     @Min(1)

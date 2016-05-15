@@ -7,7 +7,7 @@ import ro.ucv.ace.model.Schedule;
 /**
  * Created by Geo on 06.05.2016.
  */
-public class ScheduleMap extends PropertyMap<SaveScheduleDto, Schedule> {
+public class SaveScheduleMap extends PropertyMap<SaveScheduleDto, Schedule> {
 
     @Override
     protected void configure() {
