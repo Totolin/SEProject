@@ -1,9 +1,9 @@
 package ro.ucv.ace.service;
 
-import ro.ucv.ace.dto.SaveStudentDto;
-import ro.ucv.ace.dto.StudentGrade;
-import ro.ucv.ace.dto.StudentInfoDto;
-import ro.ucv.ace.dto.UpdateStudentDto;
+import ro.ucv.ace.dto.student.SaveStudentDto;
+import ro.ucv.ace.dto.student.StudentGrade;
+import ro.ucv.ace.dto.student.StudentInfoDto;
+import ro.ucv.ace.dto.student.UpdateStudentDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;

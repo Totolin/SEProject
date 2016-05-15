@@ -1,4 +1,4 @@
-package ro.ucv.ace.dto;
+package ro.ucv.ace.dto.schedule;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,10 @@ import javax.validation.constraints.Size;
  */
 @Getter
 @Setter
-public class SaveScheduleDto {
+public class UpdateScheduleDto {
+
+    @Min(1)
+    private int id;
 
     @Min(1)
     private int professorId;

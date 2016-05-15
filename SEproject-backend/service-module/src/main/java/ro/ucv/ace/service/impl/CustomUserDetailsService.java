@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ro.ucv.ace.dto.UserDto;
+import ro.ucv.ace.dto.user.UserDto;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.service.LoginService;
 

@@ -1,7 +1,7 @@
 package ro.ucv.ace.mapper;
 
 import org.modelmapper.PropertyMap;
-import ro.ucv.ace.dto.StudentGrade;
+import ro.ucv.ace.dto.student.StudentGrade;
 import ro.ucv.ace.model.StudentSubject;
 
 /**

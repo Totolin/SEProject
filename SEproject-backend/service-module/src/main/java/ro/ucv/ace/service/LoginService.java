@@ -1,6 +1,6 @@
 package ro.ucv.ace.service;
 
-import ro.ucv.ace.dto.UserDto;
+import ro.ucv.ace.dto.user.UserDto;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 
 /**

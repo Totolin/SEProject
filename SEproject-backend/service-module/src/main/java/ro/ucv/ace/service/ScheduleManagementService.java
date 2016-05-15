@@ -1,8 +1,8 @@
 package ro.ucv.ace.service;
 
-import ro.ucv.ace.dto.PreviewScheduleDto;
-import ro.ucv.ace.dto.SaveScheduleDto;
-import ro.ucv.ace.dto.UpdateScheduleDto;
+import ro.ucv.ace.dto.schedule.PreviewScheduleDto;
+import ro.ucv.ace.dto.schedule.SaveScheduleDto;
+import ro.ucv.ace.dto.schedule.UpdateScheduleDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;

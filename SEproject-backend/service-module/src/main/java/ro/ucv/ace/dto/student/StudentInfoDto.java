@@ -1,7 +1,8 @@
-package ro.ucv.ace.dto;
+package ro.ucv.ace.dto.student;
 
 import lombok.Getter;
 import lombok.Setter;
+import ro.ucv.ace.dto.group.GroupDto;
 
 /**
  * Created by Geo on 13.05.2016.
