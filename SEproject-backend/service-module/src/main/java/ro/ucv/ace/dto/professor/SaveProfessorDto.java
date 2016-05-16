@@ -1,19 +1,18 @@
-package ro.ucv.ace.dto.student;
+package ro.ucv.ace.dto.professor;
 
 import lombok.Getter;
 import lombok.Setter;
-import ro.ucv.ace.validation.StudentSubgroup;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * Created by Geo on 14.05.2016.
+ * Created by Geo on 16.05.2016.
  */
 @Getter
 @Setter
-public class SaveStudentDto {
+public class SaveProfessorDto {
 
     @Pattern(regexp = "\\b[1-8]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)\\d{4}\\b", message = "{ssn.message}")
     private String ssn;
@@ -34,11 +33,13 @@ public class SaveStudentDto {
     @Size(min = 5, max = 50)
     private String address;
 
+    @Size(min = 3, max = 20)
+    private String position;
+
+    @Size(min = 1, max = 20)
+    private String office;
+
     @Min(1)
-    private int groupId;
+    private int departmentId;
 
-    @StudentSubgroup
-    private String subgroup;
-
-    private boolean paid;
 }
