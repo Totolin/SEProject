@@ -19,7 +19,7 @@ public class UserCreateDto {
     @Size(min = 5, max = 30)
     private String username;
 
-    @Size(min = 6, max = 20)
+    @Size(min = 5, max = 20)
     private String password;
 
     @JsonIgnore
