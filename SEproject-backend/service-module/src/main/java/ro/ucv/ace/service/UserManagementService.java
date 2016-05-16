@@ -1,7 +1,7 @@
 package ro.ucv.ace.service;
 
-import ro.ucv.ace.dto.UserCreateDto;
-import ro.ucv.ace.dto.UserDto;
+import ro.ucv.ace.dto.user.UserCreateDto;
+import ro.ucv.ace.dto.user.UserDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;

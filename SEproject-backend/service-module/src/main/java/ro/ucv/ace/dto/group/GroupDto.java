@@ -1,4 +1,4 @@
-package ro.ucv.ace.dto;
+package ro.ucv.ace.dto.group;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,13 +1,13 @@
 package ro.ucv.ace.mapper;
 
 import org.modelmapper.PropertyMap;
-import ro.ucv.ace.dto.student.SaveStudentDto;
-import ro.ucv.ace.model.Student;
+import ro.ucv.ace.dto.professor.SaveProfessorDto;
+import ro.ucv.ace.model.Professor;
 
 /**
- * Created by Geo on 15.05.2016.
+ * Created by Geo on 16.05.2016.
  */
-public class SaveStudentMap extends PropertyMap<SaveStudentDto, Student> {
+public class SaveProfessorMap extends PropertyMap<SaveProfessorDto, Professor> {
 
     @Override
     protected void configure() {
@@ -18,7 +18,8 @@ public class SaveStudentMap extends PropertyMap<SaveStudentDto, Student> {
         map().setLastName(source.getLastName());
         map().setPhoneNumber(source.getPhoneNumber());
         map().setSsn(source.getSsn());
-        map().setSubgroup(source.getSubgroup());
-        map().getGroup().setId(source.getGroupId());
+        map().setOffice(source.getOffice());
+        map().setPosition(source.getPosition());
+        map().getDepartment().setId(source.getDepartmentId());
     }
 }

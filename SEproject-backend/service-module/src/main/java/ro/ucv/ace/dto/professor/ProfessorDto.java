@@ -1,14 +1,15 @@
-package ro.ucv.ace.dto;
+package ro.ucv.ace.dto.professor;
 
 import lombok.Getter;
 import lombok.Setter;
+import ro.ucv.ace.dto.department.DepartmentDto;
 
 /**
- * Created by Geo on 13.05.2016.
+ * Created by Geo on 15.05.2016.
  */
 @Getter
 @Setter
-public class StudentInfoDto {
+public class ProfessorDto {
 
     private int id;
 
@@ -24,7 +25,9 @@ public class StudentInfoDto {
 
     private String address;
 
-    private GroupDto group;
+    private String position;
 
-    private String subgroup;
+    private String office;
+
+    private DepartmentDto department;
 }

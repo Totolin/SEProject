@@ -26,6 +26,9 @@ public class Student extends Person {
     @Column(name = "SUBGROUP", nullable = false)
     private String subgroup;
 
+    @Column(name = "PAID", nullable = false)
+    private boolean paid;
+
     @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
     private List<StudentSubject> studentSubjects;
 

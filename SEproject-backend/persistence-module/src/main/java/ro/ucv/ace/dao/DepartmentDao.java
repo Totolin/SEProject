@@ -8,4 +8,6 @@ import ro.ucv.ace.model.Department;
  * @author Georgian Vladutu
  */
 public interface DepartmentDao extends JpaDao<Department, Integer> {
+
+    void removeDirector(Integer directorId);
 }

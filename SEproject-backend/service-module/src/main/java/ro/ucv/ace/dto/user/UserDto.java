@@ -1,11 +1,8 @@
-package ro.ucv.ace.dto;
+package ro.ucv.ace.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import ro.ucv.ace.validation.UserType;
-
-import javax.validation.constraints.Size;
 
 /**
  * This is a data transfer object.
@@ -14,17 +11,18 @@ import javax.validation.constraints.Size;
  */
 @Getter
 @Setter
-public class UserCreateDto {
+public class UserDto {
 
-    @Size(min = 5, max = 30)
+    private int id;
+
     private String username;
 
-    @Size(min = 6, max = 20)
+    @JsonIgnore
     private String password;
 
-    @JsonIgnore
     private String state;
 
-    @UserType
     private String type;
+
+    private String authorization;
 }

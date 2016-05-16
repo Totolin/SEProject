@@ -1,7 +1,7 @@
 package ro.ucv.ace.mapper;
 
 import org.modelmapper.PropertyMap;
-import ro.ucv.ace.dto.SaveScheduleDto;
+import ro.ucv.ace.dto.schedule.SaveScheduleDto;
 import ro.ucv.ace.model.Schedule;
 
 /**

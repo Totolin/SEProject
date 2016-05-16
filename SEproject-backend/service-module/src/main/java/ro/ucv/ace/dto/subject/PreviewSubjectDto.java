@@ -1,4 +1,4 @@
-package ro.ucv.ace.dto;
+package ro.ucv.ace.dto.subject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,12 +10,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PreviewProfessorDto {
+public class PreviewSubjectDto {
 
     private int id;
 
-    private String firstName;
-
-    private String lastName;
+    private String name;
 
 }

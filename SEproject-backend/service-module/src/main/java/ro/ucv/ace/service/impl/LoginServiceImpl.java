@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.ucv.ace.dao.UserDao;
-import ro.ucv.ace.dto.UserDto;
+import ro.ucv.ace.dto.user.UserDto;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;

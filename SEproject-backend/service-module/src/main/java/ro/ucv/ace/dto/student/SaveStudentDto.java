@@ -1,4 +1,4 @@
-package ro.ucv.ace.dto;
+package ro.ucv.ace.dto.student;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class SaveStudentDto {
 
-    @Pattern(regexp = "\\b[1-8]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)\\d{4}\\b", message = "{student.ssn}")
+    @Pattern(regexp = "\\b[1-8]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)\\d{4}\\b", message = "{ssn.message}")
     private String ssn;
 
     @Size(min = 5, max = 30)
@@ -24,10 +24,11 @@ public class SaveStudentDto {
     @Size(min = 5, max = 30)
     private String lastName;
 
-    @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "{student.email}")
+    @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "{email.message}")
     private String email;
 
     @Size(min = 10, max = 10)
+    @Pattern(regexp = "[0-9]+", message = "{phoneNumber.message}")
     private String phoneNumber;
 
     @Size(min = 5, max = 50)
@@ -38,4 +39,6 @@ public class SaveStudentDto {
 
     @StudentSubgroup
     private String subgroup;
+
+    private boolean paid;
 }

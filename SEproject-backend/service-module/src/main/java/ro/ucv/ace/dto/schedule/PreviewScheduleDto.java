@@ -1,7 +1,9 @@
-package ro.ucv.ace.dto;
+package ro.ucv.ace.dto.schedule;
 
 import lombok.Getter;
 import lombok.Setter;
+import ro.ucv.ace.dto.subject.PreviewSubjectDto;
+import ro.ucv.ace.dto.professor.PreviewProfessorDto;
 
 /**
  * This is a data transfer object.
