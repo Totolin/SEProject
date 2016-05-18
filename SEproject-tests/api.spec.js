@@ -132,7 +132,7 @@ var secretaries = {
             "lastName": "Vladutu",
             "paid": true,
             "phoneNumber": "0756173376",
-            "ssn": "19408261600999",
+            "ssn": "1940826160099",
             "subgroup": "B"
         },
         id : null
