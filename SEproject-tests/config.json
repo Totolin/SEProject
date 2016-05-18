@@ -1,0 +1,8 @@
+{
+    "server" : {
+        "ip" : "193.226.37.183",
+        "protocol" : "http",
+        "port" : 8080,
+        "path" : "/rest-module"
+    }
+}

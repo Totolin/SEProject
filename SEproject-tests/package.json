@@ -1,0 +1,13 @@
+{
+    "name": "seproject-tests",
+    "version": "0.0.1",
+    "author": {
+        "name": "Totolin Cristian Stefan",
+        "email": "cristian.totolin@ids.software.ucv.ro"
+    },
+    "dependencies": {
+        "frisby": "~0.8.5",
+        "randomstring": "~1.1.5"
+    },
+    "private": true
+}
