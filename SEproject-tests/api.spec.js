@@ -57,7 +57,7 @@ var secretaries = {
           "office": "S10",
           "phoneNumber": "0752184492",
           "position": "Asist.",
-          "ssn": "1830801160012"
+          "ssn": "1830801160033"
         },
         id : null
     },
@@ -132,7 +132,7 @@ var secretaries = {
             "lastName": "Vladutu",
             "paid": true,
             "phoneNumber": "0756173376",
-            "ssn": "1940826160041",
+            "ssn": "19408261600999",
             "subgroup": "B"
         },
         id : null
