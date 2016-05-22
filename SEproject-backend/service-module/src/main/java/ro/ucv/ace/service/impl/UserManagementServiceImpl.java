@@ -12,7 +12,6 @@ import ro.ucv.ace.exception.*;
 import ro.ucv.ace.model.User;
 import ro.ucv.ace.service.UserManagementService;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -30,10 +29,10 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        Type targetListType = new TypeToken<List<User>>() {
-        }.getType();
         List<User> users = userDao.findAll();
-        return modelMapper.map(users, targetListType);
+
+        return modelMapper.map(users, new TypeToken<List<UserDto>>() {
+        }.getType());
     }
 
     @Override

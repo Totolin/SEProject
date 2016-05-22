@@ -35,6 +35,10 @@ public class User {
     @Column(name = "TYPE_U", nullable = false)
     private String type;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PERSON_ID", nullable = false)
+    private Person person;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

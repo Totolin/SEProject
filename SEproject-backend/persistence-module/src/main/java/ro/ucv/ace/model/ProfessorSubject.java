@@ -27,6 +27,10 @@ public class ProfessorSubject {
     @JoinColumn(name = "SUBJECT_ID", referencedColumnName = "ID", nullable = false)
     private Subject subject;
 
+    @ManyToOne
+    @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID", nullable = false)
+    private Group group;
+
     @Basic
     @Column(name = "EVALUATION_METHOD", nullable = false)
     private String evaluationMethod;
