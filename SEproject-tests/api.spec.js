@@ -168,6 +168,12 @@ frisby.create('Remember how many users are added so far')
             .expectStatus(400)
         .toss();
 
+
+        /*
+
+        TODO REDO THESE
+
+
         frisby.create('Adding a normal user')
             .post(host + '/admins/users',
             {
@@ -207,6 +213,8 @@ frisby.create('Remember how many users are added so far')
                 .toss();
             })
         .toss();
+
+        */
     })
 .toss();
 
