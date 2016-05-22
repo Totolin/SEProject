@@ -1,5 +1,6 @@
 package ro.ucv.ace.dao;
 
+import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.Person;
 
 /**
@@ -8,4 +9,5 @@ import ro.ucv.ace.model.Person;
  * @author Georgian Vladutu
  */
 public interface PersonDao extends JpaDao<Person, Integer> {
+    Person findBySsn(String ssn) throws DaoEntityNotFoundException;
 }
