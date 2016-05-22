@@ -1,7 +1,7 @@
 package ro.ucv.ace.service;
 
 import ro.ucv.ace.dto.student.SaveStudentDto;
-import ro.ucv.ace.dto.student.StudentGrade;
+import ro.ucv.ace.dto.student.StudentGradeDto;
 import ro.ucv.ace.dto.student.StudentInfoDto;
 import ro.ucv.ace.dto.student.UpdateStudentDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface StudentService {
 
-    List<StudentGrade> getAllGrades(Integer id) throws ServiceEntityNotFoundException;
+    List<StudentGradeDto> getAllGrades(Integer id) throws ServiceEntityNotFoundException;
 
     StudentInfoDto getStudentInfo(Integer id) throws ServiceEntityNotFoundException;
 

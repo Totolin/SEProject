@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import ro.ucv.ace.dto.professor.StudentGradeDto;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
 import ro.ucv.ace.service.ProfessorService;
@@ -26,19 +29,17 @@ public class ProfessorsController {
     ExceptionMessageManager eMM;
 
     @RequestMapping(value = "/grades", method = RequestMethod.POST)
-    public ResponseEntity<Void> postGrade(@Valid @RequestBody StudentGradeDto studentGradeDto, BindingResult bindResult) throws RestEntityBindingException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException, ServiceEntityNotFoundException {
+    public ResponseEntity<Void> postGrade(@Valid @RequestBody SaveStudentGradeDto saveStudentGradeDto, BindingResult bindResult) throws RestEntityBindingException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException, ServiceEntityNotFoundException {
         if (bindResult.hasErrors()) {
             throw new RestEntityBindingException(bindResult.getFieldErrors(), eMM.get("professor.grades.binding"));
         }
 
         try {
-            professorService.grade(studentGradeDto);
+            professorService.grade(saveStudentGradeDto);
         } catch (ServiceEntityAlreadyExistsException e) {
             throw new RestEntityAlreadyExistsException(eMM.get("professor.grades.alreadyExists"));
         } catch (ServiceForeignKeyNotFoundException e) {
             throw new RestForeignKeyNotFoundException(e.getMessage());
-        } catch (ServiceEntityNotFoundException e) {
-            throw new ServiceEntityNotFoundException(e);
         }
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);

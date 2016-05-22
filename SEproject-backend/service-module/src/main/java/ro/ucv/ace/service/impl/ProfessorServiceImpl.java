@@ -9,10 +9,9 @@ import ro.ucv.ace.dao.DepartmentDao;
 import ro.ucv.ace.dao.ProfessorDao;
 import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.dto.professor.ProfessorDto;
-import ro.ucv.ace.dto.professor.StudentGradeDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
+import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
 import ro.ucv.ace.dto.professor.UpdateProfessorDto;
-import ro.ucv.ace.dto.student.StudentGrade;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.model.Professor;
 import ro.ucv.ace.model.StudentSubject;
@@ -85,13 +84,13 @@ public class ProfessorServiceImpl implements ProfessorService {
     }
 
     @Override
-    public void grade(StudentGradeDto studentGradeDto) throws ServiceEntityNotFoundException, ServiceForeignKeyNotFoundException {
-        StudentSubject studentGrade = modelMapper.map(studentGradeDto, StudentSubject.class);
+    public void grade(SaveStudentGradeDto saveStudentGradeDto) throws ServiceForeignKeyNotFoundException, ServiceEntityAlreadyExistsException {
+        StudentSubject studentGrade = modelMapper.map(saveStudentGradeDto, StudentSubject.class);
 
-        try{
+        try {
             studentSubjectDao.save(studentGrade);
         } catch (DaoEntityAlreadyExistsException e) {
-            throw new ServiceEntityNotFoundException(e);
+            throw new ServiceEntityAlreadyExistsException(e);
         } catch (DaoForeignKeyNotFoundException e) {
             throw new ServiceForeignKeyNotFoundException(e);
         }

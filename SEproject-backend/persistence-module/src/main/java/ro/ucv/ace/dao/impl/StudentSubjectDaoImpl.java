@@ -20,7 +20,7 @@ public class StudentSubjectDaoImpl extends JpaDaoImpl<StudentSubject, Integer> i
         Integer subjectId = studentSubject.getSubject().getId();
 
         return streamAll()
-                .where(ss -> ss.getStudent().getSsn().equals(studentId) && ss.getSubject().getName().equals(subjectId))
+                .where(ss -> ss.getStudent().getId().equals(studentId) && ss.getSubject().getId().equals(subjectId))
                 .findAny();
     }
 }

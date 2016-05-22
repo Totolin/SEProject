@@ -1,20 +1,22 @@
-package ro.ucv.ace.dto.professor;
+package ro.ucv.ace.dto.student;
 
 import lombok.Getter;
 import lombok.Setter;
-import ro.ucv.ace.dto.department.DepartmentDto;
 
 /**
- * Created by ctotolin on 22-May-16.
+ * This is a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter
 public class StudentGradeDto {
 
-    private int studentId;
-
     private int subjectId;
+
+    private String subjectName;
 
     private int grade;
 
+    private int credits;
 }
