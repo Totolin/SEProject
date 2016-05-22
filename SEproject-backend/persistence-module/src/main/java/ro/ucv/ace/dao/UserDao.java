@@ -11,4 +11,6 @@ import ro.ucv.ace.model.User;
 public interface UserDao extends JpaDao<User, Integer> {
 
     User findByUsername(String username) throws DaoEntityNotFoundException;
+
+    void deleteByPersonId(Integer personId);
 }

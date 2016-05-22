@@ -36,7 +36,7 @@ public class User {
     private String type;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PERSON_ID", nullable = false)
+    @JoinColumn(name = "PERSON_ID")
     private Person person;
 
     @Override

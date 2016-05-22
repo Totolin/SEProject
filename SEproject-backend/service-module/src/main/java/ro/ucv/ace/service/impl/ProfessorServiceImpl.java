@@ -3,11 +3,13 @@ package ro.ucv.ace.service.impl;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.ucv.ace.dao.DepartmentDao;
 import ro.ucv.ace.dao.ProfessorDao;
 import ro.ucv.ace.dao.StudentSubjectDao;
+import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.professor.ProfessorDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
@@ -15,7 +17,10 @@ import ro.ucv.ace.dto.professor.UpdateProfessorDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.model.Professor;
 import ro.ucv.ace.model.StudentSubject;
+import ro.ucv.ace.model.User;
 import ro.ucv.ace.service.ProfessorService;
+import ro.ucv.ace.utils.mail.MailSender;
+import ro.ucv.ace.utils.user.UserCreator;
 
 import java.util.List;
 
@@ -37,6 +42,18 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Autowired
     private DepartmentDao departmentDao;
+
+    @Autowired
+    private UserCreator userCreator;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private MailSender mailSender;
+
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public List<ProfessorDto> getAll() {
@@ -60,13 +77,25 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Override
     public void save(SaveProfessorDto saveProfessorDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException {
         Professor professor = modelMapper.map(saveProfessorDto, Professor.class);
-
+        String password;
         try {
             professorDao.save(professor);
+
+            Professor saved = professorDao.findBySsn(professor.getSsn());
+
+            User user = userCreator.createUser(saved.getId(), professor.getSsn(), "PROFESSOR");
+            password = user.getPassword();
+            user.setPassword(passwordEncoder.encode(password));
+
+            userDao.save(user);
+
+            mailSender.sendPasswordMail(professor.getEmail(), password, user.getUsername());
         } catch (DaoEntityAlreadyExistsException e) {
             throw new ServiceEntityAlreadyExistsException(e);
         } catch (DaoForeignKeyNotFoundException e) {
             throw new ServiceForeignKeyNotFoundException(e);
+        } catch (DaoEntityNotFoundException e) {
+            // ignored
         }
     }
 
@@ -99,7 +128,7 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Override
     public void delete(Integer id) throws ServiceEntityNotFoundException {
         departmentDao.removeDirector(id);
-
+        userDao.deleteByPersonId(id);
         try {
             professorDao.delete(id);
         } catch (DaoEntityNotFoundException e) {
