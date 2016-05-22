@@ -25,6 +25,7 @@ public class ServiceConfig {
         modelMapper.addMappings(new SaveStudentMap());
         modelMapper.addMappings(new SaveProfessorMap());
         modelMapper.addMappings(new SaveStudentGradeMap());
+        modelMapper.addMappings(new SingleEducationPlanMap());
 
         return modelMapper;
     }

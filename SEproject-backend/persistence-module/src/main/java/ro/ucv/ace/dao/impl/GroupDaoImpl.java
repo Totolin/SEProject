@@ -16,10 +16,10 @@ public class GroupDaoImpl extends JpaDaoImpl<Group, Integer> implements GroupDao
 
     @Override
     public Optional<Group> existenceCondition(Group group) {
-        Integer id = group.getId();
+        String name = group.getName();
 
         return streamAll()
-                .where(s -> s.getId().equals(id))
+                .where(s -> s.getName().equals(name))
                 .findAny();
     }
 }

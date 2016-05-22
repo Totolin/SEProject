@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class GroupDto {
+public class PreviewGroupDto {
 
     private int id;
 
