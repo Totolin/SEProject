@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.ucv.ace.dao.DepartmentDao;
 import ro.ucv.ace.dao.ProfessorDao;
+import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.dto.professor.ProfessorDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
+import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
 import ro.ucv.ace.dto.professor.UpdateProfessorDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.model.Professor;
+import ro.ucv.ace.model.StudentSubject;
 import ro.ucv.ace.service.ProfessorService;
 
 import java.util.List;
@@ -28,6 +31,9 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Autowired
     private ProfessorDao professorDao;
+
+    @Autowired
+    private StudentSubjectDao studentSubjectDao;
 
     @Autowired
     private DepartmentDao departmentDao;
@@ -72,6 +78,19 @@ public class ProfessorServiceImpl implements ProfessorService {
             professorDao.update(id, professor);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
+        } catch (DaoForeignKeyNotFoundException e) {
+            throw new ServiceForeignKeyNotFoundException(e);
+        }
+    }
+
+    @Override
+    public void grade(SaveStudentGradeDto saveStudentGradeDto) throws ServiceForeignKeyNotFoundException, ServiceEntityAlreadyExistsException {
+        StudentSubject studentGrade = modelMapper.map(saveStudentGradeDto, StudentSubject.class);
+
+        try {
+            studentSubjectDao.save(studentGrade);
+        } catch (DaoEntityAlreadyExistsException e) {
+            throw new ServiceEntityAlreadyExistsException(e);
         } catch (DaoForeignKeyNotFoundException e) {
             throw new ServiceForeignKeyNotFoundException(e);
         }

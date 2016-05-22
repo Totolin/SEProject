@@ -5,10 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import ro.ucv.ace.mapper.SaveProfessorMap;
-import ro.ucv.ace.mapper.SaveScheduleMap;
-import ro.ucv.ace.mapper.SaveStudentMap;
-import ro.ucv.ace.mapper.StudentGradeMap;
+import ro.ucv.ace.mapper.*;
 
 /**
  * This class is used by the IoC Spring container as a source for bean definitions.
@@ -27,6 +24,8 @@ public class ServiceConfig {
         modelMapper.addMappings(new SaveScheduleMap());
         modelMapper.addMappings(new SaveStudentMap());
         modelMapper.addMappings(new SaveProfessorMap());
+        modelMapper.addMappings(new SaveStudentGradeMap());
+        modelMapper.addMappings(new SingleEducationPlanMap());
 
         return modelMapper;
     }

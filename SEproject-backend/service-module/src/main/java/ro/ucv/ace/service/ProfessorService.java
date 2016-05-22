@@ -2,6 +2,7 @@ package ro.ucv.ace.service;
 
 import ro.ucv.ace.dto.professor.ProfessorDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
+import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
 import ro.ucv.ace.dto.professor.UpdateProfessorDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
@@ -21,6 +22,8 @@ public interface ProfessorService {
     void save(SaveProfessorDto saveProfessorDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException;
 
     void update(UpdateProfessorDto updateProfessorDto, Integer id) throws ServiceEntityNotFoundException, ServiceForeignKeyNotFoundException;
+
+    void grade(SaveStudentGradeDto professorGradeDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException;
 
     void delete(Integer id) throws ServiceEntityNotFoundException;
 }

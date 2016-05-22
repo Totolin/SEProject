@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class StudentGrade {
+public class StudentGradeDto {
 
     private int subjectId;
 

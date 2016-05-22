@@ -16,11 +16,11 @@ public class StudentSubjectDaoImpl extends JpaDaoImpl<StudentSubject, Integer> i
 
     @Override
     public Optional<StudentSubject> existenceCondition(StudentSubject studentSubject) {
-        String studentSsn = studentSubject.getStudent().getSsn();
-        String subjectName = studentSubject.getSubject().getName();
+        Integer studentId = studentSubject.getStudent().getId();
+        Integer subjectId = studentSubject.getSubject().getId();
 
         return streamAll()
-                .where(ss -> ss.getStudent().getSsn().equals(studentSsn) && ss.getSubject().getName().equals(subjectName))
+                .where(ss -> ss.getStudent().getId().equals(studentId) && ss.getSubject().getId().equals(subjectId))
                 .findAny();
     }
 }

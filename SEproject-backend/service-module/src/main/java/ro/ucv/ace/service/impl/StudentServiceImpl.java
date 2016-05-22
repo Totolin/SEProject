@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.ucv.ace.dao.StudentDao;
 import ro.ucv.ace.dto.student.SaveStudentDto;
-import ro.ucv.ace.dto.student.StudentGrade;
+import ro.ucv.ace.dto.student.StudentGradeDto;
 import ro.ucv.ace.dto.student.StudentInfoDto;
 import ro.ucv.ace.dto.student.UpdateStudentDto;
 import ro.ucv.ace.exception.*;
@@ -32,12 +32,12 @@ public class StudentServiceImpl implements StudentService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<StudentGrade> getAllGrades(Integer id) throws ServiceEntityNotFoundException {
-        List<StudentGrade> studentGrades = new ArrayList<>();
+    public List<StudentGradeDto> getAllGrades(Integer id) throws ServiceEntityNotFoundException {
+        List<StudentGradeDto> studentGrades = new ArrayList<>();
         try {
             Student student = studentDao.findOne(id);
             for (StudentSubject studentSubject : student.getStudentSubjects()) {
-                StudentGrade studentGrade = modelMapper.map(studentSubject, StudentGrade.class);
+                StudentGradeDto studentGrade = modelMapper.map(studentSubject, StudentGradeDto.class);
                 studentGrades.add(studentGrade);
             }
 

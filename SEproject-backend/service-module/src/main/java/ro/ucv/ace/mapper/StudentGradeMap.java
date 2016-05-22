@@ -1,13 +1,13 @@
 package ro.ucv.ace.mapper;
 
 import org.modelmapper.PropertyMap;
-import ro.ucv.ace.dto.student.StudentGrade;
+import ro.ucv.ace.dto.student.StudentGradeDto;
 import ro.ucv.ace.model.StudentSubject;
 
 /**
  * Created by Geo on 28.04.2016.
  */
-public class StudentGradeMap extends PropertyMap<StudentSubject, StudentGrade> {
+public class StudentGradeMap extends PropertyMap<StudentSubject, StudentGradeDto> {
 
     @Override
     protected void configure() {
