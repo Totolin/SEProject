@@ -21,7 +21,7 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Integer id;
+    protected Integer id;
 
     @Basic
     @Column(name = "SSN", nullable = false)

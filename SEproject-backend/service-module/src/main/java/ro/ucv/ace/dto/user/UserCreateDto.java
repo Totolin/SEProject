@@ -3,6 +3,7 @@ package ro.ucv.ace.dto.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import ro.ucv.ace.dto.person.SavePersonDto;
 import ro.ucv.ace.validation.UserType;
 
 import javax.validation.constraints.Size;
@@ -27,4 +28,6 @@ public class UserCreateDto {
 
     @UserType
     private String type;
+
+    private SavePersonDto person;
 }
