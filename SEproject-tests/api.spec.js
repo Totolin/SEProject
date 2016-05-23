@@ -150,15 +150,15 @@ frisby.create('Pinging server')
     .expectBodyContains('Ping test!-Ping test!-Ping test!-Ping test!')
 .toss();
 
+/*
+TODO REDO THESE
+
+
 // Admin-controller
 frisby.create('Remember how many users are added so far')
     .get(host + '/admins/users')
     .afterJSON(function(json){
         
-		
-		/*
-
-        TODO REDO THESE
 		
         // Save number of users
         user.size = json.length;
@@ -215,9 +215,10 @@ frisby.create('Remember how many users are added so far')
             })
         .toss();
 
-        */
+        
     })
 .toss();
+*/
 
 // Login-controller
 frisby.create('Logging in with fake user')
