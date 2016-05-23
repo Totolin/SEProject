@@ -5,6 +5,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ro.ucv.ace.dao.PersonDao;
 import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.user.UserCreateDto;
 import ro.ucv.ace.dto.user.UserDto;
@@ -23,6 +24,9 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private PersonDao personDao;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -49,6 +53,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     @Override
     public void addUser(UserCreateDto user) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException {
         User userU = modelMapper.map(user, User.class);
+
         try {
             userDao.save(userU);
         } catch (DaoEntityAlreadyExistsException e) {

@@ -19,13 +19,14 @@ import java.util.List;
  */
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
+
     @Autowired
     LoginService loginService;
 
     private List<GrantedAuthority> getGrantedAuthorities(UserDto userDto) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + userDto.getType()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + userDto.getAccount().getType()));
 
         return authorities;
     }
@@ -35,8 +36,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         try {
             UserDto userDto = loginService.getByUsername(s);
 
-            return new org.springframework.security.core.userdetails.User(userDto.getUsername(), userDto.getPassword(),
-                    userDto.getState().equals("Active"), true, true, true, getGrantedAuthorities(userDto));
+            return new org.springframework.security.core.userdetails.User(userDto.getAccount().getUsername(), userDto.getAccount().getPassword(),
+                    userDto.getAccount().getState().equals("Active"), true, true, true, getGrantedAuthorities(userDto));
         } catch (ServiceEntityNotFoundException e) {
             throw new UsernameNotFoundException("Username not found");
         }

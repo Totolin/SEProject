@@ -5,6 +5,7 @@ import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,5 +35,12 @@ public class UserDaoImpl extends JpaDaoImpl<User, Integer> implements UserDao {
         }
 
         throw new DaoEntityNotFoundException();
+    }
+
+    @Override
+    public List<User> findByType(String type) {
+        return streamAll()
+                .where(u -> u.getType().equals(type))
+                .toList();
     }
 }

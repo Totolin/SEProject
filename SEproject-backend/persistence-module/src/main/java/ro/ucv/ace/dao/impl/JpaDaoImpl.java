@@ -85,16 +85,17 @@ public abstract class JpaDaoImpl<T, ID> extends DaoImpl<T, ID> implements JpaDao
     }
 
     @Override
-    public void save(T t) throws DaoEntityAlreadyExistsException, DaoForeignKeyNotFoundException {
+    public T save(T t) throws DaoEntityAlreadyExistsException, DaoForeignKeyNotFoundException {
+        T savedT;
         try {
             T newT = exists(t);
         } catch (DaoEntityNotFoundException e) {
             try {
-                getEntityManager().merge(t);
+                savedT = getEntityManager().merge(t);
             } catch (EntityNotFoundException e1) {
                 throw new DaoForeignKeyNotFoundException(e1.getMessage());
             }
-            return;
+            return savedT;
         }
 
         throw new DaoEntityAlreadyExistsException();
@@ -108,14 +109,17 @@ public abstract class JpaDaoImpl<T, ID> extends DaoImpl<T, ID> implements JpaDao
     }
 
     @Override
-    public void update(ID id, T t) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException {
+    public T update(ID id, T t) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException {
         T newT = findOne(id);
+        T updatedT;
 
         try {
-            getEntityManager().merge(t);
+            updatedT = getEntityManager().merge(t);
         } catch (EntityNotFoundException e1) {
             throw new DaoForeignKeyNotFoundException(e1.getMessage());
         }
+
+        return updatedT;
     }
 
     @Override

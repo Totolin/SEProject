@@ -15,8 +15,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     private Integer id;
 
     @Basic
@@ -34,10 +33,6 @@ public class User {
     @Basic
     @Column(name = "TYPE_U", nullable = false)
     private String type;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PERSON_ID", nullable = false)
-    private Person person;
 
     @Override
     public boolean equals(Object o) {

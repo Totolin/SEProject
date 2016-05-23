@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ro.ucv.ace.mapper.*;
 
@@ -15,6 +16,7 @@ import ro.ucv.ace.mapper.*;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"ro.ucv.ace"})
+@PropertySource(value = {"classpath:mail.properties"})
 public class ServiceConfig {
 
     @Bean

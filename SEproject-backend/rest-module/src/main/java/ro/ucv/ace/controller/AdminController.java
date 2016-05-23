@@ -6,11 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ro.ucv.ace.dto.user.UserCreateDto;
-import ro.ucv.ace.dto.user.UserDto;
+import ro.ucv.ace.dto.secretary.PreviewSecretaryDto;
+import ro.ucv.ace.dto.secretary.SaveSecretaryDto;
+import ro.ucv.ace.enums.UserType;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
-import ro.ucv.ace.service.UserManagementService;
+import ro.ucv.ace.service.SecretaryService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private UserManagementService userService;
+    private SecretaryService secretaryService;
 
     @Autowired
     private PasswordEncoder pwdEncoder;
@@ -31,40 +32,40 @@ public class AdminController {
     @Autowired
     private ExceptionMessageManager eMM;
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDto>> getAllUsers() throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
+    @RequestMapping(value = "/secretaries", method = RequestMethod.GET)
+    public ResponseEntity<List<PreviewSecretaryDto>> getAll() throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
 
-        List<UserDto> allUsers = null;
-        allUsers = userService.getAllUsers();
+        List<PreviewSecretaryDto> previewSecretaryDtos = secretaryService.getAll();
 
-        return new ResponseEntity<List<UserDto>>(allUsers, HttpStatus.OK);
+        return new ResponseEntity<List<PreviewSecretaryDto>>(previewSecretaryDtos, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public ResponseEntity<UserDto> getUserByUsername(@PathVariable Integer id) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
+    @RequestMapping(value = "/secretaries/{id}", method = RequestMethod.GET)
+    public ResponseEntity<PreviewSecretaryDto> getUserByUsername(@PathVariable Integer id) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
 
-        UserDto byId = null;
+        PreviewSecretaryDto byId = null;
         try {
-            byId = userService.getById(id);
+            byId = secretaryService.getById(id);
         } catch (ServiceEntityNotFoundException e) {
             throw new RestEntityNotFoundException(eMM.get("user.notFound"));
         }
 
-        return new ResponseEntity<UserDto>(byId, HttpStatus.OK);
+        return new ResponseEntity<PreviewSecretaryDto>(byId, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<Void> postUserAdd(@Valid @RequestBody UserCreateDto user, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException {
+    @RequestMapping(value = "/secretaries", method = RequestMethod.POST)
+    public ResponseEntity<Void> postUserAdd(@Valid @RequestBody SaveSecretaryDto saveSecretaryDto, BindingResult bindResult) throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException {
 
         if (bindResult.hasErrors()) {
             throw new RestEntityBindingException(bindResult.getFieldErrors(), eMM.get("user.binding"));
         }
 
-        user.setPassword(pwdEncoder.encode(user.getPassword()));
-        user.setState("Active");
+        saveSecretaryDto.getAccount().setType(UserType.SECRETARY.getType());
+        saveSecretaryDto.getAccount().setPassword(pwdEncoder.encode(saveSecretaryDto.getAccount().getPassword()));
+        saveSecretaryDto.getAccount().setState("Active");
 
         try {
-            userService.addUser(user);
+            secretaryService.save(saveSecretaryDto);
         } catch (ServiceEntityAlreadyExistsException e) {
             throw new RestEntityAlreadyExistsException(eMM.get("user.alreadyExists"));
         } catch (ServiceForeignKeyNotFoundException e) {
@@ -74,10 +75,10 @@ public class AdminController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/secretaries/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteUser(@PathVariable Integer id) throws RestEntityNotFoundException {
         try {
-            userService.deleteUser(id);
+            secretaryService.delete(id);
         } catch (ServiceEntityNotFoundException e) {
             throw new RestEntityNotFoundException(eMM.get("user.notFound"));
         }
