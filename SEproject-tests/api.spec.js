@@ -160,8 +160,8 @@ var secretaries = {
             ]
         },
         right : {
-            "groupId": 1,
-            "subjectIds": [1]
+            "groupId": 2,
+            "subjectIds": [1,2,3,4]
         }
     }
 };
@@ -284,7 +284,7 @@ genericItemVerification('professors'    , '/secretaries/'   , secretaries.profes
 genericItemVerification('schedules'     , '/secretaries/'   , secretaries.schedules);
 genericItemVerification('students'      , '/secretaries/'   , secretaries.students);
 genericItemVerification('secretaries'   , '/admins/'        , admins.secretaries);
-//genericItemVerification('educationPlans', '/secretaries/'   , secretaries.education_plan);
+genericItemVerification('educationPlans', '/secretaries/'   , secretaries.education_plan);
 
 // Student controller
 frisby.create('Getting one student for a test')
