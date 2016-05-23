@@ -155,6 +155,11 @@ frisby.create('Remember how many users are added so far')
     .get(host + '/admins/users')
     .afterJSON(function(json){
         
+		
+		/*
+
+        TODO REDO THESE
+		
         // Save number of users
         user.size = json.length;
 
@@ -168,10 +173,6 @@ frisby.create('Remember how many users are added so far')
             .expectStatus(400)
         .toss();
 
-
-        /*
-
-        TODO REDO THESE
 
 
         frisby.create('Adding a normal user')
