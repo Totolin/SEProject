@@ -136,12 +136,82 @@ var secretaries = {
             "subgroup": "B"
         },
         id : null
+    },
+    education_plan: {
+        types : {
+            "id": Number,
+            "group": {
+                "id": Number,
+                "name": String,
+                "year": Number,
+                "specialization": String
+            },
+            "subject": {
+                "id": Number,
+                "name": String
+            }
+        },
+        wrong : {
+            "groupId": 100,
+            "subjectIds": [
+                {
+                    "asd" : 1234
+                }
+            ]
+        },
+        right : {
+            "groupId": 2,
+            "subjectIds": [1,2,3,4]
+        }
     }
-}
+};
+
+var admins = {
+    secretaries: {
+        types : {
+            "ssn": String,
+            "firstName": String,
+            "lastName": String,
+            "email": String,
+            "phoneNumber": String,
+            "address": String,
+            "id": Number,
+            "account": {
+              "username": String,
+              "state": String,
+              "type": String
+            }
+        },
+        wrong : {
+            "account": {
+                "password": 1,
+                "username": 123
+            },
+            "address": "asdf",
+            "email": 1234,
+            "firstName": "Joseph",
+            "lastName": "Cenaaa",
+            "phoneNumber": 65176354,
+            "ssn": "19408299"
+        },
+        right : {
+            "account": {
+                "password": "asdf1234",
+                "username": "john.cena"
+            },
+            "address": "John Cena Street",
+            "email": "johnnn@cenaaa.com",
+            "firstName": "Joseph",
+            "lastName": "Cenaaa",
+            "phoneNumber": "0765176354",
+            "ssn": "1940826161099"
+        }
+    }
+};
 
 var students = {
     id : null
-}
+};
 
 // Connectivity
 frisby.create('Pinging server')
@@ -149,76 +219,6 @@ frisby.create('Pinging server')
     .expectStatus(200)
     .expectBodyContains('Ping test!-Ping test!-Ping test!-Ping test!')
 .toss();
-
-/*
-TODO REDO THESE
-
-
-// Admin-controller
-frisby.create('Remember how many users are added so far')
-    .get(host + '/admins/users')
-    .afterJSON(function(json){
-        
-		
-        // Save number of users
-        user.size = json.length;
-
-        frisby.create('Adding user with fake type')
-            .post(host + '/admins/users',
-            {
-                "password": String,
-                "type": String,
-                "username": String
-            }, {json:true})
-            .expectStatus(400)
-        .toss();
-
-
-
-        frisby.create('Adding a normal user')
-            .post(host + '/admins/users',
-            {
-                "password": "parola",
-                "type": "STUDENT",
-                "username": user.name
-            }, {json:true})
-            .expectStatus(201)
-        .toss();
-
-        frisby.create('We should see the new user')
-            .get(host + '/admins/users')
-            .expectJSONLength(user.size + 1)
-            .expectJSONTypes('*',
-            {
-                'id' : Number,
-                'username' : String,
-                'state' : String,
-                'type' : String
-            })
-            .afterJSON(function(json){
-                user.id = json[json.length-1].id;
-
-                frisby.create('Trying to delete a fake user')
-                    .delete(host + '/admins/users/' + 99999)
-                    .expectStatus(404)
-                .toss();
-
-                frisby.create('Deleting the user we added')
-                    .delete(host + '/admins/users/' + user.id)
-                    .expectStatus(200)
-                .toss();
-
-                frisby.create('Trying to get the user we just deleted')
-                    .get(host + '/admins/users/' + user.id)
-                    .expectStatus(404)
-                .toss();
-            })
-        .toss();
-
-        
-    })
-.toss();
-*/
 
 // Login-controller
 frisby.create('Logging in with fake user')
@@ -230,6 +230,7 @@ frisby.create('Logging in with fake user')
     .expectStatus(400)
 .toss();
 
+/*
 frisby.create('Logging in with admin credentials')
     .post(host + '/login',
     {
@@ -238,64 +239,73 @@ frisby.create('Logging in with admin credentials')
     }, {json:true})
     .expectStatus(200)
 .toss();
+*/
 
-
-// Secretaries-professors
-var genericSecretaryTest = function (module) {
+var genericItemVerification = function (module, path, item) {
     frisby.create('Getting all ' + module)
-        .get(host + '/secretaries/' + module)
+        .get(host + path + module)
         .expectJSONTypes('*',
-        secretaries[module].types)
+        item.types)
     .toss();
 
     // Login-controller
     frisby.create('Inserting fake item in ' + module)
-        .post(host + '/secretaries/' + module,
-        secretaries[module].wrong, {json:true})
+        .post(host + path + module,
+        item.wrong, {json:true})
         .expectStatus(400)
     .toss();
 
     frisby.create('Inserting proper item in ' + module)
-        .post(host + '/secretaries/' + module,
-        secretaries[module].right, {json:true})
+        .post(host + path + module,
+        item.right, {json:true})
         .expectStatus(201)
     .toss();
 
     frisby.create('Getting all items to check for the last one we inserted ' + module)
-        .get(host + '/secretaries/' + module)
+        .get(host + path + module)
         .afterJSON(function(json){
-            secretaries[module].id = json[json.length-1].id;
+            item.id = json[json.length-1].id;
 
             frisby.create('Grabbing our item from ' + module)
-                .get(host + '/secretaries/' + module + '/' + secretaries[module].id)
+                .get(host + path + module + '/' + item.id)
                 .expectStatus(200)
             .toss();
 
-            frisby.create('Deleting our professor')
-                .delete(host + '/secretaries/' + module + '/' + secretaries[module].id)
+            frisby.create('Deleting our item')
+                .delete(host + path + module + '/' + item.id)
                 .expectStatus(200)
             .toss();
         })
     .toss();
 } 
 
-genericSecretaryTest('professors');
-genericSecretaryTest('schedules');
-genericSecretaryTest('students');
+// Test secretaries controllers
+genericItemVerification('professors'    , '/secretaries/'   , secretaries.professors);
+genericItemVerification('schedules'     , '/secretaries/'   , secretaries.schedules);
+genericItemVerification('students'      , '/secretaries/'   , secretaries.students);
+genericItemVerification('secretaries'   , '/admins/'        , admins.secretaries);
+genericItemVerification('educationPlans', '/secretaries/'   , secretaries.education_plan);
 
+// Student controller
 frisby.create('Getting one student for a test')
     .get(host + '/secretaries/students')
     .expectStatus(200)
     .afterJSON(function(json){
         if (json.length > 0) {
-            console.log(json);
             students.id = json[0].id;
 
             frisby.create('Getting selected user\'s grades')
                 .get(host + '/students/' + students.id + '/grades')
                 .expectStatus(200)
             .toss();
+
+            frisby.create('Getting selected user\'s info')
+                .get(host + '/students/' + students.id + '/info')
+                .expectStatus(200)
+            .toss();
         }
     })
 .toss();
+
+
 
