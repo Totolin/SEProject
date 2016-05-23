@@ -13,5 +13,5 @@ import javax.validation.constraints.Min;
 public class PreviewPersonDto extends SavePersonDto {
 
     @Min(1)
-    private int id;
+    protected int id;
 }

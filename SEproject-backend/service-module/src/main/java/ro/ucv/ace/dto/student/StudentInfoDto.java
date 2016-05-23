@@ -3,6 +3,7 @@ package ro.ucv.ace.dto.student;
 import lombok.Getter;
 import lombok.Setter;
 import ro.ucv.ace.dto.group.PreviewGroupDto;
+import ro.ucv.ace.dto.user.PreviewAccountDto;
 
 /**
  * Created by Geo on 13.05.2016.
@@ -30,4 +31,6 @@ public class StudentInfoDto {
     private String subgroup;
 
     private boolean paid;
+
+    private PreviewAccountDto account;
 }

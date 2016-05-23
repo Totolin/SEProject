@@ -5,7 +5,7 @@ import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.User;
 
-import javax.persistence.Query;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -38,10 +38,9 @@ public class UserDaoImpl extends JpaDaoImpl<User, Integer> implements UserDao {
     }
 
     @Override
-    public void deleteByPersonId(Integer personId) {
-        Query query = getEntityManager().createQuery("DELETE FROM User u WHERE u.person.id = :personId");
-        query.setParameter("personId", personId);
-
-        query.executeUpdate();
+    public List<User> findByType(String type) {
+        return streamAll()
+                .where(u -> u.getType().equals(type))
+                .toList();
     }
 }

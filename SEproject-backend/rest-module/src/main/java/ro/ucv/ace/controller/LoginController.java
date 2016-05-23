@@ -50,13 +50,13 @@ public class LoginController {
             throw new RestEntityNotFoundException(eMM.get("user.notFound"));
         }
 
-        if (!pwdEncoder.matches(userLogin.getPassword(), byUsername.getPassword())) {
+        if (!pwdEncoder.matches(userLogin.getPassword(), byUsername.getAccount().getPassword())) {
             throw new RestInvalidPasswordException(eMM.get("user.invalidPassword"));
         }
 
         String token = userLogin.getUsername() + ":" + userLogin.getPassword();
         byte[] bytes = Base64.getEncoder().encode(token.getBytes());
-        byUsername.setAuthorization("Basic " + new String(bytes, Charset.forName("UTF-8")));
+        byUsername.getAccount().setAuthorization("Basic " + new String(bytes, Charset.forName("UTF-8")));
 
         return new ResponseEntity<UserDto>(byUsername, HttpStatus.OK);
     }

@@ -23,7 +23,21 @@ public class MailSender {
     public MailSender() {
     }
 
-    public void sendPasswordMail(String to, String password, String username) {
+    public void sendCreateAccountMail(String to, String password, String username) {
+        Session session = createSession();
+
+        sendMail(session, "seproject@ace.ucv.ro", "SE Project", to, "Account password",
+                "Your account has been activated!\nUsername:" + username + "\nPassword:" + password);
+    }
+
+    public void sendUpdateAccountMail(String to, String password, String username) {
+        Session session = createSession();
+
+        sendMail(session, "seproject@ace.ucv.ro", "SE Project", to, "Account password",
+                "Your account has been updated!\nUsername:" + username + "\nPassword:" + password);
+    }
+
+    private Session createSession() {
         String mailUsername = environment.getRequiredProperty("mail.smtp.username");
         String mailPassword = environment.getRequiredProperty("mail.smtp.password");
 
@@ -33,19 +47,20 @@ public class MailSender {
         props.put("mail.smtp.host", environment.getRequiredProperty("mail.smtp.host"));
         props.put("mail.smtp.port", environment.getRequiredProperty("mail.smtp.port"));
 
-        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+        return Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(mailUsername, mailPassword);
             }
         });
+    }
 
-
+    private void sendMail(Session session, String address, String personal, String to, String subject, String text) {
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("seproject@ace.ucv.ro", "SE Project"));
+            message.setFrom(new InternetAddress(address, personal));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject("Account password");
-            message.setText("Your account has been activated!\nUsername:" + username + "\nPassword:" + password);
+            message.setSubject(subject);
+            message.setText(text);
 
             Transport.send(message);
 

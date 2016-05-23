@@ -6,7 +6,6 @@ import lombok.Setter;
 import ro.ucv.ace.dto.person.SavePersonDto;
 import ro.ucv.ace.validation.UserType;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 /**
@@ -16,7 +15,7 @@ import javax.validation.constraints.Size;
  */
 @Getter
 @Setter
-public class UserCreateDto {
+public class UserCreateDto extends SavePersonDto {
 
     @Size(min = 5, max = 30)
     private String username;
@@ -29,7 +28,4 @@ public class UserCreateDto {
 
     @UserType
     private String type;
-
-    @Valid
-    private SavePersonDto person;
 }

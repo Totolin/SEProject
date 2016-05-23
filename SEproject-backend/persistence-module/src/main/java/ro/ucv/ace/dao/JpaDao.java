@@ -35,10 +35,11 @@ public interface JpaDao<T, ID> {
      * Saves the entity into the database.
      *
      * @param t entity to be saved
+     * @return T saved entity
      * @throws DaoEntityAlreadyExistsException if the entity already exists
      * @throws DaoForeignKeyNotFoundException  if the entity's foreign key does not exist
      */
-    void save(T t) throws DaoEntityAlreadyExistsException, DaoForeignKeyNotFoundException;
+    T save(T t) throws DaoEntityAlreadyExistsException, DaoForeignKeyNotFoundException;
 
     /**
      * Deletes the entity whose id is the same as the method parameter
@@ -53,8 +54,9 @@ public interface JpaDao<T, ID> {
      *
      * @param id id of the entity
      * @param t  entity to be updated
+     * @return T updated entity
      * @throws DaoEntityNotFoundException     if the entity is not found
      * @throws DaoForeignKeyNotFoundException if the entity's foreign key does not exist
      */
-    void update(ID id, T t) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException;
+    T update(ID id, T t) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException;
 }

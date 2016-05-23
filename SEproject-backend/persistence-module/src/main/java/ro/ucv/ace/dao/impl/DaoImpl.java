@@ -24,11 +24,11 @@ public abstract class DaoImpl<T, ID> {
 
     public abstract T findOne(ID id) throws DaoEntityNotFoundException;
 
-    public abstract void save(T t) throws DaoEntityAlreadyExistsException, DaoForeignKeyNotFoundException;
+    public abstract T save(T t) throws DaoEntityAlreadyExistsException, DaoForeignKeyNotFoundException;
 
     public abstract void delete(ID id) throws DaoEntityNotFoundException;
 
-    public abstract void update(ID id, T t) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException;
+    public abstract T update(ID id, T t) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException;
 
     public abstract T exists(T t) throws DaoEntityNotFoundException;
 

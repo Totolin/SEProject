@@ -3,6 +3,7 @@ package ro.ucv.ace.dto.professor;
 import lombok.Getter;
 import lombok.Setter;
 import ro.ucv.ace.dto.department.DepartmentDto;
+import ro.ucv.ace.dto.user.PreviewAccountDto;
 
 /**
  * Created by Geo on 15.05.2016.
@@ -30,4 +31,6 @@ public class ProfessorDto {
     private String office;
 
     private DepartmentDto department;
+
+    private PreviewAccountDto account;
 }

@@ -1,5 +1,7 @@
 package ro.ucv.ace.utils.user;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ro.ucv.ace.model.Person;
 import ro.ucv.ace.model.User;
@@ -16,18 +18,19 @@ public class UserCreator {
 
     private SecureRandom rnd = new SecureRandom();
 
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public User createUser(int personId, String ssn, String type) {
+
+    public User createUser(Person person, String type) {
         String password = randomString(10);
 
         User user = new User();
-        Person person = new Person();
-        person.setId(personId);
-        user.setPassword(password);
-        user.setUsername(ssn);
         user.setState("Active");
+        user.setUsername(person.getSsn());
+        user.setPassword(password);
         user.setType(type);
-        user.setPerson(person);
+        user.setId(person.getId());
 
         return user;
     }
