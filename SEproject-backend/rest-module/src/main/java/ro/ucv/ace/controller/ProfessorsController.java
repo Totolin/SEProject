@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
-import ro.ucv.ace.dto.student.StudentInfoDto;
+import ro.ucv.ace.dto.student.StudentInfoWithGradeDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
@@ -30,18 +30,20 @@ public class ProfessorsController {
     ExceptionMessageManager eMM;
 
     @RequestMapping(value = "/grades", method = RequestMethod.POST)
-    public ResponseEntity<Void> postGrade(@Valid @RequestBody SaveStudentGradeDto saveStudentGradeDto, BindingResult bindResult) throws RestEntityBindingException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException, ServiceEntityNotFoundException {
+    public ResponseEntity<Void> postGrade(@Valid @RequestBody SaveStudentGradeDto saveStudentGradeDto, BindingResult bindResult) throws RestEntityBindingException, RestEntityAlreadyExistsException, RestEntityNotFoundException {
         if (bindResult.hasErrors()) {
             throw new RestEntityBindingException(bindResult.getFieldErrors(), eMM.get("professor.grades.binding"));
         }
+
 
         try {
             professorSubjectService.grade(saveStudentGradeDto);
         } catch (ServiceEntityAlreadyExistsException e) {
             throw new RestEntityAlreadyExistsException(eMM.get("professor.grades.alreadyExists"));
-        } catch (ServiceForeignKeyNotFoundException e) {
-            throw new RestForeignKeyNotFoundException(e.getMessage());
+        } catch (ServiceEntityNotFoundException e) {
+            throw new RestEntityNotFoundException(eMM.get("professor.grades.error"));
         }
+
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
@@ -60,10 +62,10 @@ public class ProfessorsController {
         return new ResponseEntity<List<PreviewGroupDto>>(all, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/groups/{id}/students", method = RequestMethod.GET)
-    public ResponseEntity<List<StudentInfoDto>> getAllStudents(@PathVariable Integer id) {
-        List<StudentInfoDto> all = professorSubjectService.getAllByGroup(id);
+    @RequestMapping(value = "/subjects/{subjectId}/groups/{groupId}/students", method = RequestMethod.GET)
+    public ResponseEntity<List<StudentInfoWithGradeDto>> getAllStudents(@PathVariable Integer subjectId, @PathVariable Integer groupId) {
+        List<StudentInfoWithGradeDto> all = professorSubjectService.getAllByGroup(subjectId, groupId);
 
-        return new ResponseEntity<List<StudentInfoDto>>(all, HttpStatus.OK);
+        return new ResponseEntity<List<StudentInfoWithGradeDto>>(all, HttpStatus.OK);
     }
 }

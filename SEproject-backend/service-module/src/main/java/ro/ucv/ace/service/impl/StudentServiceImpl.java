@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ro.ucv.ace.dao.ProfessorSubjectDao;
 import ro.ucv.ace.dao.StudentDao;
+import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.student.SaveStudentDto;
 import ro.ucv.ace.dto.student.StudentGradeDto;
@@ -14,6 +16,7 @@ import ro.ucv.ace.dto.student.UpdateStudentDto;
 import ro.ucv.ace.dto.user.PreviewAccountDto;
 import ro.ucv.ace.enums.UserType;
 import ro.ucv.ace.exception.*;
+import ro.ucv.ace.model.ProfessorSubject;
 import ro.ucv.ace.model.Student;
 import ro.ucv.ace.model.StudentSubject;
 import ro.ucv.ace.model.User;
@@ -36,6 +39,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ProfessorSubjectDao professorSubjectDao;
+
+    @Autowired
+    private StudentSubjectDao studentSubjectDao;
 
     @Autowired
     private UserCreator userCreator;
@@ -110,6 +119,12 @@ public class StudentServiceImpl implements StudentService {
         String password;
         try {
             Student saved = studentDao.save(student);
+
+            List<ProfessorSubject> professorSubjects = professorSubjectDao.findByGroup(saved.getGroup().getId());
+            for (ProfessorSubject professorSubject : professorSubjects) {
+                StudentSubject studentSubject = new StudentSubject(saved.getId(), professorSubject.getSubject().getId());
+                studentSubjectDao.save(studentSubject);
+            }
 
             User user = userCreator.createUser(saved, UserType.STUDENT.getType());
             password = user.getPassword();

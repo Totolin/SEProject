@@ -2,10 +2,10 @@ package ro.ucv.ace.service;
 
 import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
-import ro.ucv.ace.dto.student.StudentInfoDto;
+import ro.ucv.ace.dto.student.StudentInfoWithGradeDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
-import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
+import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface ProfessorSubjectService {
 
-    void grade(SaveStudentGradeDto professorGradeDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException;
+    void grade(SaveStudentGradeDto professorGradeDto) throws ServiceEntityAlreadyExistsException, ServiceEntityNotFoundException;
 
     List<PreviewSubjectDto> getAllSubjectsByProfessor(Integer professorId);
 
     List<PreviewGroupDto> getAllGroupsByProfessorAndSubject(Integer professorId, Integer subjectId);
 
-    List<StudentInfoDto> getAllByGroup(Integer groupId);
+    List<StudentInfoWithGradeDto> getAllByGroup(Integer subjectId, Integer groupId);
 }
