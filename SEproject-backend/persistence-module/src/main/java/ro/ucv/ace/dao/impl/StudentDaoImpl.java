@@ -5,6 +5,7 @@ import ro.ucv.ace.dao.StudentDao;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.Student;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,5 +35,12 @@ public class StudentDaoImpl extends JpaDaoImpl<Student, Integer> implements Stud
         }
 
         throw new DaoEntityNotFoundException();
+    }
+
+    @Override
+    public List<Student> findByGroup(Integer groupId) {
+        return streamAll()
+                .where(s -> s.getGroup().getId().equals(groupId))
+                .toList();
     }
 }
