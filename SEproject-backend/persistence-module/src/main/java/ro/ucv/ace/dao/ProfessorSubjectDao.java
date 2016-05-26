@@ -15,4 +15,6 @@ public interface ProfessorSubjectDao extends JpaDao<ProfessorSubject, Integer> {
 
     List<ProfessorSubject> findByProfessorIdAndSubjectId(Integer professorId, Integer subjectId);
 
+    List<ProfessorSubject> findByGroup(Integer groupId);
+
 }

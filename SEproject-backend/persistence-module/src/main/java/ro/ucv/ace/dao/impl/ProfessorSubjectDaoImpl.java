@@ -38,4 +38,11 @@ public class ProfessorSubjectDaoImpl extends JpaDaoImpl<ProfessorSubject, Intege
                 .where(ps -> ps.getProfessor().getId().equals(professorId) && ps.getSubject().getId().equals(subjectId))
                 .toList();
     }
+
+    @Override
+    public List<ProfessorSubject> findByGroup(Integer groupId) {
+        return streamAll()
+                .where(ps -> ps.getGroup().getId().equals(groupId))
+                .toList();
+    }
 }

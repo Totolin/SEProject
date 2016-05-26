@@ -28,6 +28,18 @@ public class StudentSubject {
     private Subject subject;
 
     @Column(name = "GRADE", nullable = true)
-    private int grade;
+    private Integer grade;
 
+    public StudentSubject() {
+    }
+
+    public StudentSubject(Integer studentId, Integer subjectId) {
+        this.student = new Student();
+        this.student.setId(studentId);
+
+        this.subject = new Subject();
+        this.subject.setId(subjectId);
+
+        this.grade = null;
+    }
 }
