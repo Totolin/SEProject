@@ -4,16 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
+import ro.ucv.ace.dto.student.StudentInfoDto;
+import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
-import ro.ucv.ace.service.ProfessorService;
+import ro.ucv.ace.service.ProfessorSubjectService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Geo on 28.04.2016.
@@ -23,7 +24,7 @@ import javax.validation.Valid;
 public class ProfessorsController {
 
     @Autowired
-    private ProfessorService professorService;
+    private ProfessorSubjectService professorSubjectService;
 
     @Autowired
     ExceptionMessageManager eMM;
@@ -35,7 +36,7 @@ public class ProfessorsController {
         }
 
         try {
-            professorService.grade(saveStudentGradeDto);
+            professorSubjectService.grade(saveStudentGradeDto);
         } catch (ServiceEntityAlreadyExistsException e) {
             throw new RestEntityAlreadyExistsException(eMM.get("professor.grades.alreadyExists"));
         } catch (ServiceForeignKeyNotFoundException e) {
@@ -43,5 +44,26 @@ public class ProfessorsController {
         }
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}/subjects", method = RequestMethod.GET)
+    public ResponseEntity<List<PreviewSubjectDto>> getAllSubjects(@PathVariable Integer id) {
+        List<PreviewSubjectDto> all = professorSubjectService.getAllSubjectsByProfessor(id);
+
+        return new ResponseEntity<List<PreviewSubjectDto>>(all, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{professorId}/subjects/{subjectId}/groups", method = RequestMethod.GET)
+    public ResponseEntity<List<PreviewGroupDto>> getAllGroups(@PathVariable Integer professorId, @PathVariable Integer subjectId) {
+        List<PreviewGroupDto> all = professorSubjectService.getAllGroupsByProfessorAndSubject(professorId, subjectId);
+
+        return new ResponseEntity<List<PreviewGroupDto>>(all, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/groups/{id}/students", method = RequestMethod.GET)
+    public ResponseEntity<List<StudentInfoDto>> getAllStudents(@PathVariable Integer id) {
+        List<StudentInfoDto> all = professorSubjectService.getAllByGroup(id);
+
+        return new ResponseEntity<List<StudentInfoDto>>(all, HttpStatus.OK);
     }
 }

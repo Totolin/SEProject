@@ -38,4 +38,29 @@ public class Subject {
 
     @OneToMany(mappedBy = "subject")
     private List<Schedule> schedules;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Subject subject = (Subject) o;
+
+        if (credits != subject.credits) {
+            return false;
+        }
+        return name != null ? name.equals(subject.name) : subject.name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + credits;
+        return result;
+    }
 }
