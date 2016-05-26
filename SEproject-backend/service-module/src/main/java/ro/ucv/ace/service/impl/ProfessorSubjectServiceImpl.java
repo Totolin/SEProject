@@ -10,11 +10,11 @@ import ro.ucv.ace.dao.StudentDao;
 import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
-import ro.ucv.ace.dto.student.StudentInfoDto;
+import ro.ucv.ace.dto.student.StudentInfoWithGradeDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
-import ro.ucv.ace.exception.DaoEntityAlreadyExistsException;
-import ro.ucv.ace.exception.DaoForeignKeyNotFoundException;
+import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
+import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
 import ro.ucv.ace.model.*;
 import ro.ucv.ace.service.ProfessorSubjectService;
@@ -44,15 +44,19 @@ public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
     private StudentDao studentDao;
 
     @Override
-    public void grade(SaveStudentGradeDto saveStudentGradeDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException {
-        StudentSubject studentGrade = modelMapper.map(saveStudentGradeDto, StudentSubject.class);
+    public void grade(SaveStudentGradeDto saveStudentGradeDto) throws ServiceEntityAlreadyExistsException, ServiceEntityNotFoundException {
 
         try {
-            studentSubjectDao.save(studentGrade);
-        } catch (DaoEntityAlreadyExistsException e) {
-            throw new ServiceEntityAlreadyExistsException(e);
-        } catch (DaoForeignKeyNotFoundException e) {
-            throw new ServiceForeignKeyNotFoundException(e);
+            StudentSubject studentSubject = studentSubjectDao.findByStudentAndSubject(saveStudentGradeDto.getStudentId(),
+                    saveStudentGradeDto.getSubjectId());
+
+            if (studentSubject.getGrade() != null) {
+                throw new ServiceEntityAlreadyExistsException();
+            }
+
+            studentSubject.setGrade(saveStudentGradeDto.getGrade());
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
         }
     }
 
@@ -86,11 +90,25 @@ public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
     }
 
     @Override
-    public List<StudentInfoDto> getAllByGroup(Integer groupId) {
+    public List<StudentInfoWithGradeDto> getAllByGroup(Integer subjectId, Integer groupId) {
         List<Student> students = studentDao.findByGroup(groupId);
+        List<StudentInfoWithGradeDto> studentInfoWithGradeDtos = new ArrayList<>();
 
-        return modelMapper.map(students, new TypeToken<List<StudentInfoDto>>() {
-        }.getType());
+        for (Student student : students) {
+            StudentInfoWithGradeDto studentInfoWithGradeDto = modelMapper.map(student, StudentInfoWithGradeDto.class);
+
+            List<StudentSubject> studentSubjects = student.getStudentSubjects();
+            for (StudentSubject studentSubject : studentSubjects) {
+                if (studentSubject.getSubject().getId().equals(subjectId)) {
+                    studentInfoWithGradeDto.setGrade(studentSubject.getGrade());
+                    break;
+                }
+            }
+
+            studentInfoWithGradeDtos.add(studentInfoWithGradeDto);
+        }
+
+        return studentInfoWithGradeDtos;
     }
 
 }
