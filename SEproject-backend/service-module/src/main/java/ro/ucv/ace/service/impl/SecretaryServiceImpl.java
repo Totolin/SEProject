@@ -8,6 +8,7 @@ import ro.ucv.ace.dao.PersonDao;
 import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.secretary.PreviewSecretaryDto;
 import ro.ucv.ace.dto.secretary.SaveSecretaryDto;
+import ro.ucv.ace.dto.secretary.UpdateSecretaryDto;
 import ro.ucv.ace.dto.user.PreviewAccountDto;
 import ro.ucv.ace.enums.UserType;
 import ro.ucv.ace.exception.*;
@@ -96,6 +97,22 @@ public class SecretaryServiceImpl implements SecretaryService {
             personDao.delete(id);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
+        }
+    }
+
+    @Override
+    public void update(UpdateSecretaryDto updateSecretaryDto, Integer id) throws ServiceEntityNotFoundException, ServiceForeignKeyNotFoundException {
+        Person person = modelMapper.map(updateSecretaryDto, Person.class);
+        User user = modelMapper.map(updateSecretaryDto.getAccount(), User.class);
+        user.setId(person.getId());
+
+        try {
+            personDao.update(id, person);
+            userDao.update(id, user);
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        } catch (DaoForeignKeyNotFoundException e) {
+            throw new ServiceForeignKeyNotFoundException(e);
         }
     }
 }
