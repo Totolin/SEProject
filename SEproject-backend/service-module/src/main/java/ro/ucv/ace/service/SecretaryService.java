@@ -2,6 +2,7 @@ package ro.ucv.ace.service;
 
 import ro.ucv.ace.dto.secretary.PreviewSecretaryDto;
 import ro.ucv.ace.dto.secretary.SaveSecretaryDto;
+import ro.ucv.ace.dto.secretary.UpdateSecretaryDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
@@ -19,4 +20,6 @@ public interface SecretaryService {
     void save(SaveSecretaryDto saveSecretaryDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException;
 
     void delete(Integer id) throws ServiceEntityNotFoundException;
+
+    void update(UpdateSecretaryDto updateSecretaryDto, Integer id) throws ServiceEntityNotFoundException, ServiceForeignKeyNotFoundException;
 }
