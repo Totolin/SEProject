@@ -34,6 +34,10 @@ public class User {
     @Column(name = "TYPE_U", nullable = false)
     private String type;
 
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "IMAGE", nullable = true, length = 100000)
+    private String image;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

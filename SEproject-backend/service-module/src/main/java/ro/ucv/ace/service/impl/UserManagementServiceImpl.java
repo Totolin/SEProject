@@ -9,6 +9,7 @@ import ro.ucv.ace.dao.PersonDao;
 import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.user.UserCreateDto;
 import ro.ucv.ace.dto.user.UserDto;
+import ro.ucv.ace.dto.user.UserImageDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.model.User;
 import ro.ucv.ace.service.UserManagementService;
@@ -67,6 +68,26 @@ public class UserManagementServiceImpl implements UserManagementService {
     public void deleteUser(Integer id) throws ServiceEntityNotFoundException {
         try {
             userDao.delete(id);
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
+    }
+
+    @Override
+    public void uploadImage(UserImageDto userImageDto) throws ServiceEntityNotFoundException {
+        try {
+            userDao.uploadImage(userImageDto.getId(), userImageDto.getImage());
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
+    }
+
+    @Override
+    public UserImageDto getImage(Integer id) throws ServiceEntityNotFoundException {
+        try {
+            User user = userDao.findOne(id);
+
+            return modelMapper.map(user, UserImageDto.class);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
