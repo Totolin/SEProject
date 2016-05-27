@@ -30,7 +30,7 @@ public class SecretaryStudentController {
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public ResponseEntity<List<StudentInfoDto>> getAllStudents() {
-        List<StudentInfoDto> students = studentService.getAll();
+        List<StudentInfoDto> students = studentService.getAllStudents();
 
         return new ResponseEntity<List<StudentInfoDto>>(students, HttpStatus.OK);
     }
