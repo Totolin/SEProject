@@ -16,7 +16,7 @@ public class StudentGradeDto {
 
     private String subjectName;
 
-    private int grade;
+    private Integer grade;
 
     private int credits;
 }
