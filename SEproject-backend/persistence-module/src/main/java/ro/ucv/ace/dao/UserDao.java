@@ -15,4 +15,6 @@ public interface UserDao extends JpaDao<User, Integer> {
     User findByUsername(String username) throws DaoEntityNotFoundException;
 
     List<User> findByType(String type);
+
+    void uploadImage(int id, String image) throws DaoEntityNotFoundException;
 }
