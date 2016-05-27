@@ -10,6 +10,7 @@ import ro.ucv.ace.dao.ProfessorDao;
 import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.professor.ProfessorDto;
+import ro.ucv.ace.dto.professor.ProfessorInfoDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
 import ro.ucv.ace.dto.professor.UpdateProfessorDto;
 import ro.ucv.ace.dto.user.PreviewAccountDto;
@@ -149,6 +150,22 @@ public class ProfessorServiceImpl implements ProfessorService {
         try {
             userDao.delete(id);
             professorDao.delete(id);
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
+    }
+
+    @Override
+    public ProfessorInfoDto getProfessorInfo(Integer id) throws ServiceEntityNotFoundException {
+        try {
+            User user = userDao.findOne(id);
+            Professor professor = professorDao.findOne(id);
+
+            PreviewAccountDto accountDto = modelMapper.map(user, PreviewAccountDto.class);
+            ProfessorInfoDto professorInfoDto = modelMapper.map(professor, ProfessorInfoDto.class);
+            professorInfoDto.setAccount(accountDto);
+
+            return professorInfoDto;
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }

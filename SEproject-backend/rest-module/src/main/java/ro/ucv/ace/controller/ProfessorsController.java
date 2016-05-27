@@ -6,11 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ro.ucv.ace.dto.group.PreviewGroupDto;
+import ro.ucv.ace.dto.professor.ProfessorInfoDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
 import ro.ucv.ace.dto.student.StudentInfoWithGradeDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
+import ro.ucv.ace.service.ProfessorService;
 import ro.ucv.ace.service.ProfessorSubjectService;
 
 import javax.validation.Valid;
@@ -25,6 +27,9 @@ public class ProfessorsController {
 
     @Autowired
     private ProfessorSubjectService professorSubjectService;
+
+    @Autowired
+    private ProfessorService professorService;
 
     @Autowired
     ExceptionMessageManager eMM;
@@ -67,5 +72,17 @@ public class ProfessorsController {
         List<StudentInfoWithGradeDto> all = professorSubjectService.getAllByGroup(subjectId, groupId);
 
         return new ResponseEntity<List<StudentInfoWithGradeDto>>(all, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/info", method = RequestMethod.GET)
+    public ResponseEntity<ProfessorInfoDto> getStudentInfo(@PathVariable Integer id) throws RestEntityNotFoundException {
+        ProfessorInfoDto professor;
+        try {
+            professor = professorService.getProfessorInfo(id);
+        } catch (ServiceEntityNotFoundException e) {
+            throw new RestEntityNotFoundException(eMM.get("professor.notFound"));
+        }
+
+        return new ResponseEntity<ProfessorInfoDto>(professor, HttpStatus.OK);
     }
 }

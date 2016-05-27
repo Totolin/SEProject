@@ -1,6 +1,7 @@
 package ro.ucv.ace.service;
 
 import ro.ucv.ace.dto.professor.ProfessorDto;
+import ro.ucv.ace.dto.professor.ProfessorInfoDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
 import ro.ucv.ace.dto.professor.UpdateProfessorDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
@@ -24,4 +25,5 @@ public interface ProfessorService {
 
     void delete(Integer id) throws ServiceEntityNotFoundException;
 
+    ProfessorInfoDto getProfessorInfo(Integer id) throws ServiceEntityNotFoundException;
 }
