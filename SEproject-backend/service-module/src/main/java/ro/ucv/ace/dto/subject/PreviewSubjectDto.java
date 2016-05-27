@@ -16,4 +16,5 @@ public class PreviewSubjectDto {
 
     private String name;
 
+    private Integer credits;
 }

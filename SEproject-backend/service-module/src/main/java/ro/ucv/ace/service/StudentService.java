@@ -19,7 +19,7 @@ public interface StudentService {
 
     StudentInfoDto getStudentInfo(Integer id) throws ServiceEntityNotFoundException;
 
-    List<StudentInfoDto> getAll();
+    List<StudentInfoDto> getAllStudents();
 
     void save(SaveStudentDto saveStudentDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException;
 

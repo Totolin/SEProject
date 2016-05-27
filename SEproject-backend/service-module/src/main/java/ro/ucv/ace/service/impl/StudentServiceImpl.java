@@ -92,7 +92,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentInfoDto> getAll() {
+    public List<StudentInfoDto> getAllStudents() {
         List<Student> students = studentDao.findAll();
         List<StudentInfoDto> returnList = new ArrayList<>();
 

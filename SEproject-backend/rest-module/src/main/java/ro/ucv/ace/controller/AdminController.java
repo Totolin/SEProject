@@ -36,7 +36,7 @@ public class AdminController {
     @RequestMapping(value = "/secretaries", method = RequestMethod.GET)
     public ResponseEntity<List<PreviewSecretaryDto>> getAll() throws RestEntityBindingException, RestEntityNotFoundException, RestInvalidPasswordException {
 
-        List<PreviewSecretaryDto> previewSecretaryDtos = secretaryService.getAll();
+        List<PreviewSecretaryDto> previewSecretaryDtos = secretaryService.getAllSecretaries();
 
         return new ResponseEntity<List<PreviewSecretaryDto>>(previewSecretaryDtos, HttpStatus.OK);
     }
