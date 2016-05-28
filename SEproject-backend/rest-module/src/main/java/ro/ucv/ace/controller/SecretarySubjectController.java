@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
-import ro.ucv.ace.service.SecretaryService;
+import ro.ucv.ace.service.SubjectService;
 
 import java.util.List;
 
@@ -19,11 +19,11 @@ import java.util.List;
 public class SecretarySubjectController {
 
     @Autowired
-    private SecretaryService secretaryService;
+    private SubjectService subjectService;
 
     @RequestMapping(value = "/subjects", method = RequestMethod.GET)
     public ResponseEntity<List<PreviewSubjectDto>> getAll() {
-        List<PreviewSubjectDto> previewSubjectDtos = secretaryService.getAllSubjects();
+        List<PreviewSubjectDto> previewSubjectDtos = subjectService.getAllSubjects();
 
         return new ResponseEntity<List<PreviewSubjectDto>>(previewSubjectDtos, HttpStatus.OK);
     }
