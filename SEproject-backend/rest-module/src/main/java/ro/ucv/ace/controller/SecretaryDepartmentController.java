@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ro.ucv.ace.dto.department.DepartmentDto;
-import ro.ucv.ace.service.SecretaryService;
+import ro.ucv.ace.service.DepartmentService;
 
 import java.util.List;
 
@@ -19,11 +19,11 @@ import java.util.List;
 public class SecretaryDepartmentController {
 
     @Autowired
-    private SecretaryService secretaryService;
+    private DepartmentService departmentService;
 
     @RequestMapping(value = "/departments", method = RequestMethod.GET)
     public ResponseEntity<List<DepartmentDto>> getAll() {
-        List<DepartmentDto> departmentDtoList = secretaryService.getAllDepartments();
+        List<DepartmentDto> departmentDtoList = departmentService.getAllDepartments();
 
         return new ResponseEntity<List<DepartmentDto>>(departmentDtoList, HttpStatus.OK);
     }

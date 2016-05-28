@@ -1,21 +1,21 @@
 package ro.ucv.ace.service.impl;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ro.ucv.ace.dao.*;
-import ro.ucv.ace.dto.department.DepartmentDto;
-import ro.ucv.ace.dto.group.PreviewGroupDto;
+import ro.ucv.ace.dao.GroupDao;
+import ro.ucv.ace.dao.PersonDao;
+import ro.ucv.ace.dao.SubjectDao;
+import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.secretary.PreviewSecretaryDto;
 import ro.ucv.ace.dto.secretary.SaveSecretaryDto;
 import ro.ucv.ace.dto.secretary.UpdateSecretaryDto;
-import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.dto.user.PreviewAccountDto;
 import ro.ucv.ace.enums.UserType;
 import ro.ucv.ace.exception.*;
-import ro.ucv.ace.model.*;
+import ro.ucv.ace.model.Person;
+import ro.ucv.ace.model.User;
 import ro.ucv.ace.service.SecretaryService;
 
 import java.util.ArrayList;
@@ -33,9 +33,6 @@ public class SecretaryServiceImpl implements SecretaryService {
 
     @Autowired
     private PersonDao personDao;
-
-    @Autowired
-    private DepartmentDao departmentDao;
 
     @Autowired
     private GroupDao groupDao;
@@ -125,29 +122,5 @@ public class SecretaryServiceImpl implements SecretaryService {
         } catch (DaoForeignKeyNotFoundException e) {
             throw new ServiceForeignKeyNotFoundException(e);
         }
-    }
-
-    @Override
-    public List<DepartmentDto> getAllDepartments() {
-        List<Department> departments = departmentDao.findAll();
-
-        return modelMapper.map(departments, new TypeToken<List<DepartmentDto>>() {
-        }.getType());
-    }
-
-    @Override
-    public List<PreviewGroupDto> getAllGroups() {
-        List<Group> groups = groupDao.findAll();
-
-        return modelMapper.map(groups, new TypeToken<List<PreviewGroupDto>>() {
-        }.getType());
-    }
-
-    @Override
-    public List<PreviewSubjectDto> getAllSubjects() {
-        List<Subject> subjects = subjectDao.findAll();
-
-        return modelMapper.map(subjects, new TypeToken<List<PreviewSubjectDto>>() {
-        }.getType());
     }
 }
