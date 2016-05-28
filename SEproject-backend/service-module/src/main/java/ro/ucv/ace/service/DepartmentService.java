@@ -1,6 +1,9 @@
 package ro.ucv.ace.service;
 
+import ro.ucv.ace.dto.department.DepartmentDirectorDto;
 import ro.ucv.ace.dto.department.DepartmentDto;
+import ro.ucv.ace.exception.ServiceEntityNotFoundException;
+import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
 
 import java.util.List;
 
@@ -10,4 +13,6 @@ import java.util.List;
 public interface DepartmentService {
 
     List<DepartmentDto> getAllDepartments();
+
+    void updateDirector(DepartmentDirectorDto departmentDirectorDto) throws ServiceEntityNotFoundException, ServiceForeignKeyNotFoundException;
 }

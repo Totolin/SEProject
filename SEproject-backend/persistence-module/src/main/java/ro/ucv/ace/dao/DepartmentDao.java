@@ -1,5 +1,7 @@
 package ro.ucv.ace.dao;
 
+import ro.ucv.ace.exception.DaoEntityNotFoundException;
+import ro.ucv.ace.exception.DaoForeignKeyNotFoundException;
 import ro.ucv.ace.model.Department;
 
 /**
@@ -10,4 +12,6 @@ import ro.ucv.ace.model.Department;
 public interface DepartmentDao extends JpaDao<Department, Integer> {
 
     void removeDirector(Integer directorId);
+
+    void updateDirector(int professorId, int departmentId) throws DaoEntityNotFoundException, DaoForeignKeyNotFoundException;
 }
