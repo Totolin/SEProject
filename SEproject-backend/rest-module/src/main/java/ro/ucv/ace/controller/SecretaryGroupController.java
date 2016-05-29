@@ -27,4 +27,6 @@ public class SecretaryGroupController {
 
         return new ResponseEntity<List<PreviewGroupDto>>(previewGroupDtos, HttpStatus.OK);
     }
+
+    
 }
