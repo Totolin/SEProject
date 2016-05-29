@@ -88,7 +88,7 @@ public class SecretarySubjectController {
         try {
             subjectService.delete(id);
         } catch (ServiceEntityNotFoundException e) {
-            throw new RestEntityNotFoundException(eMM.get("subjects.notFound"));
+            throw new RestEntityNotFoundException(eMM.get("subject.notFound"));
         }
 
         return new ResponseEntity<Void>(HttpStatus.OK);
