@@ -146,7 +146,19 @@ public class StudentServiceImpl implements StudentService {
         String password;
 
         try {
+            Student beforeUpdate = studentDao.findOne(student.getId());
+            for (StudentSubject studentSubject : beforeUpdate.getStudentSubjects()) {
+                studentSubjectDao.delete(studentSubject.getId());
+            }
+
             Student updated = studentDao.update(id, student);
+
+            List<ProfessorSubject> professorSubjects = professorSubjectDao.findByGroup(updated.getGroup().getId());
+            for (ProfessorSubject professorSubject : professorSubjects) {
+                StudentSubject studentSubject = new StudentSubject(updated.getId(), professorSubject.getSubject().getId());
+                studentSubjectDao.save(studentSubject);
+            }
+
 
             userDao.delete(updated.getId());
 
