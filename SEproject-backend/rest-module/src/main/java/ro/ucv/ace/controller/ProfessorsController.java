@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.professor.ProfessorInfoDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
+import ro.ucv.ace.dto.professor.UpdateStudentGradeDto;
 import ro.ucv.ace.dto.student.StudentInfoWithGradeDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.exception.*;
@@ -42,7 +43,7 @@ public class ProfessorsController {
 
 
         try {
-            professorSubjectService.grade(saveStudentGradeDto);
+            professorSubjectService.saveGrade(saveStudentGradeDto);
         } catch (ServiceEntityAlreadyExistsException e) {
             throw new RestEntityAlreadyExistsException(eMM.get("professor.grades.alreadyExists"));
         } catch (ServiceEntityNotFoundException e) {
@@ -51,6 +52,21 @@ public class ProfessorsController {
 
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/grades", method = RequestMethod.PUT)
+    public ResponseEntity<Void> updateGrade(@Valid @RequestBody UpdateStudentGradeDto updateStudentGradeDto, BindingResult bindingResult) throws RestEntityBindingException, RestEntityNotFoundException {
+        if (bindingResult.hasErrors()) {
+            throw new RestEntityBindingException(bindingResult.getFieldErrors(), eMM.get("professor.grades.binding"));
+        }
+
+        try {
+            professorSubjectService.updateGrade(updateStudentGradeDto);
+        } catch (ServiceEntityNotFoundException e) {
+            throw new RestEntityNotFoundException(eMM.get("professor.grades.update"));
+        }
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/subjects", method = RequestMethod.GET)

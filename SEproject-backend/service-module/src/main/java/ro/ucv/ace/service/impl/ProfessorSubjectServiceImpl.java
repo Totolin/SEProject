@@ -10,6 +10,7 @@ import ro.ucv.ace.dao.StudentDao;
 import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
+import ro.ucv.ace.dto.professor.UpdateStudentGradeDto;
 import ro.ucv.ace.dto.student.StudentInfoWithGradeDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
@@ -44,7 +45,7 @@ public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
     private StudentDao studentDao;
 
     @Override
-    public void grade(SaveStudentGradeDto saveStudentGradeDto) throws ServiceEntityAlreadyExistsException, ServiceEntityNotFoundException {
+    public void saveGrade(SaveStudentGradeDto saveStudentGradeDto) throws ServiceEntityAlreadyExistsException, ServiceEntityNotFoundException {
 
         try {
             StudentSubject studentSubject = studentSubjectDao.findByStudentAndSubject(saveStudentGradeDto.getStudentId(),
@@ -58,6 +59,18 @@ public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
+    }
+
+    @Override
+    public void updateGrade(UpdateStudentGradeDto updateStudentGradeDto) throws ServiceEntityNotFoundException {
+
+        try {
+            studentSubjectDao.updateGrade(updateStudentGradeDto.getStudentId(), updateStudentGradeDto.getSubjectId(),
+                    updateStudentGradeDto.getGrade());
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
+
     }
 
     @Override

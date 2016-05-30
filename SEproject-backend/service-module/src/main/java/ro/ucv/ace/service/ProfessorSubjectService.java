@@ -2,6 +2,7 @@ package ro.ucv.ace.service;
 
 import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
+import ro.ucv.ace.dto.professor.UpdateStudentGradeDto;
 import ro.ucv.ace.dto.student.StudentInfoWithGradeDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
@@ -14,7 +15,9 @@ import java.util.List;
  */
 public interface ProfessorSubjectService {
 
-    void grade(SaveStudentGradeDto professorGradeDto) throws ServiceEntityAlreadyExistsException, ServiceEntityNotFoundException;
+    void saveGrade(SaveStudentGradeDto professorGradeDto) throws ServiceEntityAlreadyExistsException, ServiceEntityNotFoundException;
+
+    void updateGrade(UpdateStudentGradeDto updateStudentGradeDto) throws ServiceEntityNotFoundException;
 
     List<PreviewSubjectDto> getAllSubjectsByProfessor(Integer professorId);
 

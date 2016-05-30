@@ -5,6 +5,7 @@ import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.StudentSubject;
 
+import javax.persistence.Query;
 import java.util.Optional;
 
 /**
@@ -36,5 +37,20 @@ public class StudentSubjectDaoImpl extends JpaDaoImpl<StudentSubject, Integer> i
         }
 
         throw new DaoEntityNotFoundException();
+    }
+
+    @Override
+    public void updateGrade(int studentId, int subjectId, int grade) throws DaoEntityNotFoundException {
+        Query query = getEntityManager()
+                .createQuery("UPDATE StudentSubject ss SET ss.grade = :grade WHERE ss.student.id = :studentId AND ss.subject.id = :subjectId")
+                .setParameter("grade", grade)
+                .setParameter("studentId", studentId)
+                .setParameter("subjectId", subjectId);
+
+        int updatedRows = query.executeUpdate();
+
+        if (updatedRows == 0) {
+            throw new DaoEntityNotFoundException();
+        }
     }
 }
