@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.ucv.ace.dao.EducationPlanDao;
 import ro.ucv.ace.dto.educationPlan.PreviewEducationPlanDto;
 import ro.ucv.ace.dto.educationPlan.SaveEducationPlanDto;
-import ro.ucv.ace.dto.educationPlan.SingleEducationPlanDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.model.EducationPlan;
 import ro.ucv.ace.service.EducationPlanService;
@@ -30,17 +29,14 @@ public class EducationPlanServiceImpl implements EducationPlanService {
 
     @Override
     public void save(SaveEducationPlanDto saveEducationPlanDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException {
-        for (Integer subjectId : saveEducationPlanDto.getSubjectIds()) {
-            SingleEducationPlanDto singleEducationPlanDto = new SingleEducationPlanDto(saveEducationPlanDto.getGroupId(), subjectId);
-            EducationPlan educationPlan = modelMapper.map(singleEducationPlanDto, EducationPlan.class);
+        EducationPlan educationPlan = modelMapper.map(saveEducationPlanDto, EducationPlan.class);
 
-            try {
-                educationPlanDao.save(educationPlan);
-            } catch (DaoEntityAlreadyExistsException e) {
-                throw new ServiceEntityAlreadyExistsException(e);
-            } catch (DaoForeignKeyNotFoundException e) {
-                throw new ServiceForeignKeyNotFoundException(e);
-            }
+        try {
+            educationPlanDao.save(educationPlan);
+        } catch (DaoEntityAlreadyExistsException e) {
+            throw new ServiceEntityAlreadyExistsException(e);
+        } catch (DaoForeignKeyNotFoundException e) {
+            throw new ServiceForeignKeyNotFoundException(e);
         }
     }
 

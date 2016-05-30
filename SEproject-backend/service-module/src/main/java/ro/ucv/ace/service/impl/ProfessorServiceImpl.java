@@ -1,22 +1,26 @@
 package ro.ucv.ace.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.ucv.ace.dao.DepartmentDao;
+import ro.ucv.ace.dao.EducationPlanDao;
 import ro.ucv.ace.dao.ProfessorDao;
-import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.dao.UserDao;
 import ro.ucv.ace.dto.professor.ProfessorDto;
 import ro.ucv.ace.dto.professor.ProfessorInfoDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
 import ro.ucv.ace.dto.professor.UpdateProfessorDto;
+import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.dto.user.PreviewAccountDto;
 import ro.ucv.ace.enums.UserType;
 import ro.ucv.ace.exception.*;
+import ro.ucv.ace.model.EducationPlan;
 import ro.ucv.ace.model.Professor;
+import ro.ucv.ace.model.Subject;
 import ro.ucv.ace.model.User;
 import ro.ucv.ace.service.ProfessorService;
 import ro.ucv.ace.utils.mail.MailSender;
@@ -24,6 +28,8 @@ import ro.ucv.ace.utils.user.UserCreator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Geo on 15.05.2016.
@@ -39,13 +45,13 @@ public class ProfessorServiceImpl implements ProfessorService {
     private ProfessorDao professorDao;
 
     @Autowired
-    private StudentSubjectDao studentSubjectDao;
-
-    @Autowired
     private DepartmentDao departmentDao;
 
     @Autowired
     private UserCreator userCreator;
+
+    @Autowired
+    private EducationPlanDao educationPlanDao;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -169,6 +175,18 @@ public class ProfessorServiceImpl implements ProfessorService {
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
+    }
+
+    @Override
+    public List<PreviewSubjectDto> getSubjectByProfessor(Integer professorId) {
+        List<EducationPlan> educationPlans = educationPlanDao.findByProfessor(professorId);
+        Set<Subject> subjects = educationPlans.stream().map(EducationPlan::getSubject).collect(Collectors.toSet());
+
+        List<Subject> subjectList = new ArrayList<>();
+        subjectList.addAll(subjects);
+
+        return modelMapper.map(subjectList, new TypeToken<List<PreviewSubjectDto>>() {
+        }.getType());
     }
 
 }

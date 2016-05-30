@@ -5,16 +5,17 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ro.ucv.ace.dao.ProfessorSubjectDao;
+import ro.ucv.ace.dao.EducationPlanDao;
 import ro.ucv.ace.dao.StudentDao;
 import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.professor.SaveStudentGradeDto;
 import ro.ucv.ace.dto.student.StudentInfoWithGradeDto;
-import ro.ucv.ace.dto.subject.PreviewProfessorSubjectDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
-import ro.ucv.ace.dto.subject.SaveProfessorSubjectDto;
-import ro.ucv.ace.exception.*;
+import ro.ucv.ace.exception.DaoEntityNotFoundException;
+import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
+import ro.ucv.ace.exception.ServiceEntityNotFoundException;
+import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
 import ro.ucv.ace.model.*;
 import ro.ucv.ace.service.ProfessorSubjectService;
 
@@ -37,7 +38,7 @@ public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
     private StudentSubjectDao studentSubjectDao;
 
     @Autowired
-    private ProfessorSubjectDao professorSubjectDao;
+    private EducationPlanDao educationPlanDao;
 
     @Autowired
     private StudentDao studentDao;
@@ -61,11 +62,11 @@ public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
 
     @Override
     public List<PreviewSubjectDto> getAllSubjectsByProfessor(Integer professorId) {
-        List<ProfessorSubject> professorSubjects = professorSubjectDao.findByProfessorId(professorId);
+        List<EducationPlan> educationPlans = educationPlanDao.findByProfessor(professorId);
         Set<Subject> subjects = new HashSet<>();
 
-        for (ProfessorSubject professorSubject : professorSubjects) {
-            subjects.add(professorSubject.getSubject());
+        for (EducationPlan educationPlan : educationPlans) {
+            subjects.add(educationPlan.getSubject());
         }
 
         List<Subject> subjectList = new ArrayList<>();
@@ -77,11 +78,11 @@ public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
 
     @Override
     public List<PreviewGroupDto> getAllGroupsByProfessorAndSubject(Integer professorId, Integer subjectId) {
-        List<ProfessorSubject> professorSubjects = professorSubjectDao.findByProfessorIdAndSubjectId(professorId, subjectId);
+        List<EducationPlan> educationPlans = educationPlanDao.findByProfessorAndSubject(professorId, subjectId);
         List<Group> groups = new ArrayList<>();
 
-        for (ProfessorSubject professorSubject : professorSubjects) {
-            groups.add(professorSubject.getGroup());
+        for (EducationPlan educationPlan : educationPlans) {
+            groups.add(educationPlan.getGroup());
         }
 
         return modelMapper.map(groups, new TypeToken<List<PreviewGroupDto>>() {
@@ -108,36 +109,6 @@ public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
         }
 
         return studentInfoWithGradeDtos;
-    }
-
-    @Override
-    public List<PreviewProfessorSubjectDto> getAllProfessorSubjects(Integer professorId) {
-        List<ProfessorSubject> professorSubjects = professorSubjectDao.findByProfessorId(professorId);
-
-        return modelMapper.map(professorSubjects, new TypeToken<List<PreviewProfessorSubjectDto>>() {
-        }.getType());
-    }
-
-    @Override
-    public void save(SaveProfessorSubjectDto saveProfessorSubjectDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException {
-        ProfessorSubject professorSubject = modelMapper.map(saveProfessorSubjectDto, ProfessorSubject.class);
-
-        try {
-            professorSubjectDao.save(professorSubject);
-        } catch (DaoEntityAlreadyExistsException e) {
-            throw new ServiceEntityAlreadyExistsException(e);
-        } catch (DaoForeignKeyNotFoundException e) {
-            throw new ServiceForeignKeyNotFoundException(e);
-        }
-    }
-
-    @Override
-    public void delete(Integer id) throws ServiceEntityNotFoundException {
-        try {
-            professorSubjectDao.delete(id);
-        } catch (DaoEntityNotFoundException e) {
-            throw new ServiceEntityNotFoundException(e);
-        }
     }
 
 }
