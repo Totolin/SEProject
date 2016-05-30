@@ -1,5 +1,6 @@
 package ro.ucv.ace.dao;
 
+import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.EducationPlan;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface EducationPlanDao extends JpaDao<EducationPlan, Integer> {
     List<EducationPlan> findByProfessor(Integer professorId);
 
     List<EducationPlan> findByProfessorAndSubject(Integer professorId, Integer subjectId);
+
+    EducationPlan findByGroupAndProfessorAndSubject(Integer groupId, Integer professorId, Integer subjectId) throws DaoEntityNotFoundException;
 }

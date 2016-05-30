@@ -26,6 +26,9 @@ public class UpdateScheduleDto {
     private int subjectId;
 
     @Min(1)
+    private int groupId;
+
+    @Min(1)
     @Max(5)
     private int day;
 

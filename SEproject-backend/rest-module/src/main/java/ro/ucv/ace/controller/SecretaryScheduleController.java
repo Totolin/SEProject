@@ -36,6 +36,13 @@ public class SecretaryScheduleController {
         return new ResponseEntity<List<PreviewScheduleDto>>(schedules, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/groups/{id}/schedules", method = RequestMethod.GET)
+    public ResponseEntity<List<PreviewScheduleDto>> getSchedulesByGroup(@PathVariable Integer id) {
+        List<PreviewScheduleDto> schedules = scheduleManagementService.getByGroup(id);
+
+        return new ResponseEntity<List<PreviewScheduleDto>>(schedules, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/schedules/{id}", method = RequestMethod.GET)
     public ResponseEntity<PreviewScheduleDto> getById(@PathVariable Integer id) throws RestEntityNotFoundException {
         try {
@@ -66,7 +73,7 @@ public class SecretaryScheduleController {
     }
 
     @RequestMapping(value = "/schedules", method = RequestMethod.POST)
-    public ResponseEntity<Void> saveSchedule(@Valid @RequestBody SaveScheduleDto saveScheduleDto, BindingResult bindResult) throws RestEntityBindingException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException {
+    public ResponseEntity<Void> saveSchedule(@Valid @RequestBody SaveScheduleDto saveScheduleDto, BindingResult bindResult) throws RestEntityBindingException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException, RestEntityNotFoundException {
         if (bindResult.hasErrors()) {
             throw new RestEntityBindingException(bindResult.getFieldErrors(), eMM.get("schedule.binding"));
         }
@@ -77,6 +84,8 @@ public class SecretaryScheduleController {
             throw new RestEntityAlreadyExistsException(eMM.get("schedule.alreadyExists"));
         } catch (ServiceForeignKeyNotFoundException e) {
             throw new RestForeignKeyNotFoundException(e.getMessage());
+        } catch (ServiceEntityNotFoundException e) {
+            throw new RestEntityNotFoundException(eMM.get("schedule.teach"));
         }
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);

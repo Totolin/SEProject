@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ro.ucv.ace.dao.ScheduleDao;
 import ro.ucv.ace.model.Schedule;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,5 +24,12 @@ public class ScheduleDaoImpl extends JpaDaoImpl<Schedule, Integer> implements Sc
         return streamAll()
                 .where(s -> s.getRoom().equals(room) && s.getDay().equals(day) && s.getHour().equals(hour))
                 .findAny();
+    }
+
+    @Override
+    public List<Schedule> findByGroup(Integer groupId) {
+        return streamAll()
+                .where(s -> s.getGroup().getId().equals(groupId))
+                .toList();
     }
 }

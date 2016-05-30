@@ -2,6 +2,7 @@ package ro.ucv.ace.dao.impl;
 
 import org.springframework.stereotype.Repository;
 import ro.ucv.ace.dao.EducationPlanDao;
+import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.EducationPlan;
 
 import java.util.List;
@@ -47,5 +48,20 @@ public class EducationPlanDaoImpl extends JpaDaoImpl<EducationPlan, Integer> imp
         return streamAll()
                 .where(e -> e.getProfessor().getId().equals(professorId) && e.getSubject().getId().equals(subjectId))
                 .toList();
+    }
+
+    @Override
+    public EducationPlan findByGroupAndProfessorAndSubject(Integer groupId, Integer professorId, Integer subjectId) throws DaoEntityNotFoundException {
+        Optional<EducationPlan> educationPlan = streamAll()
+                .where(e -> e.getGroup().getId().equals(groupId) &&
+                        e.getProfessor().getId().equals(professorId) &&
+                        e.getSubject().getId().equals(subjectId))
+                .findAny();
+
+        if (educationPlan.isPresent()) {
+            return educationPlan.get();
+        }
+
+        throw new DaoEntityNotFoundException();
     }
 }

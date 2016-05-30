@@ -37,6 +37,9 @@ public class Group {
     @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
     private List<EducationPlan> educationPlans;
 
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
+    private List<Schedule> schedules;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
