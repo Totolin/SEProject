@@ -2,8 +2,9 @@ package ro.ucv.ace.dto.schedule;
 
 import lombok.Getter;
 import lombok.Setter;
-import ro.ucv.ace.dto.subject.PreviewSubjectDto;
+import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.professor.PreviewProfessorDto;
+import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 
 /**
  * This is a data transfer object.
@@ -19,6 +20,8 @@ public class PreviewScheduleDto {
     private PreviewProfessorDto professor;
 
     private PreviewSubjectDto subject;
+
+    private PreviewGroupDto group;
 
     private int day;
 

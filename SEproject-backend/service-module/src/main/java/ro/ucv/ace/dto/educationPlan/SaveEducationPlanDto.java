@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 /**
  * Created by Geo on 22.05.2016.
@@ -17,6 +16,12 @@ public class SaveEducationPlanDto {
     @Min(1)
     private int groupId;
 
-    @Size(min = 1, max = 100)
-    private List<Integer> subjectIds;
+    @Min(1)
+    private int subjectId;
+
+    @Min(1)
+    private int professorId;
+
+    @Size(min = 3, max = 500)
+    private String evaluationMethod;
 }

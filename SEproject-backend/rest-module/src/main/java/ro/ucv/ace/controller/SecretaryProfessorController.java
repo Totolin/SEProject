@@ -5,15 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ro.ucv.ace.dto.educationPlan.PreviewEducationPlanDto;
 import ro.ucv.ace.dto.professor.ProfessorDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
 import ro.ucv.ace.dto.professor.UpdateProfessorDto;
-import ro.ucv.ace.dto.subject.PreviewProfessorSubjectDto;
-import ro.ucv.ace.dto.subject.SaveProfessorSubjectDto;
+import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
 import ro.ucv.ace.service.ProfessorService;
-import ro.ucv.ace.service.ProfessorSubjectService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,9 +26,6 @@ public class SecretaryProfessorController {
 
     @Autowired
     private ProfessorService professorService;
-
-    @Autowired
-    private ProfessorSubjectService professorSubjectService;
 
     @Autowired
     private ExceptionMessageManager eMM;
@@ -100,38 +96,9 @@ public class SecretaryProfessorController {
     }
 
     @RequestMapping(value = "/professors/{id}/subjects", method = RequestMethod.GET)
-    public ResponseEntity<List<PreviewProfessorSubjectDto>> getAllSubjects(@PathVariable Integer id) {
-        List<PreviewProfessorSubjectDto> all = professorSubjectService.getAllProfessorSubjects(id);
+    public ResponseEntity<List<PreviewSubjectDto>> getSubjectsByProfessor(@PathVariable Integer id) {
+        List<PreviewSubjectDto> previewSubjectDtos = professorService.getSubjectByProfessor(id);
 
-        return new ResponseEntity<List<PreviewProfessorSubjectDto>>(all, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/professors/subjects", method = RequestMethod.POST)
-    public ResponseEntity<Void> saveProfessorSubject(@Valid @RequestBody SaveProfessorSubjectDto saveProfessorSubjectDto, BindingResult bindingResult) throws RestEntityBindingException, RestEntityAlreadyExistsException, RestForeignKeyNotFoundException {
-        if (bindingResult.hasErrors()) {
-            throw new RestEntityBindingException(bindingResult.getFieldErrors(), eMM.get("professorSubject.binding"));
-        }
-
-        try {
-            professorSubjectService.save(saveProfessorSubjectDto);
-        } catch (ServiceEntityAlreadyExistsException e) {
-            throw new RestEntityAlreadyExistsException(eMM.get("professorSubject.alreadyExists"));
-        } catch (ServiceForeignKeyNotFoundException e) {
-            throw new RestForeignKeyNotFoundException(e.getMessage());
-        }
-
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "/professors/subjects/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteProfessorSubject(@PathVariable Integer id) throws RestEntityNotFoundException {
-
-        try {
-            professorSubjectService.delete(id);
-        } catch (ServiceEntityNotFoundException e) {
-            throw new RestEntityNotFoundException(eMM.get("professorSubject.notFound"));
-        }
-
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<List<PreviewSubjectDto>>(previewSubjectDtos, HttpStatus.OK);
     }
 }

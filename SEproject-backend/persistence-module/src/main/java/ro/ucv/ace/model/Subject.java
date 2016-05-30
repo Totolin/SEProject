@@ -28,9 +28,6 @@ public class Subject {
     private int credits;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
-    private List<ProfessorSubject> professorSubjects;
-
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
     private List<StudentSubject> studentSubjects;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)

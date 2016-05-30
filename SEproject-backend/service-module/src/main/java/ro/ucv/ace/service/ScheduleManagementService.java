@@ -14,9 +14,11 @@ import java.util.List;
  */
 public interface ScheduleManagementService {
 
-    void save(SaveScheduleDto saveScheduleDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException;
+    void save(SaveScheduleDto saveScheduleDto) throws ServiceEntityAlreadyExistsException, ServiceForeignKeyNotFoundException, ServiceEntityNotFoundException;
 
     List<PreviewScheduleDto> getAll();
+
+    List<PreviewScheduleDto> getByGroup(Integer groupId);
 
     PreviewScheduleDto getById(Integer id) throws ServiceEntityNotFoundException;
 

@@ -24,6 +24,14 @@ public class EducationPlan {
     private Group group;
 
     @ManyToOne
+    @JoinColumn(name = "PROFESSOR_ID", referencedColumnName = "ID", nullable = false)
+    private Professor professor;
+
+    @ManyToOne
     @JoinColumn(name = "SUBJECT_ID", referencedColumnName = "ID", nullable = false)
     private Subject subject;
+
+    @Basic
+    @Column(name = "EVALUATION_METHOD", nullable = false)
+    private String evaluationMethod;
 }

@@ -2,8 +2,10 @@ package ro.ucv.ace.dao.impl;
 
 import org.springframework.stereotype.Repository;
 import ro.ucv.ace.dao.EducationPlanDao;
+import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.EducationPlan;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,9 +20,48 @@ public class EducationPlanDaoImpl extends JpaDaoImpl<EducationPlan, Integer> imp
     public Optional<EducationPlan> existenceCondition(EducationPlan educationPlan) {
         Integer groupId = educationPlan.getGroup().getId();
         Integer subjectId = educationPlan.getSubject().getId();
+        Integer professorId = educationPlan.getProfessor().getId();
 
         return streamAll()
-                .where(e -> e.getGroup().getId().equals(groupId) && e.getSubject().getId().equals(subjectId))
+                .where(e -> e.getGroup().getId().equals(groupId) &&
+                        e.getSubject().getId().equals(subjectId) &&
+                        e.getProfessor().getId().equals(professorId))
                 .findAny();
+    }
+
+    @Override
+    public List<EducationPlan> findByGroup(Integer groupId) {
+        return streamAll()
+                .where(e -> e.getGroup().getId().equals(groupId))
+                .toList();
+    }
+
+    @Override
+    public List<EducationPlan> findByProfessor(Integer professorId) {
+        return streamAll()
+                .where(e -> e.getProfessor().getId().equals(professorId))
+                .toList();
+    }
+
+    @Override
+    public List<EducationPlan> findByProfessorAndSubject(Integer professorId, Integer subjectId) {
+        return streamAll()
+                .where(e -> e.getProfessor().getId().equals(professorId) && e.getSubject().getId().equals(subjectId))
+                .toList();
+    }
+
+    @Override
+    public EducationPlan findByGroupAndProfessorAndSubject(Integer groupId, Integer professorId, Integer subjectId) throws DaoEntityNotFoundException {
+        Optional<EducationPlan> educationPlan = streamAll()
+                .where(e -> e.getGroup().getId().equals(groupId) &&
+                        e.getProfessor().getId().equals(professorId) &&
+                        e.getSubject().getId().equals(subjectId))
+                .findAny();
+
+        if (educationPlan.isPresent()) {
+            return educationPlan.get();
+        }
+
+        throw new DaoEntityNotFoundException();
     }
 }

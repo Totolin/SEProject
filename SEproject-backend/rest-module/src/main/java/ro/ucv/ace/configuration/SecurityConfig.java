@@ -50,8 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
-                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/", "/login", "/users/**").permitAll()
+                .antMatchers("/admins/**").access("hasRole('ADMIN')")
+                .antMatchers("/students/**").access("hasRole('STUDENT')")
+                .antMatchers("/secretaries/**").access("hasRole('SECRETARY')")
+                .antMatchers("/professors/**").access("hasRole('PROFESSOR')")
                 .and()
                 .httpBasic().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

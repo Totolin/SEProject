@@ -27,6 +27,10 @@ public class Schedule {
     @JoinColumn(name = "PROFESSOR_ID", referencedColumnName = "ID", nullable = false)
     private Professor professor;
 
+    @ManyToOne
+    @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID", nullable = false)
+    private Group group;
+
     @Column(name = "DAY", nullable = false)
     private Integer day;
 

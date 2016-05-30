@@ -14,6 +14,7 @@ public class SaveScheduleMap extends PropertyMap<SaveScheduleDto, Schedule> {
         map().setId(0);
         map().getSubject().setId(source.getSubjectId());
         map().getProfessor().setId(source.getProfessorId());
+        map().getGroup().setId(source.getGroupId());
         map().setDay(source.getDay());
         map().setHour(source.getHour());
         map().setRoom(source.getRoom());

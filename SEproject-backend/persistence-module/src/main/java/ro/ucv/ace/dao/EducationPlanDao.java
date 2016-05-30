@@ -1,6 +1,9 @@
 package ro.ucv.ace.dao;
 
+import ro.ucv.ace.exception.DaoEntityNotFoundException;
 import ro.ucv.ace.model.EducationPlan;
+
+import java.util.List;
 
 /**
  * This interfaces provides methods for working with EducationPlan entity explicitly (and EDUCATION_PLAN database table implicitly).
@@ -8,4 +11,12 @@ import ro.ucv.ace.model.EducationPlan;
  * @author Georgian Vladutu
  */
 public interface EducationPlanDao extends JpaDao<EducationPlan, Integer> {
+
+    List<EducationPlan> findByGroup(Integer groupId);
+
+    List<EducationPlan> findByProfessor(Integer professorId);
+
+    List<EducationPlan> findByProfessorAndSubject(Integer professorId, Integer subjectId);
+
+    EducationPlan findByGroupAndProfessorAndSubject(Integer groupId, Integer professorId, Integer subjectId) throws DaoEntityNotFoundException;
 }

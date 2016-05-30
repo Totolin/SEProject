@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ro.ucv.ace.dao.ProfessorSubjectDao;
+import ro.ucv.ace.dao.EducationPlanDao;
 import ro.ucv.ace.dao.StudentDao;
 import ro.ucv.ace.dao.StudentSubjectDao;
 import ro.ucv.ace.dao.UserDao;
@@ -16,7 +16,7 @@ import ro.ucv.ace.dto.student.UpdateStudentDto;
 import ro.ucv.ace.dto.user.PreviewAccountDto;
 import ro.ucv.ace.enums.UserType;
 import ro.ucv.ace.exception.*;
-import ro.ucv.ace.model.ProfessorSubject;
+import ro.ucv.ace.model.EducationPlan;
 import ro.ucv.ace.model.Student;
 import ro.ucv.ace.model.StudentSubject;
 import ro.ucv.ace.model.User;
@@ -41,10 +41,10 @@ public class StudentServiceImpl implements StudentService {
     private UserDao userDao;
 
     @Autowired
-    private ProfessorSubjectDao professorSubjectDao;
+    private StudentSubjectDao studentSubjectDao;
 
     @Autowired
-    private StudentSubjectDao studentSubjectDao;
+    private EducationPlanDao educationPlanDao;
 
     @Autowired
     private UserCreator userCreator;
@@ -120,9 +120,10 @@ public class StudentServiceImpl implements StudentService {
         try {
             Student saved = studentDao.save(student);
 
-            List<ProfessorSubject> professorSubjects = professorSubjectDao.findByGroup(saved.getGroup().getId());
-            for (ProfessorSubject professorSubject : professorSubjects) {
-                StudentSubject studentSubject = new StudentSubject(saved.getId(), professorSubject.getSubject().getId());
+            List<EducationPlan> educationPlans = educationPlanDao.findByGroup(saved.getGroup().getId());
+
+            for (EducationPlan educationPlan : educationPlans) {
+                StudentSubject studentSubject = new StudentSubject(saved.getId(), educationPlan.getSubject().getId());
                 studentSubjectDao.save(studentSubject);
             }
 
@@ -153,9 +154,10 @@ public class StudentServiceImpl implements StudentService {
 
             Student updated = studentDao.update(id, student);
 
-            List<ProfessorSubject> professorSubjects = professorSubjectDao.findByGroup(updated.getGroup().getId());
-            for (ProfessorSubject professorSubject : professorSubjects) {
-                StudentSubject studentSubject = new StudentSubject(updated.getId(), professorSubject.getSubject().getId());
+            List<EducationPlan> educationPlans = educationPlanDao.findByGroup(updated.getGroup().getId());
+
+            for (EducationPlan educationPlan : educationPlans) {
+                StudentSubject studentSubject = new StudentSubject(updated.getId(), educationPlan.getSubject().getId());
                 studentSubjectDao.save(studentSubject);
             }
 

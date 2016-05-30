@@ -22,14 +22,14 @@ public class Professor extends Person {
     @Column(name = "OFFICE", nullable = false)
     private String office;
 
-    @OneToMany(mappedBy = "professor", cascade = CascadeType.REMOVE)
-    private List<ProfessorSubject> professorSubjects;
-
     @ManyToOne
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID", nullable = true)
     private Department department;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.REMOVE)
     private List<Schedule> schedules;
+
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.REMOVE)
+    private List<EducationPlan> educationPlans;
 
 }

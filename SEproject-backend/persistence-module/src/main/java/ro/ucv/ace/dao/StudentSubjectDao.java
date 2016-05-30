@@ -11,4 +11,6 @@ import ro.ucv.ace.model.StudentSubject;
 public interface StudentSubjectDao extends JpaDao<StudentSubject, Integer> {
 
     StudentSubject findByStudentAndSubject(Integer studentId, Integer subjectId) throws DaoEntityNotFoundException;
+
+    void updateGrade(int studentId, int subjectId, int grade) throws DaoEntityNotFoundException;
 }

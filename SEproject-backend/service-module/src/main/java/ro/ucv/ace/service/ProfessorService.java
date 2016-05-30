@@ -4,6 +4,7 @@ import ro.ucv.ace.dto.professor.ProfessorDto;
 import ro.ucv.ace.dto.professor.ProfessorInfoDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
 import ro.ucv.ace.dto.professor.UpdateProfessorDto;
+import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.exception.ServiceEntityAlreadyExistsException;
 import ro.ucv.ace.exception.ServiceEntityNotFoundException;
 import ro.ucv.ace.exception.ServiceForeignKeyNotFoundException;
@@ -26,4 +27,6 @@ public interface ProfessorService {
     void delete(Integer id) throws ServiceEntityNotFoundException;
 
     ProfessorInfoDto getProfessorInfo(Integer id) throws ServiceEntityNotFoundException;
+
+    List<PreviewSubjectDto> getSubjectByProfessor(Integer professorId);
 }
