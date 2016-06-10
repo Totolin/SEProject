@@ -13,7 +13,6 @@ import ro.ucv.ace.misc.ExceptionMessageManager;
 import ro.ucv.ace.service.ScheduleManagementService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Created by Geo on 06.05.2016.
@@ -28,20 +27,6 @@ public class SecretaryScheduleController {
     @Autowired
     private ScheduleManagementService scheduleManagementService;
 
-
-    @RequestMapping(value = "/schedules", method = RequestMethod.GET)
-    public ResponseEntity<List<PreviewScheduleDto>> getAllSchedule() {
-        List<PreviewScheduleDto> schedules = scheduleManagementService.getAll();
-
-        return new ResponseEntity<List<PreviewScheduleDto>>(schedules, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/groups/{id}/schedules", method = RequestMethod.GET)
-    public ResponseEntity<List<PreviewScheduleDto>> getSchedulesByGroup(@PathVariable Integer id) {
-        List<PreviewScheduleDto> schedules = scheduleManagementService.getByGroup(id);
-
-        return new ResponseEntity<List<PreviewScheduleDto>>(schedules, HttpStatus.OK);
-    }
 
     @RequestMapping(value = "/schedules/{id}", method = RequestMethod.GET)
     public ResponseEntity<PreviewScheduleDto> getById(@PathVariable Integer id) throws RestEntityNotFoundException {
