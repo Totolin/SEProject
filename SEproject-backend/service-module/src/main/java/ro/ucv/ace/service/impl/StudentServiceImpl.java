@@ -1,6 +1,7 @@
 package ro.ucv.ace.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -184,12 +185,19 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void delete(Integer id) throws ServiceEntityNotFoundException {
-
         try {
             userDao.delete(id);
             studentDao.delete(id);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
+    }
+
+    @Override
+    public List<StudentInfoDto> getByGroup(Integer groupId) {
+        List<Student> byGroup = studentDao.findByGroup(groupId);
+
+        return modelMapper.map(byGroup, new TypeToken<List<StudentInfoDto>>() {
+        }.getType());
     }
 }

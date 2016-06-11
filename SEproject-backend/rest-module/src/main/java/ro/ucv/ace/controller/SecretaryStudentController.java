@@ -48,6 +48,14 @@ public class SecretaryStudentController {
         }
     }
 
+    @RequestMapping(value = "/groups/{groupId}/students", method = RequestMethod.GET)
+    public ResponseEntity<List<StudentInfoDto>> getByGroup(@PathVariable Integer groupId) {
+
+        List<StudentInfoDto> students = studentService.getByGroup(groupId);
+
+        return new ResponseEntity<List<StudentInfoDto>>(students, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/students", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody UpdateStudentDto updateStudentDto, BindingResult bindResult)
             throws RestEntityNotFoundException, RestEntityBindingException, RestForeignKeyNotFoundException {

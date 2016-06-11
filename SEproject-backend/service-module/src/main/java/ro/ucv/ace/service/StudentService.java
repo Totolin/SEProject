@@ -69,4 +69,11 @@ public interface StudentService {
      */
     void delete(Integer id) throws ServiceEntityNotFoundException;
 
+    /**
+     * Returns all students which are part of the group whose id is groupId.
+     *
+     * @param groupId id of the group
+     * @return list of StudentInfoDto
+     */
+    List<StudentInfoDto> getByGroup(Integer groupId);
 }
