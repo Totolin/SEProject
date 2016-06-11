@@ -7,7 +7,7 @@ import ro.ucv.ace.exception.DaoForeignKeyNotFoundException;
 import java.util.List;
 
 /**
- * This interface contains the basic operations avaiable on all DAO repositories.
+ * This interface contains the basic operations available on all DAO repositories.
  *
  * @param <T>  type of the entity
  * @param <ID> type of the entity's primary key

@@ -7,11 +7,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * Created by Geo on 22.05.2016.
+ * This class represents a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter
-public class SavePersonDto{
+public class SavePersonDto {
 
     @Pattern(regexp = "\\b[1-8]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)\\d{4}\\b", message = "{ssn.message}")
     protected String ssn;

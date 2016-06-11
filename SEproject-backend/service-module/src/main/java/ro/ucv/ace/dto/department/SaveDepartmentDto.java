@@ -7,7 +7,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Created by Geo on 28.05.2016.
+ * This class represents a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

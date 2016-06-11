@@ -18,7 +18,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by ctotolin on 24-Apr-16.
+ * This class is a REST controller.
+ *
+ * @author Cristian Totolin
  */
 @RestController
 @RequestMapping(value = "/admins")

@@ -5,7 +5,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Geo on 25.04.2016.
+ * This class is a utility class used to retrieve exception messages from a exceptionMessages file.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class ExceptionMessageManager {
@@ -13,6 +15,12 @@ public class ExceptionMessageManager {
     @Autowired
     private Environment environment;
 
+    /**
+     * Returns the property value from the exceptionMessages file whose key is propName.
+     *
+     * @param propName name of the property
+     * @return String
+     */
     public String get(String propName) {
         return environment.getRequiredProperty(propName);
     }

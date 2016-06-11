@@ -7,9 +7,9 @@ import lombok.Setter;
 import javax.validation.constraints.Size;
 
 /**
- * This is a data transfer object.
+ * This class represents a data transfer object.
  *
- * @author Georgian Vladutu
+ * @author Cristian Totolin
  */
 @Getter
 @Setter

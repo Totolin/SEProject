@@ -5,7 +5,9 @@ import ro.ucv.ace.dto.professor.SaveProfessorDto;
 import ro.ucv.ace.model.Professor;
 
 /**
- * Created by Geo on 16.05.2016.
+ * This class is used by ModelMapper to map from SaveProfessorDto class to Professor class.
+ *
+ * @author Georgian Vladutu
  */
 public class SaveProfessorMap extends PropertyMap<SaveProfessorDto, Professor> {
 

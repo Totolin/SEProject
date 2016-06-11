@@ -5,7 +5,7 @@ import lombok.Setter;
 import ro.ucv.ace.dto.person.PreviewPersonDto;
 
 /**
- * This is a data transfer object.
+ * This class represents a data transfer object.
  *
  * @author Cristian Totolin
  */

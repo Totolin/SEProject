@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ro.ucv.ace.dto.educationPlan.PreviewEducationPlanDto;
 import ro.ucv.ace.dto.professor.ProfessorDto;
 import ro.ucv.ace.dto.professor.SaveProfessorDto;
 import ro.ucv.ace.dto.professor.UpdateProfessorDto;
@@ -18,7 +17,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by Geo on 15.05.2016.
+ * This class is a REST controller.
+ *
+ * @author Cristian Totolin
  */
 @RestController
 @RequestMapping("/secretaries")

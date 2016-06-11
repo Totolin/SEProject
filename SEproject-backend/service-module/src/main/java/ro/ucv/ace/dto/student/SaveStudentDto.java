@@ -9,7 +9,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * Created by Geo on 14.05.2016.
+ * This class represents a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

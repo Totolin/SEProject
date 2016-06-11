@@ -1,7 +1,9 @@
 package ro.ucv.ace.exception;
 
 /**
- * Created by Geo on 25.04.2016.
+ * This exception is thrown from the rest layer when a user password is invalid.
+ *
+ * @author Georgian Vladutu
  */
 public class RestInvalidPasswordException extends RestException {
 

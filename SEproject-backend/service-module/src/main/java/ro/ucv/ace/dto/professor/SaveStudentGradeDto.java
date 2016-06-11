@@ -7,7 +7,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 /**
- * Created by ctotolin on 22-May-16.
+ * This class represents a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

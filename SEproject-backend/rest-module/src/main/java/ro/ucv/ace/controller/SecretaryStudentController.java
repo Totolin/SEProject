@@ -16,7 +16,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by Geo on 15.05.2016.
+ * This class is a REST controller.
+ *
+ * @author Georgian Vladutu
  */
 @RestController
 @RequestMapping(value = "/secretaries")

@@ -13,7 +13,9 @@ import ro.ucv.ace.service.ScheduleManagementService;
 import java.util.List;
 
 /**
- * Created by Geo on 10.06.2016.
+ * This class is a REST controller.
+ *
+ * @author Georgian Vladutu
  */
 @RestController
 @RequestMapping(value = "/")

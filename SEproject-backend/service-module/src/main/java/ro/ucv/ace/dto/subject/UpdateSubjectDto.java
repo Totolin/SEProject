@@ -8,7 +8,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Created by ctotolin on 29-May-16.
+ * This class represents a data transfer object.
+ *
+ * @author Cristian Totolin
  */
 @Getter
 @Setter

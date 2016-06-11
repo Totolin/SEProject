@@ -9,7 +9,7 @@ import ro.ucv.ace.validation.UserType;
 import javax.validation.constraints.Size;
 
 /**
- * This is a data transfer object.
+ * This class represents a data transfer object.
  *
  * @author Cristian Totolin
  */

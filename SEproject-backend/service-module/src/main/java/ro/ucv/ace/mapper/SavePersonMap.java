@@ -5,7 +5,9 @@ import ro.ucv.ace.dto.person.SavePersonDto;
 import ro.ucv.ace.model.Person;
 
 /**
- * Created by Geo on 22.05.2016.
+ * This class is used by ModelMapper to map from SavePersonDto class to Person class.
+ *
+ * @author Georgian Vladutu
  */
 public class SavePersonMap extends PropertyMap<SavePersonDto, Person> {
 
