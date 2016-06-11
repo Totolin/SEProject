@@ -6,7 +6,9 @@ import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.user.PreviewAccountDto;
 
 /**
- * Created by Geo on 13.05.2016.
+ * This class represents a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

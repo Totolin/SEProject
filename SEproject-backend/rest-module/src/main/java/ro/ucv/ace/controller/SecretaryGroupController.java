@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ro.ucv.ace.dto.group.PreviewGroupDto;
 import ro.ucv.ace.dto.group.SaveGroupDto;
 import ro.ucv.ace.dto.group.UpdateGroupDto;
-import ro.ucv.ace.dto.subject.PreviewSubjectDto;
-import ro.ucv.ace.dto.subject.SaveSubjectDto;
-import ro.ucv.ace.dto.subject.UpdateSubjectDto;
 import ro.ucv.ace.exception.*;
 import ro.ucv.ace.misc.ExceptionMessageManager;
 import ro.ucv.ace.service.GroupService;
@@ -19,7 +16,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by Geo on 27.05.2016.
+ * This class is a REST controller.
+ *
+ * @author Georgian Vladutu
  */
 @RestController
 @RequestMapping(value = "/secretaries")

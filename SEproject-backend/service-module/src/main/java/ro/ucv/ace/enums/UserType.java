@@ -3,7 +3,9 @@ package ro.ucv.ace.enums;
 import lombok.Getter;
 
 /**
- * Created by Geo on 23.05.2016.
+ * This enum contains all the possible roles that a user can have in our application.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 public enum UserType {

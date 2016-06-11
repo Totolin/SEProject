@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ro.ucv.ace.dto.department.UpdateDepartmentDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 import ro.ucv.ace.dto.subject.SaveSubjectDto;
 import ro.ucv.ace.dto.subject.UpdateSubjectDto;
@@ -17,7 +16,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by Geo on 27.05.2016.
+ * This class is a REST controller.
+ *
+ * @author Georgian Vladutu
  */
 @RestController
 @RequestMapping(value = "/secretaries")

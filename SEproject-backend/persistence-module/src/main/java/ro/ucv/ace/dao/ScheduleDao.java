@@ -11,6 +11,12 @@ import java.util.List;
  */
 public interface ScheduleDao extends JpaDao<Schedule, Integer> {
 
+    /**
+     * Returns all Schedule entities which contain the group whose id is groupId.
+     *
+     * @param groupId id of the group
+     * @return list of Schedule
+     */
     List<Schedule> findByGroup(Integer groupId);
 
 }

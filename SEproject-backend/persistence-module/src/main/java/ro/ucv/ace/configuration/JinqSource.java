@@ -23,6 +23,14 @@ public class JinqSource {
         this.streams = new JinqJPAStreamProvider(emf);
     }
 
+    /**
+     * Returns the Jinq stream of the entity.
+     *
+     * @param em     entityManager
+     * @param entity the class of the entity
+     * @param <U>    generic type
+     * @return JPAJinqStream
+     */
     public <U> JPAJinqStream<U> streamAll(EntityManager em, Class<U> entity) {
         return streams.streamAll(em, entity);
     }

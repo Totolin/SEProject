@@ -5,7 +5,9 @@ import ro.ucv.ace.dto.schedule.SaveScheduleDto;
 import ro.ucv.ace.model.Schedule;
 
 /**
- * Created by Geo on 06.05.2016.
+ * This class is used by ModelMapper to map from SaveScheduleDto class to Schedule class.
+ *
+ * @author Georgian Vladutu
  */
 public class SaveScheduleMap extends PropertyMap<SaveScheduleDto, Schedule> {
 

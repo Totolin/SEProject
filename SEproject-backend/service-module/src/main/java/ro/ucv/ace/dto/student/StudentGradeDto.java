@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * This is a data transfer object.
+ * This class represents a data transfer object.
  *
  * @author Georgian Vladutu
  */

@@ -5,7 +5,9 @@ import ro.ucv.ace.dto.educationPlan.SaveEducationPlanDto;
 import ro.ucv.ace.model.EducationPlan;
 
 /**
- * Created by Geo on 22.05.2016.
+ * This class is used by ModelMapper to map from SaveEducationPlanDto class to EducationPlan class.
+ *
+ * @author Georgian Vladutu
  */
 public class SingleEducationPlanMap extends PropertyMap<SaveEducationPlanDto, EducationPlan> {
 

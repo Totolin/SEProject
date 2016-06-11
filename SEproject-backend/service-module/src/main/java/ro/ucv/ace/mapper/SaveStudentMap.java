@@ -5,7 +5,9 @@ import ro.ucv.ace.dto.student.SaveStudentDto;
 import ro.ucv.ace.model.Student;
 
 /**
- * Created by Geo on 15.05.2016.
+ * This class is used by ModelMapper to map from SaveStudentDto class to Student class.
+ *
+ * @author Georgian Vladutu
  */
 public class SaveStudentMap extends PropertyMap<SaveStudentDto, Student> {
 

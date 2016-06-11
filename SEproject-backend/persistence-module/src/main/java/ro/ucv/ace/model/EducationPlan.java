@@ -6,7 +6,9 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * Created by Geo on 03.04.2016.
+ * This is an model entity that maps the EDUCATION_PLAN table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 @Table(name = "EDUCATION_PLAN")

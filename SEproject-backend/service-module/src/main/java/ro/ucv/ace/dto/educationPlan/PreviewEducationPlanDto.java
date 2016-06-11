@@ -7,7 +7,9 @@ import ro.ucv.ace.dto.professor.PreviewProfessorDto;
 import ro.ucv.ace.dto.subject.PreviewSubjectDto;
 
 /**
- * Created by Geo on 22.05.2016.
+ * This class represents a data transfer object.
+ *
+ * @author Cristian Totolin
  */
 @Getter
 @Setter

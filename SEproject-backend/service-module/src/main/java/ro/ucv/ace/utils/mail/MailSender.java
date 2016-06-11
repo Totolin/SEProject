@@ -11,7 +11,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 /**
- * Created by Geo on 22.05.2016.
+ * This class is used to send an email using smtp.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class MailSender {
@@ -23,6 +25,13 @@ public class MailSender {
     public MailSender() {
     }
 
+    /**
+     * Sends an email to inform the recipient about his/her account being created.
+     *
+     * @param to       the recipient
+     * @param password password of the recipient
+     * @param username username of the recipient
+     */
     public void sendCreateAccountMail(String to, String password, String username) {
         Session session = createSession();
 
@@ -30,6 +39,13 @@ public class MailSender {
                 "Your account has been activated!\nUsername:" + username + "\nPassword:" + password);
     }
 
+    /**
+     * Sends an email to inform the recipient about his/her account being updated.
+     *
+     * @param to       the recipient
+     * @param password new password of the recipient
+     * @param username new username of the recipient
+     */
     public void sendUpdateAccountMail(String to, String password, String username) {
         Session session = createSession();
 

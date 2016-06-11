@@ -6,7 +6,7 @@ import lombok.Setter;
 /**
  * This is a data transfer object.
  *
- * @author Georgian Vladutu
+ * @author Cristian Totolin
  */
 @Getter
 @Setter

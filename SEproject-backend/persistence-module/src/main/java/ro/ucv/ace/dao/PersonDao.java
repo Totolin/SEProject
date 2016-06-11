@@ -9,5 +9,13 @@ import ro.ucv.ace.model.Person;
  * @author Georgian Vladutu
  */
 public interface PersonDao extends JpaDao<Person, Integer> {
+
+    /**
+     * Returns the person whose SSN is the same as the method parameter.
+     *
+     * @param ssn SSN of the person
+     * @return Person
+     * @throws DaoEntityNotFoundException if the person is not found
+     */
     Person findBySsn(String ssn) throws DaoEntityNotFoundException;
 }

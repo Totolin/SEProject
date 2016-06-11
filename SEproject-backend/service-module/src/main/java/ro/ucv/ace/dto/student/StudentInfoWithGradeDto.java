@@ -5,7 +5,9 @@ import lombok.Setter;
 import ro.ucv.ace.dto.group.PreviewGroupDto;
 
 /**
- * Created by Geo on 26.05.2016.
+ * This class represents a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

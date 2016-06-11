@@ -10,5 +10,12 @@ import ro.ucv.ace.model.Professor;
  */
 public interface ProfessorDao extends JpaDao<Professor, Integer> {
 
+    /**
+     * Returns the professor whose SSN is the same as the method parameter.
+     *
+     * @param ssn SSN of the professor
+     * @return Professor
+     * @throws DaoEntityNotFoundException if the professor is not found
+     */
     Professor findBySsn(String ssn) throws DaoEntityNotFoundException;
 }

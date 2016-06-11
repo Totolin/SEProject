@@ -5,7 +5,9 @@ import ro.ucv.ace.dto.student.StudentGradeDto;
 import ro.ucv.ace.model.StudentSubject;
 
 /**
- * Created by Geo on 28.04.2016.
+ * This class is used by ModelMapper to map from StudentSubject class to StudentGradeDto class.
+ *
+ * @author Georgian Vladutu
  */
 public class StudentGradeMap extends PropertyMap<StudentSubject, StudentGradeDto> {
 

@@ -17,7 +17,9 @@ import ro.ucv.ace.service.StudentService;
 import java.util.List;
 
 /**
- * Created by Geo on 28.04.2016.
+ * This class is a REST controller.
+ *
+ * @author Georgian Vladutu
  */
 @RestController
 @RequestMapping(value = "/students")

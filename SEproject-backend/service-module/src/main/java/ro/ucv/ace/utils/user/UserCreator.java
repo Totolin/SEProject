@@ -9,7 +9,9 @@ import ro.ucv.ace.model.User;
 import java.security.SecureRandom;
 
 /**
- * Created by Geo on 22.05.2016.
+ * This class is used to create new users.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class UserCreator {
@@ -21,7 +23,13 @@ public class UserCreator {
     @Autowired
     private ModelMapper modelMapper;
 
-
+    /**
+     * Creates a user using the fields passed as parameters.
+     *
+     * @param person person
+     * @param type   type
+     * @return User
+     */
     public User createUser(Person person, String type) {
         String password = randomString(10);
 

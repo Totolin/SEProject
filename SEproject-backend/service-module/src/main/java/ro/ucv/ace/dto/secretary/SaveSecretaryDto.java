@@ -8,7 +8,9 @@ import ro.ucv.ace.dto.user.SaveSecretaryAccountDto;
 import javax.validation.Valid;
 
 /**
- * Created by Geo on 23.05.2016.
+ * This class represents a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

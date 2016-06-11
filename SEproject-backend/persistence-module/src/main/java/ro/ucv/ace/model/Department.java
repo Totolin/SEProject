@@ -7,7 +7,9 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by Geo on 03.04.2016.
+ * This is an model entity that maps the DEPARTMENT table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 @Table(name = "DEPARTMENT")

@@ -15,7 +15,9 @@ import ro.ucv.ace.service.UserManagementService;
 import javax.validation.Valid;
 
 /**
- * Created by Geo on 27.05.2016.
+ * This class is a REST controller.
+ *
+ * @author Georgian Vladutu
  */
 @RestController
 @RequestMapping("/users")

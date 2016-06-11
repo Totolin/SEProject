@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by Geo on 22.05.2016.
+ * This class represents a mail object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

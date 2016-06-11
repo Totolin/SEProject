@@ -15,7 +15,9 @@ import ro.ucv.ace.service.ScheduleManagementService;
 import javax.validation.Valid;
 
 /**
- * Created by Geo on 06.05.2016.
+ * This class is a REST controller.
+ *
+ * @author Georgian Vladutu
  */
 @RestController
 @RequestMapping(value = "/secretaries")
